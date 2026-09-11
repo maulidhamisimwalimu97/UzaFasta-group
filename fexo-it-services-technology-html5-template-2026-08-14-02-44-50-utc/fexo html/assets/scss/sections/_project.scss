@@ -1,0 +1,465 @@
+
+/*======================
+    Project Section  CSS
+=======================*/
+
+.axis-project-item{
+    &.style-one{
+        &:hover{
+            & .project-content{
+                & .read-more{
+                    &.style-one{
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+        & .project-thumbnail{
+            & img{
+                width: 100%;
+                border-radius: 30px;
+            }
+        }
+        & .project-content{
+            position: relative;
+            width: 85%;
+            margin: 0 auto;
+            border-radius: 30px;
+            background-color: $white-color;
+            box-shadow: 0 8px 28px 0 rgba(0, 0, 0, 0.10);
+            margin-top: -100px;
+            text-align: center;
+            padding: 20px 30px;
+            transition: all .3s;
+            & .tag{
+                margin-bottom: 10px;
+            }
+            & .title{
+                padding-bottom: 18px;
+                border-bottom: 1px solid $border-color;
+                margin-bottom: 13px;
+                @include respond(xxxl){
+                    font-size: 18px;
+                }
+                &:hover{
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+    &.style-two{
+        &:hover{
+            & .project-thumbnail{
+                & .hover-content{
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+            & .project-content{
+                transform: translateY(0);
+            }
+        }
+        & .project-thumbnail{
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            border-radius: 30px;
+            & .hover-content{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(358deg, #010F34 1.66%, rgba(1, 15, 52, 0.00) 122.96%);
+                display: flex;
+                align-items: flex-end;
+                padding: 40px 40px 30px;
+                visibility: hidden;
+                opacity: 0;
+                transition: all .3s;
+            }
+        }
+        & .project-content{
+            max-width: 320px;
+            transform: translateY(-30px);
+            transition: all .4s;
+            & .project-tags{
+                & a{
+                    color: $primary-color;
+                    font-size: 14px;
+                }
+            }
+            & .title{
+                color: $white-color;
+                font-size: $h4-font;
+                margin-bottom: 13px;
+                padding-bottom: 13px;
+                border-bottom: 1px solid $white-color;
+            }
+            & .read-more{
+                color: $white-color
+            }
+        }
+    }
+    &.style-three{
+        & .project-header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            @include respond(md){
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            & .project-title{
+                max-width: 330px;
+                @include respond(lg){
+                    max-width: 270px;
+                    & h3{
+                        font-size: 16px;
+                    }
+                }
+                @include respond(md){
+                    margin-bottom: 20px;
+                    max-width: 100%;
+                }
+            }
+            & .project-info{
+                max-width: 460px;
+                flex-grow: 1;
+                @include respond(lg){
+                    max-width: 440px;
+                    & p{
+                        font-size: 14px;
+                    }
+                }
+            }
+            & .project-button{
+                & .icon-btn{
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid $border-color;
+                    & i{
+                        transform: rotate(-45deg);
+                    }
+                    &:hover{
+                        background-color: $primary-color;
+                        color: $white-color;
+                    }
+                    @include respond(lg){
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+                @include respond(md){
+                    display: none;
+                }
+            }
+        }
+        & .project-image{
+            margin-top: 30px;
+            & img{
+                border-radius: 30px;
+            }
+        }
+    }
+    &.style-four{
+        &:hover{
+            & .project-thumbnail{
+                & .hover-content{
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+            & .project-content{
+                transform: translateY(0);
+            }
+        }
+        & .project-thumbnail{
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            border-radius: 30px;
+            & .hover-content{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(358deg, #010F34 1.66%, rgba(1, 15, 52, 0.00) 122.96%);
+                display: flex;
+                align-items: flex-end;
+                padding: 40px 40px 30px;
+                visibility: hidden;
+                opacity: 0;
+                transition: all .3s;
+            }
+        }
+        & .project-content{
+            max-width: 320px;
+            transform: translateY(-30px);
+            transition: all .4s;
+            & .project-tags{
+                & a{
+                    color: $primary-color;
+                    font-size: 14px;
+                }
+            }
+            & .title{
+                color: $white-color;
+                font-size: $h5-font;
+                margin-bottom: 13px;
+                padding-bottom: 13px;
+                border-bottom: 1px solid $white-color;
+            }
+            & .read-more{
+                color: $white-color
+            }
+        }
+    }
+}
+
+/* Project Slider */
+
+
+.project-slider{
+    margin-left: -15px;
+    margin-right: -15px;
+    @include respond(lg){
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+    & .slick-slide{
+        margin-left: 15px;
+        margin-right: 15px;
+        @include respond(lg){
+            margin-left: 12px;
+            margin-right: 12px;
+        }
+    }
+    & .slick-list{
+        padding-bottom: 30px;
+    }
+}
+
+.project-slider-two{
+    margin-left: -15px;
+    margin-right: -15px;
+    @include respond(lg){
+        margin-left: -12px;
+        margin-right: -12px;
+    }
+    & .slick-slide{
+        margin-left: 15px;
+        margin-right: 15px;
+        @include respond(lg){
+            margin-left: 12px;
+            margin-right: 12px;
+        }
+    }
+}
+
+.project-slider-three{
+    margin-left: -15px;
+    margin-right: -15px;
+    @include respond(lg){
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+    & .slick-slide{
+        margin-left: 15px;
+        margin-right: 15px;
+        @include respond(lg){
+            margin-left: 12px;
+            margin-right: 12px;
+        }
+    }
+}
+
+/* Project Section */ 
+
+.axis-project_one{
+    & .container-fluid{
+        padding-left: 95px;
+        padding-right: 95px;
+        @include respond(xxxl){
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        @include respond(md){
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}
+
+.axis-project_two{
+    & .project-wrapper{
+        & .axis-project-item{
+            &.style-three{
+                padding-bottom: 30px;
+                border-bottom: 1px solid $border-color;
+                &:not(:last-child){
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    }
+}
+
+.axis-project_five{
+    & .container-fluid{
+        padding-left: 100px;
+        padding-right: 100px;
+        @include respond(xxxl){
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+        @include respond(md){
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}
+
+
+
+/* Project Details Section */ 
+
+.axis-project-details-sec{
+    & .project-details-wrapper{
+        & .axis-image,
+        & .project-thumbnail{
+            & img{
+                border-radius: 30px;
+            }
+        }
+        & .project-content{
+            & .title{
+                font-size: 36px;
+                margin-bottom: 25px;
+                @include respond(md){
+                    font-size: $h4-font;
+                }
+            }
+            & h3{
+                font-size: 36px;
+                margin-bottom: 30px;
+                @include respond(md){
+                    font-size: 22px;
+                }
+            }
+            & p{
+                margin-bottom: 30px;
+            }
+            & > .check-list{
+                &.style-one{
+                    & li{
+                        & i{
+                            width: 22px;
+                            height: 22px;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: 1px solid $primary-color;
+                        }
+                    }
+                }
+            }
+            & .axis-content-item{
+                & .content{
+                    & h4{
+                        margin-bottom: 20px;
+                        & .icon{
+                            flex: 0 0 auto;
+                            width: 22px;
+                            height: 22px;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            background-color: $primary-color;
+                            border-radius: 50%;
+                            margin-right: 12px;
+                        }
+                    }
+                }
+            }
+            & .content-box{
+                & .check-list{
+                    & li{
+                        color: $text-color;
+                        &:not(:last-child){
+                            margin-bottom: 28px;
+                        }
+                    }
+                }
+            }
+        }
+        & .project-info-box{
+            border-radius: 30px;
+            background-color: #f8f8f8;
+            padding: 40px;
+            border-top: 3px solid $primary-color;
+            & h3{
+                @include respond(md){
+                    font-size: 22px;
+                }
+                &:after{
+                    display: block;
+                    content: '';
+                    width: 140px;
+                    height: 1px;
+                    background-color: $primary-color;
+                    margin-top: 20px;
+                    margin-bottom: 25px;
+                }
+            }
+            & ul{
+                & li{
+                    &:not(:last-child){
+                        margin-bottom: 20px;
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid $border-color;
+                    }
+                    & span{
+                        float: right;
+                    }
+                }
+            }
+        }
+    }
+    & .post-navigation-wrapper{
+        border: 1px solid $border-color;
+        border-radius: 30px;
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @include respond(md){
+            flex-direction: column;
+        }
+        & .post-navigation-item{
+            display: flex;
+            align-items: center;
+            &.item-rtl{
+                direction: rtl;
+                @include respond(md){
+                    margin-top: 30px;
+                }
+            }
+            & .thumbnail{
+                flex: 0 0 auto;
+                width: 60px;
+                margin-inline-end: 15px;
+                & img{
+                    border-radius: 50%;
+                    width: 60px;
+                    height: 60px;
+                }
+            }
+        }
+    }
+}

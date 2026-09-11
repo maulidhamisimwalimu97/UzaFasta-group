@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <title>Fexo - IT Solution & Technology HTML Template</title>
+        <!-- Framework CSS -->
+        <link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+        <link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+        <script type="text/javascript" src="assets/scripts/jquery.js"></script>
+        <script type="text/javascript" src="assets/scripts/jquery-ui.custom.min.js"></script>
+
+        <script type="text/javascript" src="assets/scripts/shCore.js"></script>
+        <script type="text/javascript" src="assets/scripts/shBrushJScript.js"></script>
+        <script type="text/javascript" src="assets/scripts/shBrushCss.js"></script>
+        <script type="text/javascript" src="assets/scripts/shBrushPhp.js"></script>
+        <script type="text/javascript" src="assets/scripts/shBrushXml.js"></script>
+        <link type="text/css" rel="stylesheet" href="assets/blueprint-css/shCoreDefault.css" />
+
+        <!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+        <link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+        <script type="text/javascript">
+            SyntaxHighlighter.all();
+        </script>
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    // Cache selectors
+                    var lastId,
+                            topMenu = $(".menu .alpha"),
+                            topMenuHeight = topMenu.outerHeight() + 15,
+                            // All list items
+                            menuItems = topMenu.find("a"),
+                            canUpdateURL = typeof history.pushState === "function" ? true : false,
+                            // Anchors corresponding to menu items
+                            scrollItems = menuItems.map(function () {
+                                var item = $($(this).attr("href"));
+                                if (item.length) {
+                                    return item;
+                                }
+                            });
+
+                    // Bind click handler to menu items
+                    // so we can get a fancy scroll animation
+                    menuItems.click(function (e) {
+                        var href = $(this).attr("href"),
+                                offsetTop = $(href).offset().top - topMenuHeight + 1;
+
+                        $('html, body').stop().animate({
+                            scrollTop: offsetTop
+                        }, 300);
+                        e.preventDefault();
+                    });
+
+                    // Bind to scroll
+                    $(window).scroll(function () {
+                        // Get container scroll position
+                        var fromTop = $(this).scrollTop() + topMenuHeight;
+
+                        // Get id of current scroll item
+                        var cur = scrollItems.map(function () {
+                            if ($(this).offset().top < fromTop)
+                                return this;
+                        });
+                        // Get the id of the current element
+                        cur = cur[cur.length - 1];
+                        var id = cur && cur.length ? cur[0].id : "";
+
+                        if (lastId !== id) {
+                            lastId = id;
+                            // Set/remove active class
+                            menuItems
+                                    .parents('li').removeClass("active").end()
+                                    .filter("[href=#" + id + "]").parent('li').addClass("active")
+                                    .parents('li').addClass('active');
+
+                            if (canUpdateURL) {
+                                history.pushState(null, null, window.location.href.split('#').shift() + '#' + id);
+                            } else {
+                                var $section = $('#' + id);
+
+                                $section.attr('id', '');
+                                window.location.hash = '#' + id;
+                                $section.attr('id', id);
+                            }
+                        }
+                    });
+
+                    hashname = window.location.hash.replace('#', '');
+
+                    $('.menu li').removeClass('active');
+                    $('.menu li a[href=#' + hashname + ']')
+                            .parent('li').addClass('active')
+                            .parents('li').addClass('active');
+
+                    elem = $('#' + hashname);
+
+                    if (hashname.length > 1) {
+                        $('body, html').animate({
+                            scrollTop: $(elem).offset().top - topMenuHeight - 315
+                        }, 500, 'easeInOutCubic');
+                    }
+                    ;
+                })
+            })(jQuery);
+        </script>
+    </head>
+
+
+    <body>
+        <div class="docs-header-bg">
+            <div class="docs-header">
+
+                <div class="logo">
+                    <img src="assets/images/logo-main.png"/>
+                </div>
+
+                <h2 class="center" style="font-weight: bold;margin-bottom: 30px;">Fexo - IT Solution & Technology HTML Template</h2>
+
+                <p style="font-weight: bold;color: #222">
+                    Designed By: <a style="color: #fd5454;" href="https://themeforest.net/user/themeservices/portfolio">ThemeServices</a><br>
+                    Support Email: <a style="color: #fd5454;" href="nayon.storerepublic@gmail.com">nayon.storerepublic@gmail.com</a><br>
+                    Created On:  <span style="color: #fd5454;">1 January 2026</span>
+                </p>
+
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="menu">
+                <ol class="alpha">
+                    <li><a href="#information">Intro</a>
+                    <li><a href="#folder-struc">Folder Structure</a></li>
+                    <li><a href="#template-struc">Template Structures</a></li>
+                    <li><a href="#how-to">How To?</a></li>
+                    <li><a href="#credits">Credits</a>
+                    </li>
+                </ol>
+            </div>
+
+
+            <h3 id="information"><strong>Intro</strong> - <a class="navigator" href="#information">Top</a></h3>
+
+            <p>Fexo is a clean, modern, and fully responsive HTML5 template specially designed for IT Solutions, Technology, Software, SaaS, Startup, and Business websites. Built with the latest Bootstrap framework, Fexo offers a powerful and flexible design system that adapts perfectly to all devices and screen sizes.
+            </p>
+
+            <hr>
+
+            <div class="subitems">
+
+                <h3 id="folder-struc"><strong>Html Folder Structure</strong> - <a class="navigator" href="#information">top</a></h3>
+                <p>All the file are well organized, its so easy to work with the template.
+                    <br>
+                    1. Unzip the files.<br>
+                    2. Open "Main_file" folder.</p>
+                <ul class="folder-struc">
+                    <li class="file folder">Documentation</li>
+                    <ul class="margin-left">
+                        <li class="file folder">assets</li>
+                        <li class="file page">index.html</li>
+                    </ul>
+                    <li class="file folder">Template
+                        <ul>
+                            <li class="file folder">assets</li>
+                            <li class="file page">404.html</li>
+                            <li class="file page">About.html</li>
+                            <li class="file page">Blog-details.html</li>
+                            <li class="file page">blog-grid.html</li>
+                            <li class="file page">blog-standard.html</li>
+                            <li class="file page">contact.html</li>
+                            <li class="file page">faqs.html</li>
+                            <li class="file page">index-2.html</li>
+                            <li class="file page">index-3.html</li>
+                            <li class="file page">index.html</li>
+                            <li class="file page">pricing.html</li>
+                            <li class="file page">project-details.html</li>
+                            <li class="file page">project.html</li>
+                            <li class="file page">service-details.html</li>
+                            <li class="file page">services.html</li>
+                            <li class="file page">team-details.html</li>
+                            <li class="file page">team.html</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <hr>
+
+                <h3 id="template-struc"><strong>Template Structure</strong> - <a class="navigator" href="#information">top</a></h3>
+
+                <div class="content-box">
+                    <h4 class="title">HTML Structure</h4>
+                    <p>This template is a fixed layout with four columns. The main contents are inside the 'body' tag divided into differt section
+                         (i.e. header, banner, services,... footer etc.). The general template structure is the same throughout the template. Here is the general structure.</p>
+                    <img src="assets/images/html-struc.jpg" alt="">
+                </div>
+                <div class="content-box">
+                    <h4 class="title">CSS Structure</h4>
+                    <p>We are using one customed CSS files (style.css) and several vendor css files. CSS file structure is as follows:</p>
+                    <img src="assets/images/css-struc.jpg" alt="">
+                </div>
+                <div class="content-box">
+                    <h4 class="title">Js Structure</h4>
+                    <p>There is a custom .js file named main.js and are several vendor js files as plugins. We are using jQuery(a javascript library) instead of vanilla javascript. Our file structure is a follows:</p>
+                    <img src="assets/images/js-struc.jpg" alt="">
+                </div>
+                <!--      Section       -->
+
+                <h3 id="how-to"><strong>How To?</strong> - <a class="navigator" href="#information">top</a></h3>
+
+                <div class="content-box">
+                    <h4 class="title">To change any images of the website</h4>
+                    <ol>
+                        <li>Carefully collect the source name of the image (i.e. banner-img.jpg)</li>
+                        <li>Open the file called images.</li>
+                        <li>Find the particular image file.</li>
+                        <li>Replace the file with your image.</li>
+                        <li>Make sure that the file name does not change.The file name should be the same.</li>
+                    </ol>
+                    <br>
+                    <p><strong>Example:</strong> Suppose you want to change the following image file:</p>
+                    <br>
+                    <img src="assets/images/banner.jpg" alt=""><br>
+                    <h4>You have to do the following to change this image with your own image:</h4>
+                    <ol>
+                        <li>Open the file called images.</li>
+                        <li>Find the particular image file called hero-img1.jpg</li>
+                        <li>Replace the file with your image</li>
+                        <li>Make sure that the file name does not change.</li>
+                    </ol>
+                    <h4 class="alert">Note: Images seen in the live preview are only set for preview purposes.
+                        They are not included in the download files.</h4>
+                </div>
+                <div class="content-box">
+                    <h4 class="title">Changing Brand Logo</h4>
+                    <ol>
+                        <li>Open the folder called images.</li>
+                        <li>Find the .png files called logo.png and logo-2.png.</li>
+                        <li>Replace the files with your own logos.</li>
+                        <li>Make sure that the file names does not change.</li>
+                    </ol>
+                </div>
+                <div class="content-box">
+                    <h4 class="title">Change FontAwesome icons</h4>
+                    <ol>
+                        <li>Open the .html file with a text-editor from where you want to change any FontAwesome icon.</li>
+                        <li>Choose and collect an icon from fontawesome.com</li>
+                        <li>Replace the existing icon from the .html file with the new icon you got from fontawesome.com</li>
+                    </ol><br>
+                    <img src="assets/images/fontawesome.jpg" alt=""><br>
+                </div>
+
+                <div class="content-box">
+                    <h4 class="title">Change Copyright text</h4>
+                    <p>please check this your html page bottom part and change your copyright text</p>
+                    <img src="assets/images/copyright.jpg" alt="">
+                </div>
+                <hr>
+
+                <!-- Credits -->
+                <h3 id="credits"><strong>Sources and Credits</strong> - <a class="navigator" href="#information">top</a></h3>
+                <p><strong>We've used the following fonts, free icons and plugins as listed:</strong></p>
+                <ul>
+                    <li><a target="_blank" href="https://fonts.google.com/">Google Fonts</a></li>
+                    <li><a target="_blank" href="https://fontawesome.com/">Font Awesome Icon fonts</a></li>
+                    <li><a target="_blank" href="https://kenwheeler.github.io/slick/">Slick Slider</a></li></li>
+                    <li><a target="_blank" href="https://getbootstrap.com/">Bootstrap</a></li>
+                    <li><a target="_blank" href="https://popper.js.org/">Popper Js</a></li>
+                    <li><a target="_blank" href="https://jquery.com/">jQuery</a></li>
+                    <li><a target="_blank" href="https://gsap.com/">GSAP</a></li>
+                    <li><a target="_blank" href="https://michalsnik.github.io/aos/">AOS Animation</a></li>
+                </ul>
+                <br>
+                <div class="narrow-p">
+
+                    <p><strong>Image Source:</strong></p>
+
+                    <ul>
+                        <li><a href="https://unsplash.com/" target="_blank"> Unsplash</a></li>
+                        <li><a href="https://www.freepik.com/" target="_blank"> Freepik</a></li>
+                    </ul>
+
+
+                    <hr class="space">
+
+                    <p><strong>Free Fonts:</strong></p>
+
+                    <ul>
+                        <li><a href="https://fonts.google.com/specimen/Ubuntu" target="_blank">Ubuntu</a> (Title)</li>
+                        <li><a href="https://fonts.google.com/specimen/DM+Sans" target="_blank">DM Sans</a> (Text)</li>
+                    </ul>
+
+                    <hr class="space">
+
+                    <p><strong>Free Icons:</strong></p>
+
+                    <ul>
+                        <li><a href="https://fontawesome.com/v5/search" target="_blank">Font Awesome </a> (Icons)</li>
+                        <li><a href="https://www.flaticon.com/" target="_blank">Flaticon </a> (Icons)</li>
+                    </ul>            
+
+                    <hr class="space">
+
+                    <p><strong>Changelog :</strong></p>
+
+                    <hr class="space">
+
+                    <p>All images have been used for demonstration purposes only and are not included in the template.</p>
+
+                    <hr class="space">
+
+                    <!-- Credits -->
+
+                    <p><strong>Support:</strong>
+                        <br>
+                    <p>We are always happy to help you. Please, contact us if you need any help regarding the item. If you have a moment, please rate this item, I’ll appreciate it very much!….Thank you.</p></p>
+
+                    <hr class="space">
+
+                </div>
+
+
+            </div>
+            <!-- end div .container -->
+
+    </body>
+
+</html>

@@ -1,0 +1,290 @@
+
+
+/*---- 
+
+====================
+01. Base CSS
+    # Common CSS
+====================
+
+----*/ 
+
+
+@use "./../abstract";
+
+@media (min-width: 1451px) {
+    .container{
+        max-width: 1314px;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1450px) {
+    .container{
+        max-width: 1200px;
+    }
+}
+#smooth-wrapper{
+    z-index: 1;
+}
+.p-r{
+    position: relative;
+}
+.bg_cover{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 100% 100%;
+}
+.font-200{
+    font-weight: 200;
+}
+.form-group{
+    position: relative;
+}
+label{
+    margin-bottom: 0;
+}
+.form_control{
+    width: 100%;
+}
+.text-white{
+    p,
+    h6,
+    h5,
+    h4,
+    h3,
+    h2,
+    & h1{
+        color: $white-color;
+    }
+}
+.gray-bg{
+    background-color: $gray-color;
+}
+
+/* Section Title */
+.line{
+    position: relative;
+    width: 80px;
+    height: 2px;
+    background-color: $primary-color;
+    margin-right: 15px;
+    &:after{
+        position: absolute;
+        right: 0;
+        bottom: -4px;
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: $primary-color;
+    }
+}
+.lineTwo{
+    width: 80px;
+    height: 2px;
+    background-color: $primary-color;
+    margin-left: 15px;
+    @include respond(md){
+        width: 50px;
+    }
+}
+.sub-title{
+    font-size: 20px;
+    line-height: 1;
+    font-family: $heading-font;
+    color: $primary-color;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    @include respond(md){
+        font-size: 16px;
+    }
+}
+.section-title{
+    & .sub-title{
+        color: $primary-color;
+        margin-bottom: 12px;
+    }
+    & h2{
+        font-size: $h2-font;
+        font-weight: 500;
+        margin-bottom: 20px;
+        @include respond(xxxl){
+            font-size: 48px;
+        }
+        @include respond(xl){
+            font-size: 40px;
+            line-height: 55px;
+        }
+        @include respond(sm){
+            font-size: 26px;
+            line-height: 1.4em;
+        }
+    }
+}
+.text-white{
+    & .sub-title{
+        color: $primary-color;
+        &:after{
+            background-color: $primary-color;
+        }
+    }
+}
+
+/* Check List */ 
+
+.check-list{
+    & li{
+        position: relative;
+        font-weight: 500;
+        color: $heading-color;
+        display: flex;
+        align-items: center;
+        &:not(:last-child){
+            margin-bottom: 15px;
+        }
+    }
+    &.style-one{
+        & i{
+            margin-right: 10px;
+            color: $primary-color;
+        }
+        & img{
+            margin-right: 10px;
+        }
+    }
+    &.style-two{
+        & li{
+            & i{
+                flex: 0 0 auto;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: $primary-color;
+                color: $white-color;
+                font-size: 10px;
+                margin-right: 10px;
+                color: $white-color;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    &.style-three{
+        & li{
+            padding-left: 15px;
+            &:before{
+                position: absolute;
+                top: 10px;
+                left: 0;
+                content: '';
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background-color: $primary-color;
+            }
+        }
+    }
+}
+
+/* Floatig Animation */
+
+.animate-float-bob-x {
+    animation-name: float-bob-x;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}
+.animate-float-bob-y {
+    animation-name: float-bob-y;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}
+
+/* Rotate360 */ 
+
+.rotate360 {
+    -webkit-animation: spin 7s linear infinite;
+            animation: spin 7s linear infinite;
+}
+
+/* ZoomInOut */ 
+
+.zoomInOut{
+    animation: zoomInOut 6s linear infinite;
+}
+
+
+/* Ratings */ 
+
+.ratings{
+    & i{
+        color: #FF6633;
+    }
+}
+
+/* Search Modal */
+
+.modal-open {
+    overflow: auto !important;
+    padding-right: 0 !important;
+    overflow-x: hidden !important;
+}
+.search-modal{
+    z-index: 999999;
+    background-color: rgb(13 18 23 / 95%);
+    & .modal-content{
+        padding: 15px 30px;
+        background-color: transparent;
+        border: none;
+        & .form_control{
+            border: none;
+            padding: 15px 30px 15px 0;
+            background-color: transparent;
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, .7);
+            &::placeholder{
+                color: #fff;
+            }
+            &:focus{
+                background-color: transparent;
+            }
+        }
+        & label{
+            position: absolute;
+            top: 17px;
+            right: 0;
+            color: $white-color;
+        }
+    }
+}
+
+/* Pagination */
+
+.theme-pagination{
+    & ul{
+        li{
+            display: inline-block;
+            margin-left: 2.5px;
+            margin-right: 2.5px;
+            & a{
+                width: 50px;
+                height: 50px;
+                border: 1px solid $border-color;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                color: $heading-color;
+                border-radius: 50%;
+                &:hover{
+                    background-color: $primary-color;
+                    color: $white-color;
+                    border-color: transparent;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,427 @@
+
+/*======================
+    Service Section  CSS
+=======================*/
+
+.axis-service-card{
+    &.style-one{
+        background-color: $white-color;
+        padding: 30px;
+        border-radius: 30px;
+        @include respond(lg){
+            padding: 30px 20px;
+        }
+        &:hover{
+            & .icon{
+                & img{
+                    filter: brightness(1) invert(0);
+                }
+            }
+        }
+        & .icon{
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #F8F8F8;
+            margin-bottom: 30px;
+            & img{
+                filter: brightness(0) invert(0);
+                transition: filter 0.3s ease;
+            }
+        }
+        & .content{
+            padding-top: 30px;
+            border-top: 1px solid #D8DDE1;
+            & .title{
+                font-size: 20px;
+                line-height: 30px;
+                margin-bottom: 20px;
+            }
+            & p{
+                margin-bottom: 25px;
+            }
+            & .axis-image{
+                & img{
+                    width: 100%;
+                    border-radius: 30px;
+                }
+            }
+        }
+    }
+    &.style-two{
+        background-color: #F8F8F8;
+        border-radius: 30px;
+        padding: 30px;
+        position: relative;
+        & .shape{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            & img{
+                filter: brightness(0) invert(0);
+                transition: filter 0.3s ease;
+            }
+        }
+        &:hover{
+            & .shape{
+                & img{
+                    filter: brightness(1) invert(0);
+                }
+            }
+            & > .icon{
+                & img{
+                    filter: brightness(1) invert(0);
+                }
+            }
+            & .content{
+                & .read-more{
+                    &.style-two{
+                        & .icon{
+                            background-color: $primary-color;
+                            color: $white-color;
+                        }
+                    }
+                }
+            }
+        }
+        & > .icon{
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background-color: $white-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            & img{
+                filter: brightness(0) invert(0);
+                transition: filter 0.3s ease;
+            }
+        }
+        & .content{
+            & .title{
+                margin-bottom: 20px;
+                max-width: 200px;
+            }
+            & p{
+                margin-bottom: 35px;
+            }
+            & .read-more{
+                &.style-two{
+                    & .icon{
+                        background-color: $white-color;
+                        transition: all .3s;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.service-slider{
+    margin-left: -15px;
+    margin-right: -15px;
+    @include respond(lg){
+        margin-left: -12px;
+        margin-right: -12px;
+    }
+    & .slick-slide{
+        margin-left: 15px;
+        margin-right: 15px;
+        @include respond(lg){
+            margin-left: 12px;
+            margin-right: 12px;
+        }
+    }
+}
+
+.axis-service_one{
+    background-color: #EFF3FA;
+    margin: 0 30px;
+    border-radius: 30px;
+    @include respond(xxxl){
+        margin: 0 15px;
+    }
+    @include respond(xl){
+        margin: 0;
+        border-radius: 0;
+    }
+    & .container{
+        max-width: 1410px;
+    }
+    & .service-wrapper{
+        background-color: $heading-color;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        padding: 0 0 0 40px;
+        border-radius: 30px;
+        @include respond(xl){
+            flex-direction: column;
+            padding: 80px 15px;
+        }
+        & .shape{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
+            & img{
+                opacity: 0.15;
+            }
+        }
+        & .service-nav{
+            max-width: 400px;
+            width: 100%;
+            @include respond(xxxl){
+                max-width: 370px;
+            }
+            @include respond(xl){
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+        & .nav-tabs{
+            flex-direction: column;
+            border-bottom: none;
+            @include respond(xxxl){
+                max-width: 350px;
+            }
+            @include respond(xl){
+                max-width: 100%;
+                flex-direction: inherit;
+                justify-content: center;
+            }
+            & li{
+                &:not(:last-child){
+                    margin-bottom: 20px;
+                }
+            }
+            & .nav-link{
+                position: relative;
+                font-size: 24px;
+                color: $white-color;
+                font-family: $heading-font;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 100px;
+                padding: 4px 4px 4px 25px;
+                z-index: 1;
+                & span{
+                    flex: 0 0 auto;
+                    margin-left: 10px;
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    background-color: $white-color;
+                    color: $heading-color;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: all .4s;
+                    & i{
+                        transform: rotate(-45deg);
+                        font-size: 20px;
+                    }
+                }
+                &.active{
+                    background-color: $primary-color;
+                    color: $white-color;
+                    & span{
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+        & .service-content-wrap{
+            background-color: $white-color;
+            display: flex;
+            align-items: center;
+            border-radius: 30px;
+            margin-left: -70px;
+            @include respond(xl){
+                margin-left: 0;
+            }
+            @include respond(lg){
+                flex-direction: column;
+                margin-left: 0;
+                padding: 20px 15px;
+                margin-top: 40px;
+            }
+            & .content-box{
+                padding-left: 90px;
+                padding-right: 50px;
+                @include respond(xxxl){
+                    padding-left: 60px;
+                    padding-right: 40px;
+                }
+                @include respond(xl){
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    margin-bottom: 30px;
+                }
+                @include respond(lg){
+                    padding: 30px;
+                }
+                & h5{
+                    line-height: 28px;
+                    margin-bottom: 40px;
+                }
+                & p{
+                    padding-bottom: 30px;
+                    border-bottom: 1px solid $border-color;
+                    margin-bottom: 20px;
+                }
+            }
+            & .axis-image{
+                flex: 0 0 auto;
+                max-width: 575px;
+                width: 100%;
+                & img{
+                    border-radius: 30px;
+                }
+                @include respond(xxxl){
+                    max-width: 535px;
+                }
+                @include respond(lg){
+                    max-width: 100%;
+                    & img{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.axis-service_two{
+    & .container-fluid{
+        padding-left: 95px;
+        padding-right: 95px;
+        @include respond(xxxl){
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        @include respond(md){
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}
+
+
+.gallery-slider{
+    margin-left: -15px;
+    margin-right: -15px;
+    @include respond(lg){
+        margin-left: -12px;
+        margin-right: -12px;
+    }
+    & .slick-slide{
+        margin-left: 15px;
+        margin-right: 15px;
+        @include respond(lg){
+            margin-left: 12px;
+            margin-right: 12px;
+        }
+    }
+}
+
+/* Service Details Wrapper */
+
+.service-details-wrapper{
+    & .service-item-main{
+        & .service-thumbnail{
+            & img{
+                border-radius: 30px;
+            }
+        }
+        & .service-content{
+            & h4.title{
+                font-size: 34px;
+                line-height: 1.35em;
+                margin-bottom: 30px;
+                text-transform: capitalize;
+                @include respond(lg){
+                    font-size: 40px;
+                    line-height: 55px;
+                }
+                @include respond(md){
+                    font-size: 28px;
+                    line-height: 40px;
+                }
+            }
+            & h3{
+                margin-bottom: 30px;
+                @include respond(md){
+                    font-size: $h4-font;
+                }
+            }
+            & p{
+                margin-bottom: 30px;
+            }
+            & .axis-image{
+                & img{
+                    border-radius: 30px;
+                }
+            }
+        }
+    }
+    & .counter-wrapper{
+        border-top: 1px solid $border-color;
+        & .item-border{
+            &:first-child{
+                & .axis-counter-item{
+                    padding-left: 0;
+                    @include respond(xl){
+                        padding-left: 40px;
+                    }
+                    @include respond(md){
+                        padding-left: 40px;
+                    }
+                }
+            }
+            &:not(:last-child){
+                border-right: 1px solid $border-color;
+                @include respond(xl){
+                    border-right: none;
+                    margin-bottom: 30px;
+                }
+            }
+            & .axis-counter-item{
+                padding-left: 40px;
+                padding-right: 40px;
+                @include respond(md){
+                    padding: 0;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    & .intro-wrapper{
+        & .axis-image-box{
+            position: relative;
+            & img{
+                border-radius: 30px;
+            }
+            & .play-button{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                @include respond(md){
+                    width: 50px;
+                }
+            }
+        }
+    }
+}

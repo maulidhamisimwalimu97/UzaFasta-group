@@ -1,0 +1,277 @@
+
+/*========================
+    Contact Section  CSS
+==========================*/
+
+.axis-info-box{
+    &.style-one{
+        display: flex;
+        align-items: center;
+        & .icon{
+            flex: 0 0 auto;
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            background-color: #EFF3FA;
+            font-size: 40px;
+            color: $primary-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 30px;
+        }
+        & .content{
+            & h5{
+                margin-bottom: 10px;
+            }
+        }
+    }
+    &.style-two{
+        display: flex;
+        align-items: center;
+        & .icon{
+            flex: 0 0 auto;
+            margin-right: 10px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $white-color;
+            font-size: 12px;
+            color: $primary-color;
+        }
+        & .info{
+            & p{
+                font-size: 18px;
+                color: #D8D8DC;
+            }
+        }
+    }
+    &.style-three{
+        display: flex;
+        align-items: flex-start;
+        & .icon{
+            flex: 0 0 auto;
+            margin-right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: $primary-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $white-color;
+            font-size: 20px;
+        }
+        & .content{
+            & h5{
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            & p{
+                font-size: 18px;
+                font-family: $heading-font;
+                line-height: 28px;
+            }
+            & .social-box{
+                & a{
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    border: 1px solid $border-color;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $heading-color;
+                    &:not(:last-child){
+                        margin-right: 5px;
+                    }
+                    &:hover{
+                        background-color: $primary-color;
+                        border-color: transparent;
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
+    &.style-four{
+        & .icon{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $primary-color;
+            font-size: 24px;
+            background-color: $white-color;
+            margin-bottom: 25px;
+        }
+        & .content{
+            & p{
+                font-size: 18px;
+                color: $white-color;
+                line-height: 28px;
+            }
+        }
+    }
+}
+
+.axis-contact_one{
+    @include respond(xl){
+        padding-bottom: 120px;
+    }
+    & .axis-content-box{
+        & > p{
+            margin-bottom: 50px;
+        }
+    }
+    & .contact-form-wrapper{
+        background-color: $white-color;
+        padding: 40px 40px 50px;
+        border-radius: 30px;
+        box-shadow: 0 6px 25px 0 rgba(102, 102, 102, 0.15);
+        margin-bottom: -120px;
+        @include respond(xl){
+            margin-bottom: 0;
+        }
+        @include respond(md){
+            padding: 40px 20px 50px;
+        }
+        & h4{
+            margin-bottom: 25px;
+        }
+        & label{
+            font-size: 18px;
+            font-family: $heading-font;
+            color: $heading-color;
+            margin-bottom: 10px;
+        }
+        & .form_control{
+            border-radius: 20px;
+            margin-bottom: 20px;
+            padding: 11px 20px;
+            border: 1px solid $border-color;
+        }
+        & textarea{
+            min-height: 120px;
+        }
+    }
+}
+
+.axis-contact_two{
+    background-color: #EFF3FA;
+    & .contact-map{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60%;
+        height: 60%;
+        z-index: -1;
+    }
+    & .axis-content-box{
+        & > p{
+            margin-bottom: 30px;
+        }
+        & .map-box{
+            & iframe{
+                border: 5px solid $white-color;
+                border-radius: 30px;
+                height: 260px;
+            }
+        }
+    }
+    & .contact-form-wrapper{
+        background-color: $white-color;
+        padding: 40px 40px 50px;
+        border-radius: 30px;
+        @include respond(md){
+            padding: 30px 20px 40px;
+        }
+        & h4{
+            margin-bottom: 25px;
+        }
+        & label{
+            font-size: 18px;
+            font-family: $heading-font;
+            color: $heading-color;
+            margin-bottom: 10px;
+        }
+        & .form_control{
+            border-radius: 20px;
+            margin-bottom: 20px;
+            padding: 11px 20px;
+            border: 1px solid $border-color;
+        }
+    }
+}
+
+.axis-contact_three{
+    & .axis-contact-box{
+        & h2{
+            margin-bottom: 20px;
+            @include respond(md){
+                font-size: 28px;
+            }
+        }
+        & > p{
+            margin-bottom: 30px;
+        }
+        & .social-box-wrap{
+            & h4{
+                margin-bottom: 25px;
+            }
+            & p{
+                margin-bottom: 30px;
+            }
+            & .social-box{
+                & a{
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    border: 1px solid $border-color;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    &:not(:last-child){
+                        margin-right: 10px;
+                    }
+                    &:hover{
+                        background-color: $primary-color;
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
+    & .axis-contact-wrapper{
+        padding: 50px 40px;
+        border-radius: 30px;
+        border: 1px solid $border-color;
+        @include respond(md){
+            padding: 50px 20px;
+        }
+        & h4{
+            margin-bottom: 20px;
+        }
+        & .form_control{
+            border-radius: 15px;
+            padding: 15px 20px;
+            border:1px solid $border-color;
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+    }
+}
+
+.contact-map-sec{
+    & .map-box {
+        & iframe{
+            height: 540px;
+            width: 100%;
+        }
+    }
+}

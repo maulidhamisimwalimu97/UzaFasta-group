@@ -1,0 +1,98 @@
+
+
+/*======================
+    Faq Section  CSS
+=======================*/
+
+
+.accordion-card{
+    & .accordion-header{
+        & .accordion-title{
+            display: flex;
+            align-items: center;
+            line-height: 28px;
+            cursor: pointer;
+            font-weight: 600;
+            &:after{
+                flex: 0 0 auto;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                content: '\f067';
+                font-family: 'Font Awesome 5 Pro';
+                font-weight: 900;
+                font-size: 18px;
+                color: $primary-color;
+                margin-left: auto;
+                transition: all .3s;
+            }
+        }
+        & .accordion-title[aria-expanded=true]{
+            &:after{
+                content: '\f068';
+            }
+        }
+    }
+    &.style-one{
+        padding: 20px 30px;
+        border-radius: 20px;
+        border: 1px solid $border-color;
+        & .accordion-header{
+            & .accordion-title{
+                font-weight: 400;
+                &:after{
+                    color: $heading-color;
+                }
+            }
+        }
+        & .accordion-content{
+            padding-top: 20px;
+        }
+    }
+    &.style-two{
+        padding-bottom: 25px;
+        border-bottom: 1px solid $border-color;
+        & .accordion-header{
+            & .accordion-title{
+                font-size: 18px;
+            }
+        }
+        & .accordion-content{
+            padding-top: 20px;
+        }
+    }
+}
+
+
+.axis-faq_one{
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background-color: #EFF3FA;
+    & .faq-image{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 46.5%;
+        height: 100%;
+        border-radius: 0 50px 50px 0;
+        z-index: -1;
+    }
+    & .axis-explore-box{
+        background-color: $primary-black-color;
+        padding: 25px 30px;
+        position: absolute;
+        bottom: 60px;
+        right: 60px;
+        border-radius: 20px;
+        max-width: 355px;
+        & .content{
+            & p{
+                color: $white-color;
+                & a{
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}

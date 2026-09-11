@@ -1,0 +1,84 @@
+
+/*=========================
+    Process Section  CSS
+==========================*/
+
+.axis-progress-item{
+    text-align: center;
+    transition: all .3s;
+    &:hover{
+        & .step{
+            background-color: $primary-black-color;
+            color: $white-color;
+        }
+    }
+    .step {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        font-family: $heading-font;
+        color: $heading-color;
+        background-color: #F8F8F8;
+        margin-bottom: 30px;
+        transition: all .35s;
+        &:after {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            content: '';
+            width: 140px;
+            height: 140px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+        &.step-one {
+            &:after {
+                border-top-color: $heading-color;
+            }
+        }
+        &.step-two {
+            &:after {
+                border-top-color: $heading-color;
+                border-right-color: $heading-color;
+            }
+        }
+        &.step-three {
+            &:after {
+                border-top-color: $heading-color;
+                border-right-color: $heading-color;
+                border-bottom-color: $heading-color;
+            }
+        }
+        &.step-four {
+            &:after {
+                border-color: $heading-color;
+            }
+        }
+    }
+
+    & .content{
+        & h5{
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.process-wrapper{
+    & .process-column{
+        position: relative;
+        & .arrow-shape{
+            position: absolute;
+            top: 45px;
+            right: -40px;
+            @include respond(xl){
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,630 @@
+
+/*======================
+    Features Section  CSS
+=======================*/
+
+.axis-iconic-box{
+    &.style-one{
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.50);
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(13px);
+        padding: 40px 30px 35px;
+        & .icon{
+            margin-bottom: 45px;
+        }
+        & .content{
+            & .title{
+                font-size: 20px;
+                color: $white-color;
+                margin-bottom: 15px;
+            }
+            & p{
+                color: $white-color;
+            }
+        }
+    }
+    &.style-two{
+        padding: 30px;
+        background-color: #F8F8F8;
+        border-radius: 30px;
+        transition: all .3s;
+        &:hover{
+            background-color: $primary-black-color;
+            & .content{
+                & h4{
+                    color: $white-color;
+                }
+                & p{
+                    color: rgba(255, 255, 255, 0.50);
+                }
+                & .icon-btn{
+                    color: $primary-color;
+                }
+            }
+        }
+        & .icon{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border-radius: 20px;
+            background-color: $white-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        & .content{
+            & h4{
+                margin-bottom: 15px;
+                max-width: 180px;
+                font-size: 20px;
+                line-height: 30px;
+            }
+            & p{
+                margin-bottom: 30px;
+            }
+            & .icon-btn{
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: $heading-color;
+                background-color: $white-color;
+                & i{
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+    }
+    &.style-three{
+        & .icon{
+            margin-bottom: 25px;
+        }
+        & .content{
+            & .title{
+                font-size: $h4-font;
+                color: $white-color;
+                margin-bottom: 10px;
+            }
+            & p{
+                color: $white-color;
+            }
+        }
+    }
+}
+
+.axis-iconic-left-box{
+    &.style-one{
+        display: flex;
+        align-items: center;
+        & .icon{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 216, 204, 0.20);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            margin-right: 20px;
+        }
+        & .content{
+            max-width: 160px;
+            & h5{
+                line-height: 28px;
+            }
+        }
+    }
+    &.style-two{
+        display: flex;
+        align-items: center;
+        & .icon{
+            flex: 0 0 auto;
+            margin-right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background-color: #FBEAEB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        & .content{
+            & h5{
+                font-size: 20px;
+                line-height: 30px;
+            }
+        }
+    }
+}
+
+/* Features Section */ 
+
+.axis-feature-card{
+    &.style-one{
+        background-color: $gray-color;
+        padding: 30px;
+        border-radius: 30px;
+        & .thumbnail{
+            margin-bottom: 25px;
+        }
+        & .content{
+            & h5{
+                margin-bottom: 10px;
+            }
+            & > p{
+                margin-bottom: 55px;
+            }
+            & .text-box{
+                background-color: $white-color;
+                border-radius: 20px;
+                padding: 16px 20px;
+                & .content{
+                    display: flex;
+                    align-items: center;
+                    & h2{
+                        margin-right: 15px;
+                    }
+                    & p{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+    &.style-two{
+        border-radius: 30px;
+        background-color: #F8F8F8;
+        padding: 30px 40px 35px;
+        & .content{
+            & .count-box{
+                margin-bottom: 40px;
+            }
+            & h4{
+                margin-bottom: 15px;
+            }
+        }
+        &.dark-card{
+            background-color: $primary-black-color;
+            & .content{
+                & .count-box{
+                    & h3{
+                        color: $white-color;
+                    }
+                    & span{
+                        color: rgba(255, 255, 255, 0.7);
+                    }
+                }
+                & h4{
+                    color: $white-color;
+                }
+                & p{
+                    color: rgba(255, 255, 255, 0.7);
+                }
+            }
+        }
+    }
+    &.style-three{
+        position: relative;
+        border-radius: 30px;
+        background-color: #F8F8F8;
+        padding: 30px 40px 32px;
+        & .axis-image{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            @include respond(xxxl){
+                & img{
+                    max-width: 110px;
+                }
+            }
+            @include respond(xl){
+                & img{
+                    max-width: 180px;
+                }
+            }
+            @include respond(md){
+                & img{
+                    max-width: 110px;
+                }
+            }
+        }
+        & .content{
+            & h4{
+                margin-bottom: 25px;
+                line-height: 34px;
+            }
+            & > p{
+                margin-bottom: 55px;
+                @include respond(xxxl){
+                    margin-bottom: 50px;
+                }
+            }
+            & .axis-avatar-box{
+                margin-bottom: 115px;
+                @include respond(xxxl){
+                    margin-bottom: 60px;
+                }
+            }
+            & .counter-box{
+                & h2{
+                    margin-bottom: 8px;
+                }
+                & p{
+                    font-family: $heading-font;
+                    font-weight: 500;
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+    &.style-four{
+        & .content{
+            position: relative;
+            z-index: 1;
+            border-radius: 30px;
+            overflow: hidden;
+            padding: 30px 40px 30px;
+            &:after{
+                position: absolute;
+                top: 0;
+                left: 0;
+                content: '';
+                width: 100%;
+                height: 100%;
+                background-color: rgba(1, 15, 52, 0.40);
+                z-index: -1;
+            }
+            & h4{
+                color: $white-color;
+                margin-bottom: 20px;
+            }
+            & > p{
+                color: $white-color;
+                margin-bottom: 45px;
+                @include respond(xxxl){
+                    margin-bottom: 21px;
+                }
+            }
+            & .count-box{
+                & h3{
+                    color: $white-color;
+                }
+                & p{
+                    color: $white-color;
+                }
+            }
+        }
+    }
+}
+
+/* Features Section */ 
+
+.axis-features_one{
+    & .axis-avatar-box{
+        background-color: $gray-color;
+        padding: 20px 30px;
+        border-radius: 30px 30px 50px 50px;
+        & h5{
+            margin-bottom: 15px;
+        }
+        & .avatar-list{
+            margin-bottom: 20px;
+        }
+    }
+    & .axis-counter-box{
+        background-color: $gray-color;
+        padding: 85px 30px 30px;
+        border-radius: 50px 50px 30px 30px;
+        & .content{
+            & h2{
+                font-size: 54px;
+                margin-bottom: 10px;
+            }
+            & p{
+                font-weight: 500;
+                color: $heading-color;
+            }
+        }
+    }
+    & .axis-image{
+        & img{
+            width: 100%;
+            border-radius: 30px;
+        }
+    }
+    & .axis-support-box{
+        border-radius: 30px;
+        padding: 20px 50px;
+        & .content{
+            & h2{
+                color: $white-color;
+                margin-bottom: 10px;
+            }
+            & p{
+                color: $white-color;
+            }
+        }
+    }
+}
+
+.axis-features_two{
+    &.gray-bg{
+        & .axis-feature-card{
+            &.style-two{
+                background-color: $white-color;
+                &.dark-card{
+                    background-color: $primary-black-color;
+                }
+            }
+            &.style-three{
+                background-color: $white-color;
+            }
+        }
+    }
+    & .axis-image{
+        & img{
+            width: 100%;
+            border-radius: 30px;
+        }
+    }
+}
+
+
+.axis-features_three{
+    & .axis-content-box{
+        padding-right: 20px;
+        & > p{
+            margin-bottom: 25px;
+        }
+    }
+    & .axis-image{
+        & img{
+            border-radius: 30px;
+        }
+    }
+}
+
+
+/* Choose Section */ 
+
+.axis-choose_one{
+    & .axis-image-box{
+        position: relative;
+        min-height: 560px;
+        margin-right: 30px;
+        @include respond(xxxl){
+            margin-right: 0;
+        }
+        & .shape{
+            position: absolute;
+            top: 75px;
+            right: 85px;
+            @include respond(md){
+                display: none;
+            }
+        }
+        & .axis-experience-box{
+            margin-top: 10px;
+            & .content{
+                display: flex;
+                align-items: center;
+                & h2{
+                    font-size: 62px;
+                }
+                & p{
+                    margin-left: 15px;
+                    font-size: 20px;
+                    max-width: 150px;
+                    color: $heading-color;
+                }
+            }
+        }
+        & .axis-image{
+            &.image_one{
+                & img{
+                    border-radius: 30px;
+                }
+            }
+            &.image_two{
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                & img{
+                    border-radius: 30px;
+                    border: 6px solid $white-color;
+                }
+                @include respond(md){
+                    position: relative;
+                    bottom: auto;
+                    right: auto;
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+    & .axis-content-box{
+        & > p{
+            margin-bottom: 30px;
+        }
+        & .axix-iconic-list{
+            border-bottom: 1px solid $border-color;
+            margin-bottom: 30px;
+        }
+        & .axis-iconic-box-wrap{
+            display: flex;
+            align-items: center;
+            @include respond(md){
+                align-items: flex-start;
+                flex-direction: column;
+            }
+            & .axis-iconic-left-box {
+                flex: 0 0 auto;
+            }
+            & .content-wrap{
+                margin-left: 35px;
+                padding-left: 40px;
+                border-left: 1px solid $border-color;
+                @include respond(md){
+                    padding-left: 0;
+                    margin-left: 0;
+                    border-left: none;
+                    margin-top: 25px;
+                }
+            }
+        }
+        & h5{
+            line-height: 28px;
+        }
+    }
+}
+
+
+.axis-choose_two{
+    & .axis-image-box{
+        min-height: 550px;
+        position: relative;
+        margin-right: 90px;
+        @include respond(xxxl){
+            margin-right: 40px;
+        }
+        & .axis-image{
+            &.image_one{
+                text-align: right;
+                & img{
+                    border-radius: 30px;
+                }
+            }
+            &.image_two{
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                @include respond(md){
+                    position: relative;
+                    left: auto;
+                    bottom: auto;
+                    margin-bottom: 30px;
+                    margin-top: 30px;
+                }
+            }
+            &.image_three{
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                & img{
+                    border-radius: 0 30px 30px 30px;
+                }
+                @include respond(md){
+                    position: relative;
+                    left: auto;
+                    bottom: auto;
+                    margin-bottom: 30px;
+                }
+            }
+        }
+        & .axis-avatar-box{
+            position: absolute;
+            top: 45px;
+            left: 0;
+            padding: 30px 20px;
+            border-radius: 15px;
+            background-color: $white-color;
+            box-shadow: 0 6px 25px 0 rgba(0, 0, 0, 0.10);
+            @include respond(md){
+                position: relative;
+                left: auto;
+                top: auto;
+            }
+        }
+    }
+    & .axis-content-box{
+        margin-left: -60px;
+        @include respond(xxxl){
+            margin-left: -30px;
+        }
+        @include respond(xl){
+            margin-left: 0;
+        }
+        & > p{
+            margin-bottom: 35px;
+        }
+        & .check-list{
+            & li{
+                font-weight: 400;
+                &:not(:last-child){
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+.axis-choose_three{
+    position: relative;
+    z-index: 1;
+    padding-top: 420px;
+    @include respond(xl){
+        padding-top: 215px;
+    }
+    &:after{
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(0deg, #010F34 25.95%, rgba(1, 15, 52, 0.00) 106.8%);
+        z-index: -1;
+    }
+    & .axis-content-box{
+        & .section-title{
+            border-bottom: 1px solid rgba(255, 255, 255, 0.50);
+            margin-bottom: 30px;
+        }
+        & h4{
+            margin-bottom: 30px;
+        }
+    }
+    & .axis-choose-list{
+        margin-left: 10px;
+        border-left: 1px solid rgba(255, 255, 255, 0.50);
+        padding-left: 40px;
+        @include respond(lg){
+            padding-left: 0;
+            border-left: none;
+            margin-left: 0;
+            margin-top: 30px;
+            display: flex;
+            gap: 40px;
+        }
+        @include respond(md){
+            flex-direction: column;
+        }
+    }
+}
+
+
+/* Work Section */ 
+
+.axis-work_one{
+    margin: 0 30px;
+    border-radius: 30px;
+    overflow: hidden;
+    @include respond(xl){
+        margin: 0px;
+        border-radius: 0px;
+    }
+    &:after{
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        background-color: rgba(1, 15, 52, 0.61);
+        z-index: -1;
+    }
+}

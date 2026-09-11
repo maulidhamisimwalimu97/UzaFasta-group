@@ -1,0 +1,174 @@
+
+/*========================
+    CTA Section  CSS
+==========================*/
+
+.axis-cta_one{
+    & .cta-wrapper{
+        border-bottom: 1px solid $border-color;
+        @include respond(md){
+            border-bottom: none;
+        }
+        & .item-border{
+            &:not(:last-child){
+                border-right: 1px solid $border-color;
+                @include respond(md){
+                    border-right: none;
+                    border-bottom: 1px solid $border-color;
+                }
+            }
+            &:first-child{
+                @include respond(lg){
+                    border-right: none;
+                }
+            }
+        }
+        & .axis-content-box{
+            padding-right: 40px;
+            @include respond(xl){
+                padding-right: 0;
+                text-align: center;
+            }
+            & h3{
+                font-size: 36px;
+                line-height: 46px;
+                margin-bottom: 60px;
+            }
+            & p{
+                margin-bottom: 55px;
+            }
+        }
+        & .axis-avatar-support-box{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            & .axis-avatar-box{
+                & h5{
+                    margin-bottom: 25px;
+                }
+            }
+            @include respond(lg){
+                padding-bottom: 30px;
+            }
+            @include respond(md){
+                padding: 30px 0;
+            }
+        }
+        & .axis-counter-box{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            text-align: center;
+            margin-top: 25px;
+            @include respond(lg){
+                justify-content: center;
+            }
+            & .content{
+                & h2{
+                    margin-bottom: 20px;
+                    font-size: 54px;
+                }
+                & h5{
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}
+
+.axis-cta_two{
+    margin: 0 30px;
+    border-radius: 30px;
+    overflow: hidden;
+    @include respond(xl){
+        margin: 0;
+        border-radius: 0;
+    }
+    &:after{
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(1, 15, 52, 0.80);
+        z-index: -1;
+        mix-blend-mode: multiply;
+    }
+    & .axis-content-box{
+        max-width: 640px;
+        @include respond(lg){
+            padding: 70px 0 80px;
+        }
+        & > p{
+            margin-bottom: 35px;
+        }
+        & .axis-button-wrap{
+            display: flex;
+            align-items: center;
+            @include respond(md){
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            & .axis-button{
+                margin-right: 30px;
+                @include respond(md){
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    }
+    & .axis-image{
+        @include respond(lg){
+            display: none;
+        }
+    }
+}
+
+.axis-cta_three{
+    &:after{
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        background-color: rgba(1, 15, 52, 0.20);
+        z-index: -1;
+    }
+    & .section-title{
+        & h3{
+            font-size: 36px;
+            color: $white-color;
+            line-height: 46px;
+            @include respond(md){
+                font-size: 20px;
+                line-height: 30px;
+            }
+        }
+    }
+    & .axis-avatar-box{
+        float: right;
+        @include respond(xl){
+            float: none;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+        & .avatar-list{
+            @include respond(md){
+                flex-direction: column;
+            }
+            & .text{
+                margin-left: 20px;
+                h4{
+                    color: $white-color;
+                }
+                & p{
+                    color: rgba(255, 255, 255, 0.70);
+                    font-family: $heading-font;
+                }
+            }
+        }
+    }
+}

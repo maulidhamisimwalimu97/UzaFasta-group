@@ -1,0 +1,221 @@
+
+/*============================
+    Testimonial Section  CSS
+=============================*/
+
+
+
+.author-thumb-item{
+    display: flex;
+    align-items: center;
+    & .author-thumb{
+        flex: 0 0 auto;
+        width: 50px;
+        margin-right: 20px;
+        & img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    }
+    & .author-info{
+        & h5{
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.axis-testimonial-item{
+    &.style-one{
+        max-width: 600px;
+        overflow: hidden;
+        @include respond(lg){
+            max-width: 100%;
+            padding: 30px;
+        }
+        @include respond(md){
+            padding: 10px;
+        }
+        & .testimonial-content{
+            & .ratings{
+                margin-bottom: 30px;
+                @include respond(xl){
+                    margin-bottom: 15px;
+                }
+            }
+            & p{
+                color: $heading-color;
+                font-family: $heading-font;
+                margin-bottom: 110px;
+                @include respond(xl){
+                    margin-bottom: 20px;
+                }
+            }
+            & .author-thumb-item{
+                border-top: 1px solid $border-color;
+                padding-top: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+    }
+    &.style-two{
+        padding: 25px 30px;
+        background-color: $white-color;
+        box-shadow: 0 6px 25px 0 rgba(102, 102, 102, 0.15);
+        border-radius: 30px;
+        & .testimonial-content{
+            & .ratings{
+                margin-bottom: 20px;
+                & i{
+                    font-size: 14px;
+                }
+            }
+            & p{
+                margin-bottom: 27px;
+            }
+            & .author-thumb-item{
+                & .author-info{
+                    & h4{
+                        @include respond(xxxl){
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.testimonial-slider-two{
+    & .slick-list{
+        padding: 0 0 20px;
+    }
+    & .slick-slide{
+        margin-right: 30px;
+    }
+}
+
+.axis-testimonial_one{
+    margin: 0 30px;
+    overflow: hidden;
+    border-radius: 30px;
+    @include respond(xl){
+        margin: 0px;
+        border-radius: 0px;
+    }
+    & .testimonial-wrapper{
+        background-color: $white-color;
+        padding: 20px;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        & .testimonial-slider-wrap{
+            width: 80%;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            @include respond(lg){
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            & .axis-image{
+                max-width: 375px;
+                width: 100%;
+                flex: 0 0 auto;
+                & img{
+                    border-radius: 20px;
+                }
+                @include respond(lg){
+                    display: none;
+                }
+            }
+            & .testimonial-slider{
+                padding-left: 60px;
+                overflow: hidden;
+                @include respond(xl){
+                    padding-left: 30px;
+                }
+                @include respond(lg){
+                    width: 100%;
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+    & .counter-wrap{
+        margin-left: 30px;
+        border-left: 1px solid $border-color;
+        padding-left: 40px;
+        @include respond(xl){
+            padding-left: 20px;
+            margin-left: 20px;
+        }
+        @include respond(lg){
+            display: none;
+        }
+    }
+}
+
+.axis-testimonial_two{
+    overflow: hidden;
+    & .axis-success-box{
+        background-color: $primary-black-color;
+        border-radius: 30px;
+        padding: 30px;
+        & .content{
+            margin-bottom: 39px;
+            padding-bottom: 33px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+            & h4,
+            & h3,
+            & p{
+                color: $white-color;
+            }
+            & h3{
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+        }
+        & .axis-avatar-box{
+            & img{
+                margin-bottom: 8px;
+            }
+            & .avatar-list{
+                & ul{
+                    & li{
+                        & img{
+                            width: 40px;
+                            height: 40px;
+                        }
+                    }
+                }
+                & .text{
+                    & .ratings{
+                        & i{
+                            font-size: 10px;
+                        }
+                    }
+                    & p{
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
+    & .testimonial-slider-two{
+        margin-right: -40%;
+        @include respond(md){
+            margin-left: -12px;
+            margin-right: -12px;
+            & .slick-slide{
+                margin-left: 12px;
+                margin-right: 12px;
+            }
+        }
+    }
+}

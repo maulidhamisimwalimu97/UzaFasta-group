@@ -1,0 +1,172 @@
+
+@use "./../abstract";
+
+/* Footer Widget */
+
+.footer-widget{
+    & .widget-title{
+        color: $white-color;
+        font-size: $h4-font;
+    }
+    & .line-wrap{
+        display: inline-flex;
+        gap: 3px;
+        align-items: center;
+        margin-bottom: 22px;
+        & span{
+            background-color: $primary-color;
+            height: 2px;
+            border-radius: 5px;
+            &:nth-child(1){
+                width: 40px;
+            }
+            &:nth-child(2){
+                width: 10px;
+            }
+            &:nth-child(3){
+                width: 5px;
+            }
+        }
+    }
+    & .widget-content{
+        & > p{
+            color: $white-color;
+            margin-bottom: 30px;
+        }
+        & .social-box{
+            & a{
+                position: relative;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border: 1px solid rgba(216, 221, 225, 0.30);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: $white-color;
+                z-index: 1;
+                &:not(:last-child){
+                    margin-right: 6px;
+                }
+                &:after{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    content: '';
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    background-color: $primary-color;
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: all .3s;
+                    z-index: -1;
+                }
+                &:hover{
+                    border-color: transparent;
+                    &:after{
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+        & .widget-nav{
+            & li{
+                &:not(:last-child){
+                    margin-bottom: 10px;
+                }
+                & a{
+                    font-size: 18px;
+                    font-family: $heading-font;
+                    color: $white-color;
+                    &:hover{
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+    &.footer-contact-info-widget{
+        & .widget-content{
+            & ul{
+                & li{
+                    color: $white-color;
+                    &:not(:last-child){
+                        margin-bottom: 15px;
+                    }
+                    & h4{
+                        color: $white-color;
+                        margin-top: 10px;
+                        @include respond(xl){
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.footer-newsletter-widget{
+        & .widget-content{
+            & p{
+                color: $white-color;
+            }
+            & .form_control{
+                background-color: transparent;
+                border: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+                padding-bottom: 25px;
+                color: rgba(255, 255, 255, 0.5);
+                &::placeholder{
+                    color: rgba(255, 255, 255, 0.5);
+                }
+            }
+            & .submit-btn{
+                position: absolute;
+                top: 0;
+                right: 0;
+                background-color: transparent;
+                color: $secondary-color;
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+
+
+/* Copyright Area */ 
+
+.copyright-area{
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 25px 0 28px;
+    & .copyright-text{
+        & p{
+            font-size: 18px;
+            color: $white-color;
+            & span{
+                color: $primary-color;
+            }
+        }
+    }
+    & .copyright-link{
+        & a{
+            &:not(:last-child){
+                margin-right: 20px;
+            }
+            color: $white-color;
+            &:hover{
+                color: $primary-color;
+            }
+        }
+    }
+}
+
+.footer-v1{
+    margin: 0 30px 30px;
+    border-radius: 30px;
+    @include respond(xl){
+        margin: 0;
+        border-radius: 0;
+    }
+}

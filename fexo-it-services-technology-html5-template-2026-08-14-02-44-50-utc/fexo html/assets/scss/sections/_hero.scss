@@ -1,0 +1,569 @@
+
+/*======================
+    Hero Section  CSS
+=======================*/
+
+/* Avatar Box */
+
+.axis-avatar-box{
+    & .avatar-list{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        & ul{
+            display: inline-flex;
+            align-items: center;
+            & li{
+                flex: 0 0 auto;
+                &:not(:first-child){
+                    margin-left: -15px;
+                }
+                & img{
+                    width: 55px;
+                    height: 55px;
+                    border: 2px solid $white-color;
+                    border-radius: 50%;
+                }
+                & span{
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    border: 2px solid $white-color;
+                    background-color: $primary-color;
+                    font-weight: 600;
+                    color: $white-color;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}
+
+
+.hero-wrapper_one{
+    margin: 0 30px 0;
+    border-radius: 30px;
+    overflow: hidden;
+    padding: 120px 0;
+    position: relative;
+    z-index: 1;
+    @include respond(xl){
+        margin: 0 15px 0;
+    }
+    @include respond(md){
+        padding: 70px 0px 80px;
+    }
+    &:after{
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(182deg, rgba(1, 15, 52, 0.00) -40.2%, rgba(1, 15, 52, 0.50) 98.66%);
+        z-index: -1;
+    }
+    & .container-fluid{
+        padding-left: 150px;
+        padding-right: 150px;
+        @include respond(xxxl){
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        @include respond(md){
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    & .hero-content{
+        @include respond(lg){
+            text-align: center;
+        }
+        & .tag-line{
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 20px;
+            color: $primary-color;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            @include respond(md){
+                font-size: 16px;
+            }
+        }
+        & h1{
+            color: $white-color;
+            @include respond(xxxl){
+                font-size: 68px;
+            }
+            @include respond(xl){
+                font-size:50px;
+            }
+            @include respond(md){
+                font-size: 40px;
+            }
+        }
+    }
+    & .axis-progress-box{
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.10);
+        backdrop-filter: blur(14.5px);
+        padding: 30px 30px 20px;
+        max-width: 340px;
+        margin-left: auto;
+        margin-bottom: 350px;
+        display: flex;
+        @include respond(xxxl){
+            margin-bottom: 280px;
+        }
+        @include respond(xl){
+            margin-bottom:60px;
+        }
+        @include respond(lg){
+            margin: 40px auto;
+        }
+        @include respond(md){
+            margin-bottom: 50px;
+        }
+        & .content{
+            & .title-wrap{
+                margin-bottom: 25px;
+                & .title-box{
+                    & span{
+                        margin-bottom: 5px;
+                    }
+                    & span,
+                    & h4{
+                        color: $white-color;
+                    }
+                }
+            }
+            & p{
+                font-weight: 600;
+                color: $white-color;
+            }
+        }
+    }
+    & .text-box{
+        max-width: 520px;
+        margin-left: auto;
+        @include respond(lg){
+            text-align: center;
+            margin: 0 auto;
+        }
+        & p{
+            color: $white-color;
+            margin-bottom: 35px;
+        }
+    }
+}
+
+.hero-wrapper_two{
+    padding: 220px 0 120px;
+    position: relative;
+    z-index: 1;
+    & .social-box-wrap{
+        position: absolute;
+        left: 65px;
+        top: 35%;
+        @include respond(xxxl){
+            display: none;
+        }
+        & .social-box{
+            & a{
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background-color: $white-color;
+                color: $heading-color;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 12px;
+                &:hover{
+                    background-color: $primary-color;
+                    color: $white-color;
+                }
+            }
+            & span{
+                font-size: 14px;
+                color: $white-color;
+                transform: rotate(-90deg);
+                margin-left: -13px;
+                margin-top: 20px;
+            }
+        }
+    }
+    & .hero-content{
+        margin-bottom: 190px;
+        @include respond(xl){
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        & .tag-line{
+            font-size: 54px;
+            font-weight: 500;
+            color: $white-color;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 30px;
+            &:before{
+                display: inline-flex;
+                align-items: center;
+                content: '';
+                width: 120px;
+                height: 4px;
+                background-color: $white-color;
+                flex: 0 0 auto;
+                margin-right: 20px;
+                @include respond(md){
+                    width: 60px;
+                }
+            }
+            @include respond(xl){
+                font-size: 20px;
+            }
+            @include respond(md){
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+        }
+        & h1{
+            font-size: 150px;
+            font-weight: 700;
+            color: $white-color;
+            margin-bottom: 5px;
+            @include respond(xxxl){
+                font-size: 120px;
+            }
+            @include respond(xl){
+                font-size: 80px;
+            }
+            @include respond(md){
+                font-size: 40px;
+            }
+        }
+        & p{
+            max-width: 520px;
+            color: $white-color;
+            margin-bottom: 35px;
+        }
+    }
+    & .axis-avatar-box{
+        @include respond(xl){
+            text-align: center;
+        }
+        & .avatar-list{
+            margin-bottom: 25px;
+            @include respond(xl){
+                justify-content: center;
+            }
+            & .text{
+                text-align: left;
+                & h5{
+                    font-size: 20px;
+                    color: $white-color;
+                }
+                & p{
+                    font-size: 14px;
+                    color: $white-color;
+                }
+            }
+        }
+        & p{
+            font-weight: 600;
+            color: $white-color;
+        }
+    }
+    & .hero-image-box{
+        position: relative;
+        margin-top: 40px;
+        & .play-button{
+            position: absolute;
+            top: 50%;
+            left: -180px;
+            transform: translateY(-50%);
+            @include respond(xxxl){
+                left: -250px;
+            }
+            @include respond(xxxl){
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+            @include respond(md){
+                & img{
+                    width:80px;
+                }
+            }
+        }
+        & .axis-image{
+            margin-left: -110px;
+            @include respond(xxxl){
+                margin-left: -190px;
+            }
+            @include respond(xl){
+                margin-left: 0px;
+            }
+            & img{
+                border-radius: 30px;
+                max-width: 710px;
+                @include respond(xxxl){
+                    max-width: 575px;
+                }
+                @include respond(xl){
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}
+
+
+.hero-wrapper_three{
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    & .shape{
+        position: absolute;
+        z-index: 1;
+        @include respond(xl){
+            display: none;
+        }
+        &.shape-one{
+            top: 20%;
+            left: 120px;
+        }
+        &.shape-two{
+            top: 20%;
+            left: 50%;
+        }
+    }
+    & .container-fluid{
+        padding-left: 120px;
+        padding-right: 120px;
+        @include respond(xxxl){
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        @include respond(xl){
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    & .single-slider{
+        position: relative;
+        z-index: 1;
+        padding: 345px 0 220px;
+        @include respond(xl){
+            padding: 280px 0 170px;
+        }
+        @include respond(md){
+            padding: 220px 0 130px;
+        }
+    }
+    & .image-layer{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: all 1.4s cubic-bezier(0.7, 0, 0.3, 1);
+        @include transform(scale(1.2));
+        z-index: -1;
+        &:after{
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-color: rgba(1, 15, 52, 0.50);
+            z-index: -1;
+        }
+    }
+    & .hero-content{
+        @include respond(xl){
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        & .tag-line{
+            color: $primary-color;
+            font-size: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 35px;
+            &:after{
+                display: inline-flex;
+                content: '';
+                width: 60px;
+                height: 2px;
+                background-color: $primary-color;
+                margin-left: 12px;
+                @include respond(xl){
+                    width: 40px;
+                }
+            }
+            @include respond(xl){
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+        }
+        & h1{
+            color: $white-color;
+            font-size: 140px;
+            line-height: .7;
+            margin-bottom: 20px;
+            font-weight: 700;
+            & span{
+                font-size: 84px;
+                line-height: 94px;
+                font-weight: 500;
+            }
+            @include respond(xxxl){
+                font-size: 100px;
+                line-height: .8;
+                & span{
+                    font-size: 60px;
+                    line-height: 70px;
+                }
+            }
+            @include respond(xl){
+                font-size: 80px;
+                & span{
+                    font-size: 40px;
+                    line-height: 50px;
+                }
+            }
+            @include respond(md){
+                font-size: 50px;
+                line-height: 45px;
+                & span{
+                    font-size: 27px;
+                    line-height: 45px;
+                }
+            }
+        }
+        & p{
+            color: $white-color;
+            max-width: 770px;
+            margin-bottom: 35px;
+        }
+        & .hero-button-wrap{
+            display: flex;
+            align-items: center;
+            @include respond(xl){
+                justify-content: center;
+            }
+            @include respond(md){
+                flex-direction: column;
+            }
+            & .axis-button{
+                margin-right: 30px;
+                @include respond(md){
+                    margin-right: 0;
+                }
+            }
+            & .play-button{
+                font-weight: 600;
+                color: $white-color;
+                @include respond(md){
+                    margin-top: 30px;
+                }
+                & .icon{
+                    flex: 0 0 auto;
+                    margin-right: 15px;
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    background-color: $white-color;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+    & .text-box{
+        position: absolute;
+        bottom: 80px;
+        right: 80px;
+        max-width: 420px;
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(19.5px);
+        padding: 30px 40px;
+        border-radius: 20px;
+        @include respond(xl){
+            position: relative;
+            bottom: auto;
+            right: auto;
+            margin: 0 auto;
+        }
+        & h3{
+            color: $white-color;
+            font-size: 30px;
+            margin-bottom: 50px;
+        }
+        & .read-more{
+            color: $primary-color;
+        }
+    }
+}
+
+
+
+/* Page Banner CSS */
+
+.page-hero{
+    padding: 292px 0 140px;
+    position: relative;
+    z-index: 1;
+    @include respond(xl){
+        padding: 230px 0 100px;
+    }
+    @include respond(md){
+        padding: 200px 0 100px;
+    }
+    &::after{
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        background-color: rgba(1, 15, 52, 0.56);
+        z-index: -1;
+    }
+    & .page-content{
+        & h1{
+            color: $white-color;
+            font-size: 64px;
+            margin-bottom: 10px;
+            @include respond(md){
+                font-size: 44px;
+            }
+        }
+        & ul{
+            & li{
+                display: inline-block;
+                color: $white-color;
+                font-size: 20px;
+                line-height: 28px;
+                &:not(:last-child){
+                    &:after{
+                        display: inline-block;
+                        content: '\f061';
+                        font-family: 'Font Awesome 5 Pro';
+                        margin-left: 8px;
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

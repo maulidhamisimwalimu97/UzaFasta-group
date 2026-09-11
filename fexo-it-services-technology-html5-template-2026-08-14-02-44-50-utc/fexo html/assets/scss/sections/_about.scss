@@ -1,0 +1,461 @@
+
+/*======================
+    About Section  CSS
+=======================*/
+
+.axis-support-box{
+    &.style-one{
+        display: flex;
+        align-items: center;
+        & .icon{
+            flex: 0 0 auto;
+            width: 45px;
+            margin-right: 15px;
+        }
+    }
+    &.style-two{
+        display: flex;
+        align-items: center;
+        & .icon{
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            font-size: 20px;
+            color: $primary-color;
+            background-color: #F0EFE9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            margin-right: 16px;
+        }
+    }
+    &.style-three{
+        display: flex;
+        align-items: center;
+        & .icon-image-wrap{
+            display: flex;
+            align-items: center;
+            flex: 0 0 auto;
+            margin-right: 15px;
+            & .icon{
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: $white-color;
+                color: $primary-color;
+                z-index: 1;
+            }
+            & .thumb{
+                margin-left: -20px;
+                & img{
+                    border-radius: 50%;
+                    width: 56px;
+                    height: 56px;
+                }
+            }
+        }
+    }
+}
+
+.axis-about_one{
+    & .shape{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        @include respond(xxxl){
+            max-width: 200px;
+        }
+        @include respond(xl){
+            display: none;
+        }
+    }
+    & .axis-image-box{
+        position: relative;
+        & .axis-image{
+            &.image-one{
+                & img{
+                    border-radius: 30px;
+                }
+            }
+            &.image-two{
+                position: absolute;
+                bottom: 65px;
+                left: -80px;
+                & img{
+                    border-radius: 20px;
+                }
+                @include respond(xl){
+                    left: auto;
+                    right: 70px;
+                }
+                @include respond(lg){
+                    right: 150px;
+                }
+                @include respond(md){
+                    display: none;
+                }
+            }
+        }
+    }
+    & .axis-content-box{
+        margin-left: -30px;
+        @include respond(xxxl){
+            margin-left: 0;
+        }
+        & .nav-tabs{
+            background-color: #F8F8F8;
+            border-radius: 100px;
+            border: 1px solid $border-color;
+            max-width: 620px;
+            padding: 8px;
+            font-weight: 700;
+            justify-content: space-between;
+            @include respond(md){
+                justify-content: space-around;
+            }
+            & .nav-link{
+                padding: 15px 45px;
+                line-height: 1;
+                background-color: $white-color;
+                color: $heading-color;
+                border-radius: 50px;
+                text-transform: uppercase;
+                &.active{
+                    background-color: $primary-color;
+                    color: $white-color;
+                }
+                @include respond(md){
+                    padding: 15px 15px;
+                    font-size: 12px;
+                }
+            }
+        }
+        & .tab-content{
+            max-width: 620px;
+            & .content-box{
+                & > p{
+                    margin-bottom: 25px;
+                }
+                & .axis-button-wrap{
+                    display: flex;
+                    align-items: center;
+                    @include respond(md){
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+                    & .theme-btn{
+                        margin-right: 40px;
+                        @include respond(md){
+                            margin-bottom: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.axis-about_two{
+    & .axis-image-box{
+        @include respond(xl){
+            display: flex;
+            align-items: center;
+        }
+        @include respond(md){
+            flex-direction: column;
+        }
+        & .axis-image{
+            & img{
+                margin-left: 95px;
+                border-radius: 30px;
+                @include respond(xl){
+                    margin-left: 0;
+                }
+            }
+        }
+        & .axis-counter-wrapper{
+            background-color: $primary-black-color;
+            display: inline-block;
+            border-radius: 10px;
+            margin-top: -180px;
+            @include respond(xl){
+                margin-top: 0;
+                margin-left: 50px;
+            }
+            @include respond(lg){
+                margin-left: 20px;
+            }
+            @include respond(md){
+                margin-left: 0;
+                margin-top: -80px;
+            }
+            & .axis-counter-item{
+                &:not(:last-child){
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+                }
+                &.style-one{
+                    padding: 25px 40px 35px;
+                    & .content{
+                        h2{
+                            color: $white-color;
+                            margin-bottom: 0;
+                        }
+                        & p{
+                            font-weight: 500;
+                            color: $white-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    & .axis-content-box{
+        margin-left: -50px;
+        @include respond(xxxl){
+            margin-left: 0;
+        }
+        & > p{
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid $border-color;
+        }
+        & .axis-content-wrap{
+            max-width: 550px;
+            & .item-border{
+                & .axis-iconic-left-box{
+                    padding: 0 50px;
+                    @include respond(md){
+                        padding: 0;
+                    }
+                }
+                &:first-child{
+                    & .axis-iconic-left-box{
+                        padding-left: 0;
+                        padding-right: 30px;
+                        @include respond(md){
+                            padding: 0;
+                        }
+                    }
+                }
+                &:not(:last-child){
+                    & .axis-iconic-left-box{
+                        border-right: 1px solid $border-color;
+                        @include respond(md){
+                            border-right: none;
+                            margin-bottom: 30px;
+                        }
+                    }
+                }
+            }
+        }
+        & .check-list{
+            margin-top: 40px;
+            & li{
+                font-weight: 400;
+                &:not(:last-child){
+                    margin-bottom: 13px;
+                }
+            }
+        }
+    }
+}
+
+
+.axis-about_three{
+    & .axis-image-box{
+        position: relative;
+        min-height: 565px;
+        z-index: 1;
+        & .shape{
+            position: absolute;
+            right: 17%;
+            top: 100px;
+            z-index: -1;
+        }
+        & .axis-image{
+            & img{
+                border-radius: 30px;
+            }
+            &.image_one{
+                & img{
+                    margin-left: -30px;
+                    @include respond(xl){
+                        margin-left: 0;
+                    }
+                }
+            }
+            &.image_two{
+                position: absolute;
+                bottom: 0;
+                right: 30px;
+                & img{
+                    border: 5px solid $white-color;
+                }
+                @include respond(md){
+                    position: relative;
+                    bottom: auto;
+                    right: auto;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        & .experience-box{
+            background-color: $white-color;
+            border-radius: 15px;
+            box-shadow: 0 6px 25px 0 rgba(0, 0, 0, 0.10);
+            padding: 23px 20px;
+            z-index: 1;
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            z-index: 1;
+            max-width: 270px;
+            @include respond(md){
+                position: relative;
+                bottom: auto;
+                right: auto;
+            }
+            & .content{
+                display: flex;
+                align-items: center;
+                & h2{
+                    margin-right: 15px;
+                }
+            }
+        }
+    }
+    & .axis-content-box{
+        & p{
+            margin-bottom: 30px;
+        }
+        & .axis-features-list{
+            padding-top: 35px;
+            border-top: 1px solid $border-color;
+        }
+        & .axis-button-wrap{
+            display: flex;
+            align-items: center;
+            @include respond(md){
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            & .axis-button{
+                margin-right: 30px;
+                @include respond(md){
+                    margin-bottom: 20px;
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+
+.axis-about_four{
+    & .axis-image-box{
+        position: relative;
+        min-height: 580px;
+        z-index: 1;
+        & .axis-image{
+            & img{
+                border-radius: 30px;
+            }
+            &.image_two{
+                position: absolute;
+                bottom: -20px;
+                right: -120px;
+                @include respond(xl){
+                    right: 50px;
+                }
+                @include respond(md){
+                    position: relative;
+                    bottom: auto;
+                    right: auto;
+                    margin-top: 30px;
+                }
+            }
+        }
+        & .shape{
+            position: absolute;
+            top: 40px;
+            right: 25px;
+            z-index: -1;
+            & span{
+                width: 430px;
+                height: 520px;
+                border: 2px solid $primary-color;
+                border-radius: 30px;
+                @include respond(md){
+                    width: 300px;
+                }
+            }
+        }
+    }
+    & .axis-content-box{
+        & > p{
+            margin-bottom: 30px;
+        }
+        & .axis-content-wrap{
+            padding-left: 150px;
+            @include respond(xl){
+                padding-left: 0;
+            }
+        }
+        & .experience-content-box{
+            display: flex;
+            align-items: center;
+            @include respond(md){
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            & .experience-box{
+                background-color: $white-color;
+                border-radius: 15px;
+                border: 1px solid #F2F2F2;
+                box-shadow: 0 13px 25px 0 rgba(0, 0, 0, 0.05);
+                padding: 11px 18px 19px;
+                text-align: center;
+                margin-right: 25px;
+                & .content{
+                    & h3{
+                        color: $primary-color;
+                        font-size: 36px;
+                        font-weight: 700;
+                    }
+                }
+                @include respond(xxxl){
+                    display: none;
+                }
+                @include respond(xl){
+                    display: block;
+                }
+            }
+        }
+        & .check-list{
+            & li{
+                &:not(:last-child){
+                    margin-bottom: 10px;
+                }
+            }
+        }
+        & .axis-button-wrap{
+            display: flex;
+            align-items: center;
+            @include respond(md){
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            & .axis-button{
+                margin-right: 30px;
+                @include respond(md){
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}
