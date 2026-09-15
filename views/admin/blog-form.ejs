@@ -1,0 +1,89 @@
+<%- include('partials/head', { pageTitle: blog ? 'Edit Blog' : 'New Blog' }) %>
+<body>
+
+    <div id="layout-wrapper">
+
+        <%- include('partials/topbar') %>
+        <%- include('partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18"><%= blog ? 'Edit Blog' : 'New Blog' %></h4>
+                                <div class="page-title-right"><a href="/admin/blogs" class="btn btn-light waves-effect"><i class="mdi mdi-arrow-left mr-1"></i>Back</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="alert alert-danger font-size-14"><%= error %></div>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form method="POST" action="/admin/blogs<%= blog ? '/' + blog.id + '/edit' : '/new' %>" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>Title *</label>
+                                            <input type="text" class="form-control" name="title" value="<%= blog ? blog.title : '' %>" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Category</label>
+                                            <input type="text" class="form-control" name="category" value="<%= blog && blog.category ? blog.category : '' %>" placeholder="e.g. Digital Marketing, Web Design" maxlength="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Excerpt (short summary)</label>
+                                            <input type="text" class="form-control" name="excerpt" value="<%= blog && blog.excerpt ? blog.excerpt : '' %>" maxlength="300">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Content *</label>
+                                            <textarea class="form-control" name="content" rows="12" required><%= blog ? blog.content : '' %></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cover Image</label>
+                                            <input type="file" class="form-control-file" name="cover_image" accept="image/*">
+                                            <% if (blog && blog.cover_image) { %>
+                                                <small class="text-muted d-block mt-1">Current: <a href="<%= blog.cover_image %>" target="_blank"><%= blog.cover_image.split('/').pop() %></a></small>
+                                            <% } %>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Video (upload or paste URL)</label>
+                                            <input type="file" class="form-control-file mb-2" name="video_file" accept="video/*">
+                                            <input type="text" class="form-control" name="video_url" placeholder="Or paste video URL (YouTube, Vimeo, or direct .mp4 link)" value="<%= blog && blog.video_url ? blog.video_url : '' %>">
+                                            <% if (blog && blog.video_url) { %>
+                                                <small class="text-muted d-block mt-1">Current: <a href="<%= blog.video_url %>" target="_blank"><%= blog.video_url.split('/').pop() %></a></small>
+                                            <% } %>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" name="status">
+                                                <option value="published" <%= blog && blog.status === 'published' ? 'selected' : '' %>>Published</option>
+                                                <option value="draft" <%= blog && blog.status === 'draft' ? 'selected' : '' %>>Draft</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-content-save mr-1"></i>Save Blog</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-assets/js/jquery.min.js"></script>
+    <script src="/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/metismenu.min.js"></script>
+    <script src="/admin-assets/js/waves.js"></script>
+    <script src="/admin-assets/js/simplebar.min.js"></script>
+    <script src="/admin-assets/js/theme.js"></script>
+</body>
+
+</html>

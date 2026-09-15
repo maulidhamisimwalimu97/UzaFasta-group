@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Login | UzaFasta Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="/assets/images/favicon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/admin-assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #3281f2; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .login-wrapper { width: 100%; max-width: 900px; margin: 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); overflow: hidden; display: flex; min-height: 480px; }
+        .login-left { flex: 0 0 40%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; color: #fff; text-align: center; }
+        .login-left .brand-logo { max-width: 180px; margin-bottom: 30px; filter: brightness(0) invert(1); }
+        .login-left h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+        .login-left p { font-size: 14px; opacity: 0.8; line-height: 1.6; }
+        .login-right { flex: 1; padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; }
+        .login-right .logo-mobile { display: none; max-width: 120px; margin-bottom: 30px; }
+        .login-right h1 { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+        .login-right p { color: #6c757d; font-size: 14px; margin-bottom: 28px; }
+        .login-right .form-group { margin-bottom: 20px; }
+        .login-right label { font-size: 13px; font-weight: 600; color: #495057; margin-bottom: 6px; display: block; }
+        .login-right input[type="text"],
+        .login-right input[type="password"] {
+            width: 100%; padding: 12px 16px; border: 1px solid #dee2e6; border-radius: 8px;
+            font-size: 14px; transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+        }
+        .login-right input:focus { border-color: #3281f2; box-shadow: 0 0 0 3px rgba(50,129,242,0.15); }
+        .btn-login {
+            width: 100%; padding: 13px; background: #1a1a2e; color: #fff; border: none; border-radius: 8px;
+            font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-login:hover { background: #0f3460; }
+        .back-link { text-align: center; margin-top: 20px; }
+        .back-link a { color: #6c757d; font-size: 13px; text-decoration: none; }
+        .back-link a:hover { color: #3281f2; }
+        .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
+        .alert-danger { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; }
+
+        @media (max-width: 768px) {
+            .login-wrapper { flex-direction: column; margin: 20px; }
+            .login-left { display: none; }
+            .login-right .logo-mobile { display: block; }
+            .login-right { padding: 40px 24px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-wrapper">
+        <div class="login-left">
+            <img src="/admin-assets/images/logo-uzafasta.png" alt="UzaFasta Logo" class="brand-logo" />
+            <h2>UzaFasta Group</h2>
+            <p>Manage your blogs, portfolio projects, and client inquiries from one dashboard.</p>
+        </div>
+        <div class="login-right">
+            <img src="/admin-assets/images/logo-uzafasta.png" alt="UzaFasta Logo" class="logo-mobile" />
+            <h1>Welcome Back!</h1>
+            <p>Enter your credentials to access the admin panel.</p>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="alert alert-danger"><%= error %></div>
+            <% } %>
+
+            <form method="POST" action="/admin/login">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Enter your username" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-login">Log In</button>
+            </form>
+
+            <div class="back-link">
+                <a href="/index">Back to Website</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

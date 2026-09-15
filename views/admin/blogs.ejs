@@ -1,0 +1,88 @@
+<%- include('partials/head', { pageTitle: 'Blogs' }) %>
+<body>
+
+    <div id="layout-wrapper">
+
+        <%- include('partials/topbar') %>
+        <%- include('partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18">Blogs</h4>
+                                <div class="page-title-right">
+                                    <a href="/admin/blogs/new" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-plus mr-1"></i>New Blog</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <%- include('partials/flash') %>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Title</th>
+                                                    <th>Status</th>
+                                                    <th>Created</th>
+                                                    <th class="text-right">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (blogs.length === 0) { %>
+                                                    <tr><td colspan="5" class="text-center text-muted">No blogs yet. Click "New Blog" to add one.</td></tr>
+                                                <% } %>
+                                                <% blogs.forEach(function(b, i) { %>
+                                                <tr>
+                                                    <td><%= i + 1 %></td>
+                                                    <td><a href="/admin/blogs/<%= b.id %>/edit"><%= b.title %></a></td>
+                                                    <td>
+                                                        <% if (b.status === 'published') { %>
+                                                            <span class="badge badge-soft-success">Published</span>
+                                                        <% } else { %>
+                                                            <span class="badge badge-soft-secondary">Draft</span>
+                                                        <% } %>
+                                                    </td>
+                                                    <td><%= b.created_at.toLocaleDateString() %></td>
+                                                    <td class="text-right">
+                                                        <a href="/admin/blogs/<%= b.id %>/edit" class="btn btn-sm btn-light"><i class="mdi mdi-pencil"></i></a>
+                                                        <form method="POST" action="/admin/blogs/<%= b.id %>/delete" style="display:inline" onsubmit="return confirm('Delete this blog?');">
+                                                            <button type="submit" class="btn btn-sm btn-danger"><i class="mdi mdi-delete"></i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-assets/js/jquery.min.js"></script>
+    <script src="/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/metismenu.min.js"></script>
+    <script src="/admin-assets/js/waves.js"></script>
+    <script src="/admin-assets/js/simplebar.min.js"></script>
+    <script src="/admin-assets/js/theme.js"></script>
+</body>
+
+</html>

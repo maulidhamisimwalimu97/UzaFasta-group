@@ -1,0 +1,111 @@
+<%- include('partials/head', { pageTitle: 'Staff' }) %>
+<body style="background:#f5f6fa;">
+
+    <div id="layout-wrapper">
+
+        <%- include('partials/topbar') %>
+        <%- include('partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18">Staff (Admin Users)</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <%- include('partials/flash') %>
+                    <% } %>
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="alert alert-danger font-size-14"><%= error %></div>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-3">Add New Staff</h4>
+                                    <form method="POST" action="/admin/staff/add">
+                                        <div class="form-group">
+                                            <label>Full Name *</label>
+                                            <input type="text" class="form-control" name="full_name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Username *</label>
+                                            <input type="text" class="form-control" name="username" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email *</label>
+                                            <input type="email" class="form-control" name="email" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password *</label>
+                                            <input type="password" class="form-control" name="password" minlength="6" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-account-plus mr-1"></i>Add Staff</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-3">Current Staff</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Username</th>
+                                                    <th>Email</th>
+                                                    <th>Joined</th>
+                                                    <th class="text-right">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% staff.forEach(function(s, i) { %>
+                                                <tr>
+                                                    <td><%= i + 1 %></td>
+                                                    <td><%= s.full_name %><% if (s.id === admin.id) { %> <span class="badge badge-soft-primary">You</span><% } %></td>
+                                                    <td><%= s.username %></td>
+                                                    <td><%= s.email %></td>
+                                                    <td><%= new Date(s.created_at).toLocaleDateString() %></td>
+                                                    <td class="text-right">
+                                                        <% if (s.id !== admin.id) { %>
+                                                        <form method="POST" action="/admin/staff/<%= s.id %>/delete" style="display:inline" onsubmit="return confirm('Delete this staff member?');">
+                                                            <button type="submit" class="btn btn-sm btn-danger"><i class="mdi mdi-delete"></i></button>
+                                                        </form>
+                                                        <% } else { %>
+                                                        <span class="text-muted">—</span>
+                                                        <% } %>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-assets/js/jquery.min.js"></script>
+    <script src="/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/metismenu.min.js"></script>
+    <script src="/admin-assets/js/waves.js"></script>
+    <script src="/admin-assets/js/simplebar.min.js"></script>
+    <script src="/admin-assets/js/theme.js"></script>
+</body>
+
+</html>

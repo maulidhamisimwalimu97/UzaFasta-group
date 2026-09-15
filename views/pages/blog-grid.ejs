@@ -7,7 +7,7 @@
         <meta name="description" content="AI, Agency, Technology">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!--====== Title ======-->
-        <title>Fexo - IT Solution & Technology HTML Template</title>
+        <title>UzaFasta Blogs - UzaFasta Group</title>
         <!--====== Favicon Icon ======-->
         <link rel="icon" href="assets/images/favicon.png" type="image/png">
         <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
@@ -27,6 +27,26 @@
         <link rel="stylesheet" href="assets/css/spacings.css">
         <!--====== Default css ======-->
         <link rel="stylesheet" href="assets/css/style.css">
+        <style>
+            .uz-blog-card { background:#fff; border:1px solid #eef1f7; border-radius:14px; overflow:hidden; transition:transform .3s ease, box-shadow .3s ease; height:calc(100% - 40px); display:flex; flex-direction:column; }
+            .uz-blog-card:hover { transform:translateY(-8px); box-shadow:0 18px 40px rgba(15,45,110,.14); }
+            .uz-blog-card .post-thumbnail { position:relative; overflow:hidden; border-radius:14px 14px 0 0; }
+            .uz-blog-card .post-thumbnail img.uz-blog-img { width:100%; aspect-ratio:16/10; object-fit:cover; display:block; transition:transform .5s ease; }
+            .uz-blog-card:hover .post-thumbnail img.uz-blog-img { transform:scale(1.06); }
+            .uz-date-badge { position:absolute; bottom:12px; left:12px; background:#123a86; color:#fff; padding:7px 13px; border-radius:8px; font-size:12.5px; font-weight:600; z-index:2; box-shadow:0 6px 16px rgba(10,25,70,.35); }
+            .uz-date-badge i { margin-right:4px; }
+            .uz-blog-card .post-content { padding:22px 22px 26px; flex:1; display:flex; flex-direction:column; }
+            .uz-blog-card .uz-blog-title { font-size:19px; line-height:1.5; margin-bottom:10px; }
+            .uz-blog-card .uz-blog-title a { color:#0e1c3a; text-decoration:none; }
+            .uz-blog-card .uz-blog-title a:hover { color:#123a86; }
+            .uz-blog-excerpt { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; color:#5a6472; font-size:14.5px; line-height:1.75; margin:0 0 16px; }
+            .uz-video-badge { position:absolute; top:12px; right:12px; width:44px; height:44px; background:rgba(18,58,134,.85); color:#fff; font-size:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:2; box-shadow:0 6px 18px rgba(0,0,0,.35); }
+            .page-hero::after { background-color:rgba(1,15,52,.62); }
+            @media (max-width:767.98px) {
+                .uz-blog-card .post-content { padding:18px 18px 22px; }
+                .uz-blog-card .uz-blog-title { font-size:17px; }
+            }
+        </style>
     </head>
     <body class="axis-innerpage">
         <!--====== Start Preloader ======-->
@@ -44,7 +64,7 @@
             <div id="smooth-content">
                 <main>
                     <!--======  Start Page Hero Section  ======-->
-                    <section class="page-hero bg_cover p-r z-1" data-src="assets/images/innerpage/bg/page-bg.png">
+                    <section class="page-hero bg_cover p-r z-1" data-src="assets/images/innerpage/bg/blog-pen.jpg" style="background-image:url('assets/images/innerpage/bg/blog-pen.jpg');background-size:cover;background-position:center;">
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
@@ -63,127 +83,39 @@
                     <section class="axis-blog-grid-sec pt-120 pb-90">
                         <div class="container">
                             <div class="row">
-                                <div class="col-xl-4 col-md-6 col-sm-6">
-                                    <div class="axis-blog-post-item style-one mb-30">
+                                <% if (typeof blogs === 'undefined' || blogs.length === 0) { %>
+                                    <div class="col-12">
+                                        <div class="text-center py-5">
+                                            <i class="far fa-newspaper fa-3x mb-3" style="color:#c9d4ea"></i>
+                                            <h4>No blog posts yet</h4>
+                                            <p class="text-muted">Check back soon for fresh updates from UzaFasta Group.</p>
+                                        </div>
+                                    </div>
+                                <% } %>
+                                <% (typeof blogs !== 'undefined' ? blogs : []).forEach(function(blog) { %>
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <article class="axis-blog-post-item style-one mb-40 uz-blog-card">
                                         <div class="post-thumbnail">
-                                            <img src="assets/images/innerpage/blog/blog-grid1.png" alt="blog image">
+                                            <a href="/blogs/<%= blog.slug %>">
+                                                <img src="<%= blog.cover_image || 'assets/images/innerpage/blog/blog-grid1.png' %>" alt="<%= blog.title %>" class="uz-blog-img">
+                                            </a>
+                                            <span class="uz-date-badge"><i class="far fa-calendar-alt mr-1"></i><%= blog.created_at.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></span>
+                                            <% if (blog.video_url) { %>
+                                                <span class="uz-video-badge"><i class="fas fa-play-circle"></i></span>
+                                            <% } %>
                                         </div>
                                         <div class="post-content">
-                                            <div class="post-meta">
-                                                <span><i class="far fa-tags"></i>Cyber Security</span>
-                                                <span><i class="far fa-calendar-alt"></i>June 15, 2025</span>
-                                            </div>
-                                            <h4 class="title"><a href="blog-details.html">The Importance of Cyber security Services from IT Experts</a></h4>
+                                            <h4 class="title uz-blog-title"><a href="/blogs/<%= blog.slug %>"><%= blog.title %></a></h4>
+                                            <% if (blog.excerpt) { %>
+                                                <p class="uz-blog-excerpt"><%= blog.excerpt %></p>
+                                            <% } %>
                                             <div class="post-bottom">
-                                                <a href="blog-details.html" class="read-more style-one">Read Details<i class="far fa-arrow-right"></i></a>
-                                                <span><i class="far fa-comments"></i>(03) Comments</span>
+                                                <a href="/blogs/<%= blog.slug %>" class="uz-more-link">Read Details<i class="far fa-arrow-right"></i></a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </article>
                                 </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6">
-                                    <div class="axis-blog-post-item style-one mb-30">
-                                        <div class="post-thumbnail">
-                                            <img src="assets/images/innerpage/blog/blog-grid2.png" alt="blog image">
-                                        </div>
-                                        <div class="post-content">
-                                            <div class="post-meta">
-                                                <span><i class="far fa-tags"></i>Cyber Security</span>
-                                                <span><i class="far fa-calendar-alt"></i>June 15, 2025</span>
-                                            </div>
-                                            <h4 class="title"><a href="blog-details.html">How Emerging Technologies Are Reshaping Business</a></h4>
-                                            <div class="post-bottom">
-                                                <a href="blog-details.html" class="read-more style-one">Read Details<i class="far fa-arrow-right"></i></a>
-                                                <span><i class="far fa-comments"></i>(03) Comments</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6">
-                                    <div class="axis-blog-post-item style-one mb-30">
-                                        <div class="post-thumbnail">
-                                            <img src="assets/images/innerpage/blog/blog-grid3.png" alt="blog image">
-                                        </div>
-                                        <div class="post-content">
-                                            <div class="post-meta">
-                                                <span><i class="far fa-tags"></i>Cyber Security</span>
-                                                <span><i class="far fa-calendar-alt"></i>June 15, 2025</span>
-                                            </div>
-                                            <h4 class="title"><a href="blog-details.html">How Custom Software Develop Change the Game</a></h4>
-                                            <div class="post-bottom">
-                                                <a href="blog-details.html" class="read-more style-one">Read Details<i class="far fa-arrow-right"></i></a>
-                                                <span><i class="far fa-comments"></i>(03) Comments</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6">
-                                    <div class="axis-blog-post-item style-one mb-30">
-                                        <div class="post-thumbnail">
-                                            <img src="assets/images/innerpage/blog/blog-grid4.png" alt="blog image">
-                                        </div>
-                                        <div class="post-content">
-                                            <div class="post-meta">
-                                                <span><i class="far fa-tags"></i>Cyber Security</span>
-                                                <span><i class="far fa-calendar-alt"></i>June 15, 2025</span>
-                                            </div>
-                                            <h4 class="title"><a href="blog-details.html">The Value of IT Professionals' Cybersecurity Services</a></h4>
-                                            <div class="post-bottom">
-                                                <a href="blog-details.html" class="read-more style-one">Read Details<i class="far fa-arrow-right"></i></a>
-                                                <span><i class="far fa-comments"></i>(03) Comments</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6">
-                                    <div class="axis-blog-post-item style-one mb-30">
-                                        <div class="post-thumbnail">
-                                            <img src="assets/images/innerpage/blog/blog-grid5.png" alt="blog image">
-                                        </div>
-                                        <div class="post-content">
-                                            <div class="post-meta">
-                                                <span><i class="far fa-tags"></i>Cyber Security</span>
-                                                <span><i class="far fa-calendar-alt"></i>June 15, 2025</span>
-                                            </div>
-                                            <h4 class="title"><a href="blog-details.html">The Way New Technologies Are Changing the Business Landscape</a></h4>
-                                            <div class="post-bottom">
-                                                <a href="blog-details.html" class="read-more style-one">Read Details<i class="far fa-arrow-right"></i></a>
-                                                <span><i class="far fa-comments"></i>(03) Comments</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6">
-                                    <div class="axis-blog-post-item style-one mb-30">
-                                        <div class="post-thumbnail">
-                                            <img src="assets/images/innerpage/blog/blog-grid6.png" alt="blog image">
-                                        </div>
-                                        <div class="post-content">
-                                            <div class="post-meta">
-                                                <span><i class="far fa-tags"></i>Cyber Security</span>
-                                                <span><i class="far fa-calendar-alt"></i>June 15, 2025</span>
-                                            </div>
-                                            <h4 class="title"><a href="blog-details.html">How the Game Is Being Changed by Software Development</a></h4>
-                                            <div class="post-bottom">
-                                                <a href="blog-details.html" class="read-more style-one">Read Details<i class="far fa-arrow-right"></i></a>
-                                                <span><i class="far fa-comments"></i>(03) Comments</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="theme-pagination text-center mt-30" data-aos="fade-up" data-aos-duration="1400">
-                                        <ul>
-                                            <li><a href="#"><i class="fas fa-arrow-left"></i></a></li>
-                                            <li><a href="#">01</a></li>
-                                            <li><a href="#">02</a></li>
-                                            <li><a href="#">03</a></li>
-                                            <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <% }) %>
                             </div>
                         </div>
                     </section>

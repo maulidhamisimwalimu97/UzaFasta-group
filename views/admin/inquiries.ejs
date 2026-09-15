@@ -1,0 +1,90 @@
+<%- include('partials/head', { pageTitle: 'Inquiries' }) %>
+<body>
+
+    <div id="layout-wrapper">
+
+        <%- include('partials/topbar') %>
+        <%- include('partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18">Inquiries</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <%- include('partials/flash') %>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Subject</th>
+                                                    <th>Tracking Code</th>
+                                                    <th>Reply</th>
+                                                    <th>Date</th>
+                                                    <th class="text-right">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (inquiries.length === 0) { %>
+                                                    <tr><td colspan="8" class="text-center text-muted">No inquiries yet.</td></tr>
+                                                <% } %>
+                                                <% inquiries.forEach(function(inq, i) { %>
+                                                <tr class="<%= inq.is_viewed ? '' : 'inquiry-unread' %>">
+                                                    <td><%= i + 1 %></td>
+                                                    <td><%= inq.name %></td>
+                                                    <td><%= inq.email %></td>
+                                                    <td><%= inq.subject %></td>
+                                                    <td><code><%= inq.tracking_code %></code></td>
+                                                    <td>
+                                                        <% if (inq.reply) { %>
+                                                            <span class="badge badge-soft-success">Replied</span>
+                                                        <% } else if (inq.is_viewed) { %>
+                                                            <span class="badge badge-soft-info">Viewed</span>
+                                                        <% } else { %>
+                                                            <span class="badge badge-soft-warning">New</span>
+                                                        <% } %>
+                                                    </td>
+                                                    <td><%= inq.created_at.toLocaleDateString() %></td>
+                                                    <td class="text-right">
+                                                        <a href="/admin/inquiries/<%= inq.id %>" class="btn btn-sm btn-primary"><i class="mdi mdi-eye"></i> View</a>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-assets/js/jquery.min.js"></script>
+    <script src="/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/metismenu.min.js"></script>
+    <script src="/admin-assets/js/waves.js"></script>
+    <script src="/admin-assets/js/simplebar.min.js"></script>
+    <script src="/admin-assets/js/theme.js"></script>
+</body>
+
+</html>

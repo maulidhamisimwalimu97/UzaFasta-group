@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' | ' : '' %>UzaFasta Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="/assets/images/favicon.png">
+
+    <link href="/admin-assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/admin-assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/admin-assets/css/theme.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .navbar-header {
+            background-color: #ffffff !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.10) !important;
+        }
+        .navbar-header .header-item {
+            color: #495057 !important;
+        }
+        .navbar-header .header-item:hover {
+            color: #3281f2 !important;
+        }
+        .navbar-brand-box {
+            background: #ffffff;
+            padding: 0 1.5rem;
+            min-width: 250px;
+        }
+        .navbar-brand-box .logo span img,
+        .admin-logo-img {
+            max-height: 34px;
+        }
+        .login-logo-img {
+            max-height: 60px;
+        }
+        .table .fit-inp { max-width: 260px; }
+        .inquiry-unread { font-weight: 600; background: #fff7e6; }
+        .vertical-menu .h-100 { overflow-y: auto; }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var btn = document.getElementById('vertical-menu-btn');
+            var overlay = document.getElementById('menu-overlay');
+            function closeMenu() { document.body.classList.remove('enable-vertical-menu'); }
+            if (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.body.classList.toggle('enable-vertical-menu');
+                });
+            }
+            if (overlay) {
+                overlay.addEventListener('click', closeMenu);
+            }
+            window.addEventListener('resize', function () {
+                if (window.innerWidth >= 992) closeMenu();
+            });
+        });
+    </script>
+</head>

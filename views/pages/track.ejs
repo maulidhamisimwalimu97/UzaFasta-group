@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Track your inquiry status with UzaFasta Group">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Track Your Inquiry - UzaFasta-Group</title>
+        <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/fonts/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="/assets/css/plugins/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/plugins/slick.css">
+        <link rel="stylesheet" href="/assets/css/plugins/magnific-popup.css">
+        <link rel="stylesheet" href="/assets/css/plugins/aos.css">
+        <link rel="stylesheet" href="/assets/css/spacings.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <style>
+            .uzafasta-track-search {
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(135deg, #0e1b3d 0%, #123a86 55%, #0E8EE2 130%);
+                border-radius: 18px;
+                padding: 38px 36px 40px;
+                color: #fff;
+                box-shadow: 0 18px 45px rgba(15, 45, 110, .20);
+            }
+            .uzafasta-track-search::after {
+                content: "";
+                position: absolute;
+                right: -60px;
+                top: -60px;
+                width: 240px;
+                height: 240px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, .06);
+                pointer-events: none;
+            }
+            .uzafasta-track-search-icon {
+                width: 52px;
+                height: 52px;
+                border-radius: 14px;
+                background: rgba(255, 255, 255, .12);
+                border: 1px solid rgba(255, 255, 255, .18);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                margin-bottom: 18px;
+            }
+            .uzafasta-track-search h4 {
+                color: #fff;
+                font-size: 24px;
+                font-weight: 700;
+                margin: 0 0 6px;
+            }
+            .uzafasta-track-search p {
+                color: rgba(255, 255, 255, .78);
+                font-size: 14.5px;
+                margin: 0 0 22px;
+                max-width: 440px;
+            }
+            .uzafasta-track-form {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+            .uzafasta-track-form input[type="text"] {
+                flex: 1 1 260px;
+                border: none;
+                border-radius: 50px;
+                padding: 14px 22px;
+                font-size: 14.5px;
+                color: #1a2340;
+                outline: none;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, .12);
+            }
+            .uzafasta-track-form input[type="text"]::placeholder {
+                color: #98a1b5;
+            }
+            .uzafasta-track-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                background: #FCB614;
+                color: #0e1b3d;
+                font-weight: 700;
+                font-size: 15px;
+                border: none;
+                border-radius: 50px;
+                padding: 14px 28px;
+                cursor: pointer;
+                transition: transform .25s ease, box-shadow .25s ease;
+                box-shadow: 0 8px 22px rgba(0, 0, 0, .18);
+            }
+            .uzafasta-track-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 28px rgba(0, 0, 0, .24);
+            }
+            .uzafasta-track-results h5 {
+                font-size: 18px;
+                color: #1a2340;
+                font-weight: 700;
+            }
+            .uzafasta-track-card {
+                background: #fff;
+                border: 1px solid #eef1f7;
+                border-radius: 14px;
+                padding: 24px 26px;
+                margin-bottom: 20px;
+                box-shadow: 0 6px 22px rgba(15, 45, 110, .06);
+                transition: transform .25s ease, box-shadow .25s ease;
+            }
+            .uzafasta-track-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 14px 34px rgba(15, 45, 110, .12);
+            }
+            .uzafasta-track-card-head {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 16px;
+                margin-bottom: 14px;
+                flex-wrap: wrap;
+            }
+            .uzafasta-track-card-title {
+                font-size: 19px;
+                font-weight: 700;
+                color: #0e1c3a;
+                margin: 0 0 6px;
+            }
+            .uzafasta-track-meta {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                font-size: 13px;
+                color: #7c8698;
+            }
+            .uzafasta-track-code {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: #eef4ff;
+                color: #0E8EE2;
+                font-weight: 700;
+                font-family: Consolas, Menlo, monospace;
+                border-radius: 6px;
+                padding: 4px 10px;
+                font-size: 12.5px;
+            }
+            .uzafasta-track-meta i {
+                margin-right: 5px;
+                color: #0E8EE2;
+            }
+            .uzafasta-status-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 14px;
+                border-radius: 50px;
+                font-size: 12.5px;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            .uzafasta-status-badge.new { background: #fff4cc; color: #8a6d00; }
+            .uzafasta-status-badge.viewed { background: #e3f2ff; color: #0d6ab8; }
+            .uzafasta-status-badge.replied { background: #e2f7ea; color: #157347; }
+            .uzafasta-track-message {
+                background: #f7f9fc;
+                border: 1px solid #eef1f7;
+                border-radius: 10px;
+                padding: 16px 18px;
+                color: #465071;
+                font-size: 14.5px;
+                line-height: 1.8;
+                white-space: pre-wrap;
+                margin: 0 0 14px;
+            }
+            .uzafasta-track-reply {
+                background: #e8f2ff;
+                border: 1px solid #cfe2ff;
+                border-left: 4px solid #2d7ff2;
+                border-radius: 0 10px 10px 0;
+                padding: 16px 20px;
+                color: #264a7c;
+            }
+            .uzafasta-track-reply strong {
+                display: block;
+                margin-bottom: 6px;
+                color: #123a86;
+                font-size: 14px;
+            }
+            .uzafasta-track-reply span {
+                font-size: 14.5px;
+                line-height: 1.8;
+                white-space: pre-wrap;
+            }
+            .uzafasta-track-empty {
+                text-align: center;
+                background: #fff;
+                border: 1px dashed #d5dbe8;
+                border-radius: 14px;
+                padding: 46px 24px;
+                margin-top: 22px;
+            }
+            .uzafasta-track-empty i {
+                font-size: 40px;
+                color: #c9d4ea;
+            }
+            .uzafasta-track-empty h5 {
+                margin: 14px 0 6px;
+                font-weight: 700;
+                color: #1a2340;
+            }
+            .uzafasta-track-empty p {
+                color: #7c8698;
+                margin: 0;
+            }
+            .uzafasta-track-error {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                background: #fdeeee;
+                border: 1px solid #f3c6c6;
+                color: #b02a37;
+                border-radius: 10px;
+                padding: 14px 18px;
+                font-size: 14.5px;
+                margin-top: 20px;
+            }
+            @media (max-width: 575.98px) {
+                .uzafasta-track-search { padding: 30px 22px 32px; }
+                .uzafasta-track-card { padding: 20px; }
+            }
+        </style>
+    </head>
+    <body class="axis-innerpage">
+        <!--====== Start Preloader ======-->
+        <div class="preloader">
+            <div class="loading-wrapper">
+                <div class="loading"></div>
+                <div id="loading-icon"><img src="/assets/images/loader.png" alt="loader"></div>
+            </div>
+        </div><!--====== End Preloader ======-->
+        <!--====== Start Overlay ======-->
+        <div class="offcanvas__overlay"></div>
+        <%- include('../partials/header') %>
+        <!--======  Smooth Wrapper  ======-->
+        <div id="smooth-wrapper">
+            <div id="smooth-content">
+                <main>
+                    <section class="page-hero bg_cover p-r z-1" data-src="/assets/images/innerpage/bg/contact-bg.jpg">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="page-content text-center">
+                                        <h1>Track Your Inquiry</h1>
+                                        <ul><li><a href="/index">Home</a></li><li>Track Inquiry</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="pt-90 pb-120">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-7 col-lg-10">
+
+                                    <div class="uzafasta-track-search" data-aos="fade-up">
+                                        <span class="uzafasta-track-search-icon"><i class="fas fa-search"></i></span>
+                                        <h4>Find your inquiries</h4>
+                                        <p>Enter the email you used when sending the message, or your tracking code (e.g. UZF-XXXXXX).</p>
+                                        <form method="POST" action="/track" class="uzafasta-track-form">
+                                            <input type="text" name="q" placeholder="Email address or tracking code" value="<%= query || '' %>" required>
+                                            <button type="submit" class="uzafasta-track-btn">Track<i class="far fa-arrow-right"></i></button>
+                                        </form>
+                                    </div>
+
+                                    <% if (typeof error !== 'undefined' && error) { %>
+                                        <div class="uzafasta-track-error" data-aos="fade-up">
+                                            <i class="far fa-exclamation-circle"></i>
+                                            <span><%= error %></span>
+                                        </div>
+                                    <% } %>
+
+                                    <% if (typeof inquiries !== 'undefined') { %>
+                                        <% if (inquiries.length === 0) { %>
+                                            <div class="uzafasta-track-empty" data-aos="fade-up">
+                                                <i class="far fa-inbox"></i>
+                                                <h5>No inquiries found</h5>
+                                                <p>We couldn't find anything for "<strong><%= query %></strong>".<br>Check your email or tracking code and try again.</p>
+                                            </div>
+                                        <% } else { %>
+                                            <div class="uzafasta-track-results mt-5">
+                                                <h5 class="mb-4"><i class="far fa-list-alt mr-2" style="color:#0E8EE2;"></i>Inquiries found: <%= inquiries.length %></h5>
+                                                <% inquiries.forEach(function(i) { %>
+                                                    <div class="uzafasta-track-card" data-aos="fade-up">
+                                                        <div class="uzafasta-track-card-head">
+                                                            <div>
+                                                                <h5 class="uzafasta-track-card-title"><%= i.subject || 'General Inquiry' %></h5>
+                                                                <div class="uzafasta-track-meta">
+                                                                    <span class="uzafasta-track-code"><i class="far fa-tag"></i><%= i.tracking_code %></span>
+                                                                    <span><i class="far fa-calendar-alt"></i><%= i.created_at.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) %></span>
+                                                                    <span><i class="far fa-clock"></i><%= i.created_at.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) %></span>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <% if (i.reply) { %>
+                                                                    <span class="uzafasta-status-badge replied"><i class="far fa-check-circle"></i>Answered</span>
+                                                                <% } else if (i.is_viewed) { %>
+                                                                    <span class="uzafasta-status-badge viewed"><i class="far fa-eye"></i>Viewed</span>
+                                                                <% } else { %>
+                                                                    <span class="uzafasta-status-badge new"><i class="far fa-clock"></i>Pending</span>
+                                                                <% } %>
+                                                            </div>
+                                                        </div>
+                                                        <div class="uzafasta-track-message"><%= i.message %></div>
+                                                        <% if (i.reply) { %>
+                                                            <div class="uzafasta-track-reply">
+                                                                <strong><i class="far fa-reply"></i> Our Reply:</strong>
+                                                                <span><%= i.reply %></span>
+                                                            </div>
+                                                        <% } %>
+                                                    </div>
+                                                <% }) %>
+                                            </div>
+                                        <% } %>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+                <%- include('../partials/footer') %>
+            </div>
+        </div>
+            <%- include('../partials/enquiry-modal') %>
+            <!-- Scroll to Top Button (outside smooth-wrapper) -->
+            <button class="uzafasta-scroll-top" id="scrollTopBtn" aria-label="Back to top">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <script>
+                (function () {
+                    var btn = document.getElementById('scrollTopBtn');
+                    if (!btn) return;
+                    function toggle() {
+                        if (window.scrollY > 400 || document.documentElement.scrollTop > 400) {
+                            btn.classList.add('show');
+                        } else {
+                            btn.classList.remove('show');
+                        }
+                    }
+                    window.addEventListener('scroll', toggle);
+                    btn.addEventListener('click', function () {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                })();
+            </script>
+            <script src="/assets/js/plugins/jquery-3.7.1.min.js"></script>
+            <script src="/assets/js/plugins/popper.min.js"></script>
+            <script src="/assets/js/plugins/bootstrap.min.js"></script>
+            <script src="/assets/js/plugins/gsap/gsap.min.js"></script>
+            <script src="/assets/js/plugins/gsap/SplitText.min.js"></script>
+            <script src="/assets/js/plugins/gsap/ScrollSmoother.min.js"></script>
+            <script src="/assets/js/plugins/gsap/ScrollTrigger.min.js"></script>
+            <script src="/assets/js/plugins/slick.min.js"></script>
+            <script src="/assets/js/plugins/jquery.magnific-popup.min.js"></script>
+            <script src="/assets/js/plugins/jquery.waypoints.js"></script>
+            <script src="/assets/js/plugins/jquery.counterup.min.js"></script>
+            <script src="/assets/js/plugins/aos.js"></script>
+            <script src="/assets/js/theme.js"></script>
+    </body>
+</html>

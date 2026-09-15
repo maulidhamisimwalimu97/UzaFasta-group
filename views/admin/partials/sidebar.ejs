@@ -1,0 +1,47 @@
+<div class="vertical-menu">
+            <div class="h-100">
+                <div id="sidebar-menu">
+                    <ul class="metismenu list-unstyled" id="side-menu">
+                        <li class="menu-title">Menu</li>
+
+                        <li>
+                            <a href="/admin/dashboard" class="waves-effect"><i class="mdi mdi-view-dashboard"></i><span>Dashboard</span></a>
+                        </li>
+
+                        <li>
+                            <a href="/admin/blogs" class="waves-effect"><i class="mdi mdi-blogger"></i><span>Blogs</span></a>
+                        </li>
+
+                        <li>
+                            <a href="/admin/projects" class="waves-effect"><i class="mdi mdi-briefcase"></i><span>Projects / Portfolio</span></a>
+                        </li>
+
+                        <li>
+                            <a href="/admin/inquiries" class="waves-effect">
+                                <i class="mdi mdi-email-open"></i><span>Inquiries</span>
+                                <% if (unreadCount > 0) { %>
+                                    <span class="badge badge-pill badge-danger float-right"><%= unreadCount %></span>
+                                <% } %>
+                            </a>
+                        </li>
+
+                        <li class="menu-title">More</li>
+                        <% if (typeof admin !== 'undefined' && admin && admin.role === 'super_admin') { %>
+                        <li>
+                            <a href="/admin/staff" class="waves-effect"><i class="mdi mdi-account-group"></i><span>Staff</span></a>
+                        </li>
+                        <% } %>
+                        <li>
+                            <a href="/admin/change-password" class="waves-effect"><i class="mdi mdi-key"></i><span>Change Password</span></a>
+                        </li>
+                        <li>
+                            <a href="/index" target="_blank" class="waves-effect"><i class="mdi mdi-web"></i><span>View Website</span></a>
+                        </li>
+                        <li>
+                            <a href="/admin/logout" class="waves-effect"><i class="mdi mdi-logout"></i><span>Log Out</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="menu-overlay" id="menu-overlay"></div>

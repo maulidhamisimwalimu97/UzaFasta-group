@@ -1,0 +1,136 @@
+<%- include('partials/head', { pageTitle: 'Dashboard' }) %>
+<body>
+
+    <div id="layout-wrapper">
+
+        <%- include('partials/topbar') %>
+        <%- include('partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18">Dashboard</h4>
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item active">Dashboard</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <%- include('partials/flash') %>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-4 d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Total Blogs</h5>
+                                        <i class="mdi mdi-blogger text-primary font-size-24"></i>
+                                    </div>
+                                    <h2 class="mb-0"><%= stats.blogs %></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-4 d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Total Projects</h5>
+                                        <i class="mdi mdi-briefcase text-success font-size-24"></i>
+                                    </div>
+                                    <h2 class="mb-0"><%= stats.projects %></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-4 d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Total Inquiries</h5>
+                                        <i class="mdi mdi-email-multiple text-info font-size-24"></i>
+                                    </div>
+                                    <h2 class="mb-0"><%= stats.inquiries %></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-4 d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Unread Inquiries</h5>
+                                        <i class="mdi mdi-email-alert text-warning font-size-24"></i>
+                                    </div>
+                                    <h2 class="mb-0"><%= stats.unread %></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h4 class="card-title mb-0">Latest Inquiries</h4>
+                                        <a href="/admin/inquiries" class="btn btn-sm btn-light">View All</a>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-nowrap table-centered mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Tracking Code</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (latestInquiries.length === 0) { %>
+                                                    <tr><td colspan="5" class="text-center text-muted">No inquiries yet.</td></tr>
+                                                <% } %>
+                                                <% latestInquiries.forEach(function(inq) { %>
+                                                <tr>
+                                                    <td><%= inq.name %></td>
+                                                    <td><%= inq.email %></td>
+                                                    <td><code><%= inq.tracking_code %></code></td>
+                                                    <td>
+                                                        <% if (inq.is_viewed) { %>
+                                                            <span class="badge badge-soft-success">Viewed</span>
+                                                        <% } else { %>
+                                                            <span class="badge badge-soft-warning">New</span>
+                                                        <% } %>
+                                                    </td>
+                                                    <td><%= inq.created_at.toLocaleDateString() %></td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-assets/js/jquery.min.js"></script>
+    <script src="/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/metismenu.min.js"></script>
+    <script src="/admin-assets/js/waves.js"></script>
+    <script src="/admin-assets/js/simplebar.min.js"></script>
+    <script src="/admin-assets/js/theme.js"></script>
+</body>
+
+</html>

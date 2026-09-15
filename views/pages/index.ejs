@@ -491,63 +491,44 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center">
-                                <div class="col-xl-4 col-md-6 col-sm-6">
-                                    <!-- Fexo Blog Post Item -->
-                                    <div class="axis-blog-post-item style-one mb-40" data-aos="fade-up">
-                                        <div class="post-thumbnail">
-                                            <img src="assets/images/blog/blog-marketing.jpg" alt="Digital marketing blog">
-                                        </div>
-                                        <div class="post-content">
-                                            <div class="post-meta">
-                                                <span><i class="far fa-tags"></i>Digital Marketing</span>
-                                                <span><i class="far fa-calendar-alt"></i>September 02, 2026</span>
-                                            </div>
-                                            <h4 class="title"><a href="blog-details.html">5 Digital Marketing Strategies That Grow Your Business</a></h4>
-                                            <div class="post-bottom">
-                                                <a href="blog-details.html" class="read-more style-one">Read Details<i class="far fa-arrow-right"></i></a>
-                                                <span><i class="far fa-comments"></i>(03) Comments</span>
-                                            </div>
+                                <% if (typeof blogs === 'undefined' || blogs.length === 0) { %>
+                                    <div class="col-12">
+                                        <div class="text-center py-5">
+                                            <i class="far fa-newspaper fa-3x mb-3" style="color:#c9d4ea"></i>
+                                            <h4>No blog posts yet</h4>
+                                            <p class="text-muted">Check back soon for fresh updates from UzaFasta Group.</p>
                                         </div>
                                     </div>
-                                </div>
+                                <% } %>
+                                <% (typeof blogs !== 'undefined' ? blogs : []).forEach(function(blog) { %>
                                 <div class="col-xl-4 col-md-6 col-sm-6">
                                     <!-- Fexo Blog Post Item -->
-                                    <div class="axis-blog-post-item style-one mb-40" data-aos="fade-up">
+                                    <article class="axis-blog-post-item style-one mb-40 uz-blog-card" data-aos="fade-up">
                                         <div class="post-thumbnail">
-                                            <img src="assets/images/blog/blog-webdesign.jpg" alt="Web design blog">
+                                            <a href="/blogs/<%= blog.slug %>">
+                                                <img src="<%= blog.cover_image || 'assets/images/innerpage/blog/blog-grid1.png' %>" alt="<%= blog.title %>" class="uz-blog-img">
+                                            </a>
+                                            <span class="uz-date-badge"><i class="far fa-calendar-alt mr-1"></i><%= blog.created_at.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></span>
+                                            <% if (blog.video_url) { %>
+                                                <span class="uz-video-badge"><i class="fas fa-play-circle"></i></span>
+                                            <% } %>
                                         </div>
                                         <div class="post-content">
-                                            <div class="post-meta">
-                                                <span><i class="far fa-tags"></i>Web Design</span>
-                                                <span><i class="far fa-calendar-alt"></i>August 18, 2026</span>
-                                            </div>
-                                            <h4 class="title"><a href="blog-details.html">Why Your Business Needs a Modern Professional Website</a></h4>
+                                            <% if (blog.category) { %>
+                                                <span class="uz-cat-chip"><%= blog.category %></span>
+                                            <% } %>
+                                            <h4 class="title uz-blog-title"><a href="/blogs/<%= blog.slug %>"><%= blog.title %></a></h4>
+                                            <% if (blog.excerpt) { %>
+                                                <p class="uz-blog-excerpt"><%= blog.excerpt %></p>
+                                            <% } %>
                                             <div class="post-bottom">
-                                                <a href="blog-details.html" class="read-more style-one">Read Details<i class="far fa-arrow-right"></i></a>
-                                                <span><i class="far fa-comments"></i>(03) Comments</span>
+                                                <a href="/blogs/<%= blog.slug %>" class="uz-more-link">Read Details<i class="far fa-arrow-right"></i></a>
+                                                <span class="uz-view-count"><i class="far fa-eye"></i> <%= blog.views || 0 %> Views</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </article>
                                 </div>
-                                <div class="col-xl-4 col-md-6 col-sm-6">
-                                    <!-- Fexo Blog Post Item -->
-                                    <div class="axis-blog-post-item style-one mb-40" data-aos="fade-up">
-                                        <div class="post-thumbnail">
-                                            <img src="assets/images/blog/blog-software.jpg" alt="Software development blog">
-                                        </div>
-                                        <div class="post-content">
-                                            <div class="post-meta">
-                                                <span><i class="far fa-tags"></i>Software Development</span>
-                                                <span><i class="far fa-calendar-alt"></i>July 30, 2026</span>
-                                            </div>
-                                            <h4 class="title"><a href="blog-details.html">How Custom Software Streamlines Your Business Operations</a></h4>
-                                            <div class="post-bottom">
-                                                <a href="blog-details.html" class="read-more style-one">Read Details<i class="far fa-arrow-right"></i></a>
-                                                <span><i class="far fa-comments"></i>(03) Comments</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <% }) %>
                             </div>
                         </div>
                     </section><!--======  End Blog Section  ======-->
@@ -830,6 +811,151 @@
                 }
                 .portfolio-card {
                     min-height: 220px;
+                }
+            }
+
+            /* ═══════════ News & Insights / Blog Cards ═══════════ */
+            .axis-blog-post-item.uz-blog-card {
+                background: #fff;
+                border: 1px solid #eef1f7;
+                border-radius: 14px;
+                overflow: hidden;
+                transition: transform .3s ease, box-shadow .3s ease;
+                height: calc(100% - 40px);
+                display: flex;
+                flex-direction: column;
+            }
+            .axis-blog-post-item.uz-blog-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 18px 40px rgba(15, 45, 110, .14);
+            }
+            .axis-blog-post-item.uz-blog-card .post-thumbnail {
+                position: relative;
+                overflow: hidden;
+                border-radius: 14px 14px 0 0;
+            }
+            .axis-blog-post-item.uz-blog-card .post-thumbnail img.uz-blog-img {
+                width: 100%;
+                aspect-ratio: 16 / 10;
+                object-fit: cover;
+                display: block;
+                border-radius: 14px 14px 0 0;
+                transition: transform .5s ease;
+            }
+            .axis-blog-post-item.uz-blog-card:hover .post-thumbnail img.uz-blog-img {
+                transform: scale(1.06);
+            }
+            .axis-blog-post-item.uz-blog-card .uz-date-badge {
+                position: absolute;
+                bottom: 12px;
+                left: 12px;
+                background: #123a86;
+                color: #fff;
+                padding: 7px 13px;
+                border-radius: 8px;
+                font-size: 12.5px;
+                font-weight: 600;
+                z-index: 2;
+                box-shadow: 0 6px 16px rgba(10, 25, 70, .35);
+                line-height: 1;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-date-badge i {
+                margin-right: 4px;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-video-badge {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                width: 44px;
+                height: 44px;
+                background: rgba(18, 58, 134, .85);
+                color: #fff;
+                font-size: 20px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+            }
+            .axis-blog-post-item.uz-blog-card .post-content {
+                padding: 22px 22px 26px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-cat-chip {
+                display: inline-block;
+                background: #eef4ff;
+                color: #0E8EE2;
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: .5px;
+                padding: 5px 12px;
+                border-radius: 20px;
+                margin-bottom: 12px;
+                width: -webkit-fit-content;
+                width: fit-content;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-blog-title {
+                font-size: 19px;
+                line-height: 1.5;
+                margin-bottom: 10px;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-blog-title a {
+                color: #0e1c3a;
+                text-decoration: none;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-blog-title a:hover {
+                color: #123a86;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-blog-excerpt {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                color: #5a6472;
+                font-size: 14.5px;
+                line-height: 1.75;
+                margin: 0 0 16px;
+            }
+            .axis-blog-post-item.uz-blog-card .post-bottom {
+                margin-top: auto;
+                padding-top: 16px;
+                border-top: 1px solid #eef1f7;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-more-link {
+                color: #0E8EE2;
+                font-weight: 600;
+                font-size: 14px;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-more-link i {
+                transition: transform .25s ease;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-more-link:hover i {
+                transform: translateX(4px);
+            }
+            .axis-blog-post-item.uz-blog-card .uz-view-count {
+                color: #8a93a6;
+                font-size: 13px;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+            @media (max-width: 767.98px) {
+                .axis-blog-post-item.uz-blog-card .post-content {
+                    padding: 18px 18px 22px;
+                }
+                .axis-blog-post-item.uz-blog-card .uz-blog-title {
+                    font-size: 17px;
                 }
             }
         </style>

@@ -1,0 +1,31 @@
+<header id="page-topbar">
+            <div class="navbar-header">
+                <div class="navbar-brand-box d-flex align-items-center">
+                    <a href="/admin/dashboard" class="logo">
+                        <span class="d-flex align-items-center">
+                            <img src="/admin-assets/images/logo-uzafasta.png" alt="UzaFasta" style="height:32px;width:auto;max-width:170px;object-fit:contain;">
+                        </span>
+                    </a>
+                </div>
+                <div class="d-flex align-items-center ml-auto">
+                    <div class="dropdown d-inline-block ml-2">
+                        <button type="button" class="btn header-item waves-effect waves-light" id="page-header-user-dropdown"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="d-none d-sm-inline-block ml-1"><%= admin.full_name %></span>
+                            <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item d-flex align-items-center justify-content-between" href="/index" target="_blank">
+                                <span>View Website</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between" href="/admin/logout">
+                                <span>Log Out</span>
+                            </a>
+                        </div>
+                    </div>
+                    <button type="button" class="btn ml-2 mr-1 d-lg-none px-3 font-size-16 header-item waves-effect waves-light" id="vertical-menu-btn">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </header>

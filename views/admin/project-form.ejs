@@ -1,0 +1,91 @@
+<%- include('partials/head', { pageTitle: project ? 'Edit Project' : 'New Project' }) %>
+<body>
+
+    <div id="layout-wrapper">
+
+        <%- include('partials/topbar') %>
+        <%- include('partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18"><%= project ? 'Edit Project' : 'New Project' %></h4>
+                                <div class="page-title-right"><a href="/admin/projects" class="btn btn-light waves-effect"><i class="mdi mdi-arrow-left mr-1"></i>Back</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="alert alert-danger font-size-14"><%= error %></div>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form method="POST" action="/admin/projects<%= project ? '/' + project.id + '/edit' : '/new' %>" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>Project Title *</label>
+                                            <input type="text" class="form-control" name="title" value="<%= project ? project.title : '' %>" required>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Category *</label>
+                                                    <input type="text" class="form-control" name="category" value="<%= project ? project.category : '' %>" placeholder="e.g. Web Design, Branding, Video" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Client</label>
+                                                    <input type="text" class="form-control" name="client" value="<%= project ? project.client : '' %>" placeholder="e.g. Company X">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description *</label>
+                                            <textarea class="form-control" name="description" rows="8" required><%= project ? project.description : '' %></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Link (live project URL)</label>
+                                            <input type="url" class="form-control" name="link" value="<%= project && project.link ? project.link : '' %>" placeholder="https://...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cover Image</label>
+                                            <input type="file" class="form-control-file" name="cover_image" accept="image/*">
+                                            <% if (project && project.cover_image) { %>
+                                                <small class="text-muted d-block mt-1">Current: <a href="<%= project.cover_image %>" target="_blank"><%= project.cover_image.split('/').pop() %></a></small>
+                                            <% } %>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" name="status">
+                                                <option value="active" <%= project && project.status === 'active' ? 'selected' : '' %>>Active</option>
+                                                <option value="hidden" <%= project && project.status === 'hidden' ? 'selected' : '' %>>Hidden</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-content-save mr-1"></i>Save Project</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-assets/js/jquery.min.js"></script>
+    <script src="/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/metismenu.min.js"></script>
+    <script src="/admin-assets/js/waves.js"></script>
+    <script src="/admin-assets/js/simplebar.min.js"></script>
+    <script src="/admin-assets/js/theme.js"></script>
+</body>
+
+</html>

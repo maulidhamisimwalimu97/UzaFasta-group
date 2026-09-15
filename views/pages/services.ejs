@@ -65,6 +65,13 @@
 
                     <div class="container">
 
+                        <% if (typeof enquiryMsg !== 'undefined' && enquiryMsg && enquiryMsg.type === 'danger') { %>
+                            <div class="uzafasta-enquiry-alert <%= enquiryMsg.type %>">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span><%= enquiryMsg.text %></span>
+                            </div>
+                        <% } %>
+
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="section-title text-center mb-55">
@@ -74,6 +81,10 @@
                                     </span>
                                     <h2>Everything Your Business Needs to Grow Digitally</h2>
                                     <p class="sf-intro">From strategy to execution, we deliver end-to-end digital solutions tailored to your business goals.</p>
+                                    <a href="#" class="uzafasta-enquiry-btn" data-bs-toggle="modal" data-bs-target="#enquiryModal">Make an Enquiry <i class="far fa-arrow-right"></i></a>
+                                    <div class="mt-3">
+                                        <a href="/track" class="uzafasta-track-link"><i class="far fa-route"></i> Track an enquiry you already submitted</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -193,6 +204,7 @@
                 <%- include('../partials/footer') %>
             </div>
         </div>
+            <%- include('../partials/enquiry-modal') %>
             <!-- Scroll to Top Button (outside smooth-wrapper) -->
     <button class="uzafasta-scroll-top" id="scrollTopBtn" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>

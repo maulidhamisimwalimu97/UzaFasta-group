@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="UzaFasta Group Blog">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title><%= post.title %> - UzaFasta Group</title>
+        <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/fonts/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="/assets/css/plugins/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/plugins/slick.css">
+        <link rel="stylesheet" href="/assets/css/plugins/magnific-popup.css">
+        <link rel="stylesheet" href="/assets/css/plugins/aos.css">
+        <link rel="stylesheet" href="/assets/css/spacings.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <style> .blog-details-body { white-space: pre-wrap; line-height: 1.9; } </style>
+    </head>
+    <body class="axis-innerpage">
+        <!--====== Start Preloader ======-->
+        <div class="preloader">
+            <div class="loading-wrapper">
+                <div class="loading"></div>
+                <div id="loading-icon"><img src="/assets/images/loader.png" alt="loader"></div>
+            </div>
+        </div><!--====== End Preloader ======-->
+        <!--====== Start Overlay ======-->
+        <div class="offcanvas__overlay"></div>
+        <%- include('../partials/header') %>
+        <!--======  Smooth Wrapper  ======-->
+        <div id="smooth-wrapper">
+            <div id="smooth-content">
+                <main>
+            <section class="page-hero p-r z-1" data-src="/assets/images/innerpage/bg/blog-pen.jpg" style="background-image:url('/assets/images/innerpage/bg/blog-pen.jpg');background-size:cover;background-position:center;">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="page-content text-center">
+                                <h1><%= post.title %></h1>
+                                <ul>
+                                    <li><a href="/index">Home</a></li>
+                                    <li><a href="/blogs">Blogs</a></li>
+                                    <li><%= post.excerpt ? post.excerpt.substring(0, 30) + '...' : 'Post' %></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="axis-blog-details-sec pt-120 pb-120">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-9 col-lg-10">
+                            <div class="blog-details-wrapper">
+                                <div class="blog-post-main mb-40" data-aos="fade-up" data-aos-duration="1000">
+                                    <div class="blog-post-item">
+                                        <div class="post-thumbnail mb-30">
+                                            <img src="<%= post.cover_image || '/assets/images/innerpage/blog/blog-single1.png' %>" alt="<%= post.title %>" style="width:100%;height:480px;object-fit:cover;border-radius:12px;">
+                                        </div>
+                                        <% if (post.video_url) {
+                                            const vu = post.video_url;
+                                            const isYouTube = vu.includes('youtube.com') || vu.includes('youtu.be');
+                                            const isVimeo   = vu.includes('vimeo.com');
+                                            let embedUrl = vu;
+                                            if (isYouTube) {
+                                                let vid = '';
+                                                if (vu.includes('youtu.be/')) vid = vu.split('youtu.be/')[1].split(/[?&]/)[0];
+                                                else vid = new URL(vu).searchParams.get('v');
+                                                embedUrl = 'https://www.youtube.com/embed/' + vid + '?rel=0';
+                                            } else if (isVimeo) {
+                                                const parts = vu.split('/');
+                                                embedUrl = 'https://player.vimeo.com/video/' + parts[parts.length - 1] + '?byline=0&portrait=0';
+                                            }
+                                        %>
+                                        <div class="mb-40" style="border-radius:12px;overflow:hidden;background:#000;">
+                                            <% if (isYouTube || isVimeo) { %>
+                                                <div class="embed-responsive embed-responsive-16by9">
+                                                    <iframe class="embed-responsive-item" src="<%= embedUrl %>" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                                                </div>
+                                            <% } else { %>
+                                                <video controls preload="metadata" style="width:100%;max-height:520px;background:#000;display:block;" poster="<%= post.cover_image || '' %>">
+                                                    <source src="<%= vu %>" type="video/<%= vu.split('.').pop().split('?')[0] %>">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            <% } %>
+                                        </div>
+                                        <% } %>
+                                        <div class="post-content">
+                                            <div class="post-meta mb-3">
+                                                <span><i class="far fa-user"></i> By <a href="#">Admin</a></span>
+                                                <span><i class="far fa-calendar-alt"></i><%= post.created_at.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) %></span>
+                                            </div>
+                                            <h4 class="title mb-3"><%= post.title %></h4>
+                                            <% if (post.excerpt) { %>
+                                                <p class="font-italic text-muted"><%= post.excerpt %></p>
+                                            <% } %>
+                                            <div class="blog-details-body"><%= post.content.replace(/\n/g, '<br>') %></div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-40">
+                                        <a href="/blogs" class="theme-btn style-one">More Posts<i class="far fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+                <%- include('../partials/footer') %>
+            </div>
+        </div>
+    <!-- Scroll to Top Button (outside smooth-wrapper) -->
+    <button class="uzafasta-scroll-top" id="scrollTopBtn" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <script>
+        (function () {
+            var btn = document.getElementById('scrollTopBtn');
+            if (!btn) return;
+            function toggle() {
+                if (window.scrollY > 400 || document.documentElement.scrollTop > 400) {
+                    btn.classList.add('show');
+                } else {
+                    btn.classList.remove('show');
+                }
+            }
+            window.addEventListener('scroll', toggle);
+            btn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
+        <script src="/assets/js/plugins/jquery-3.7.1.min.js"></script>
+        <script src="/assets/js/plugins/popper.min.js"></script>
+        <script src="/assets/js/plugins/bootstrap.min.js"></script>
+        <script src="/assets/js/plugins/gsap/gsap.min.js"></script>
+        <script src="/assets/js/plugins/gsap/SplitText.min.js"></script>
+        <script src="/assets/js/plugins/gsap/ScrollSmoother.min.js"></script>
+        <script src="/assets/js/plugins/gsap/ScrollTrigger.min.js"></script>
+        <script src="/assets/js/plugins/slick.min.js"></script>
+        <script src="/assets/js/plugins/jquery.magnific-popup.min.js"></script>
+        <script src="/assets/js/plugins/jquery.waypoints.js"></script>
+        <script src="/assets/js/plugins/jquery.counterup.min.js"></script>
+        <script src="/assets/js/plugins/aos.js"></script>
+        <script src="/assets/js/theme.js"></script>
+    </body>
+</html>

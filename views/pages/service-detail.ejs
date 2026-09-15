@@ -56,6 +56,7 @@
                                             <li><a href="/services">Services</a></li>
                                             <li><%= service.name %></li>
                                         </ul>
+                                        <a href="#" class="uzafasta-enquiry-btn mt-3" data-bs-toggle="modal" data-bs-target="#enquiryModal">Make an Enquiry <i class="far fa-arrow-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -64,6 +65,12 @@
                     <!--======  Start Service Details Section  ======-->
                     <section class="service-details-sec pt-120 pb-90">
                         <div class="container">
+                            <% if (typeof enquiryMsg !== 'undefined' && enquiryMsg && enquiryMsg.type === 'danger') { %>
+                                <div class="uzafasta-enquiry-alert <%= enquiryMsg.type %>">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <span><%= enquiryMsg.text %></span>
+                                </div>
+                            <% } %>
                             <div class="row">
                                 <div class="col-xl-8 col-lg-8">
                                     <div class="service-item-main mb-60">
@@ -151,6 +158,12 @@
                                             <h4>Need help with <%= service.name %>?</h4>
                                             <p>Talk to our team and get a free consultation for your business.</p>
                                             <a href="/contact" class="uzafasta-svc-cta-btn">Contact Us <i class="far fa-arrow-right"></i></a>
+                                            <div style="margin-top:14px;">
+                                                <a href="#" class="uzafasta-enquiry-btn" data-bs-toggle="modal" data-bs-target="#enquiryModal">Make an Enquiry <i class="far fa-arrow-right"></i></a>
+                                            </div>
+                                            <div style="margin-top:12px;">
+                                                <a href="/track" class="uzafasta-track-link"><i class="far fa-route"></i> Track an existing enquiry</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -161,6 +174,7 @@
                                 <%- include('../partials/footer') %>
             </div>
         </div>
+            <%- include('../partials/enquiry-modal') %>
             <!-- Scroll to Top Button (outside smooth-wrapper) -->
     <button class="uzafasta-scroll-top" id="scrollTopBtn" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>

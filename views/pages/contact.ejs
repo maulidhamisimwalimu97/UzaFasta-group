@@ -131,7 +131,17 @@
                                     <!-- Contact Wrapper -->
                                     <div class="axis-contact-wrapper" data-aos="fade-up" data-aos-duration="1800">
                                         <h4>Send Us message</h4>
-                                        <form>
+                                        <% if (typeof contactMsg !== 'undefined' && contactMsg) { %>
+                                            <div class="alert alert-<%= contactMsg.type %> mb-4">
+                                                <%= contactMsg.text %>
+                                                <% if (contactMsg.type === 'success') { %>
+                                                    <div style="margin-top:12px;">
+                                                        <a href="/track" style="display:inline-flex;align-items:center;gap:8px;background:#0E8EE2;color:#fff;font-weight:600;font-size:14px;padding:11px 22px;border-radius:50px;text-decoration:none;box-shadow:0 6px 16px rgba(14,142,226,.25);"><i class="far fa-route"></i> Track Enquiry<i class="far fa-arrow-right"></i></a>
+                                                    </div>
+                                                <% } %>
+                                            </div>
+                                        <% } %>
+                                        <form method="POST" action="/contact">
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
@@ -145,17 +155,22 @@
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
-                                                        <input type="text" class="form_control" placeholder="Company Name*" name="cname" required>
+                                                        <input type="text" class="form_control" placeholder="Phone Number" name="phone">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
-                                                        <textarea name="message" placeholder="Write Your Message Here" rows="5" class="form_control"></textarea>
+                                                        <input type="text" class="form_control" placeholder="Subject" name="subject">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
-                                                        <button class="theme-btn style-one">Send A Request<i class="far fa-arrow-right"></i></button>
+                                                        <textarea name="message" placeholder="Write Your Message Here" rows="5" class="form_control" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <button class="theme-btn style-one" type="submit">Send A Request<i class="far fa-arrow-right"></i></button>
                                                     </div>
                                                 </div>
                                             </div>

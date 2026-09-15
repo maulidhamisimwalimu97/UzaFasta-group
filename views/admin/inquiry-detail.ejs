@@ -1,0 +1,83 @@
+<%- include('partials/head', { pageTitle: 'Inquiry Detail' }) %>
+<body>
+
+    <div id="layout-wrapper">
+
+        <%- include('partials/topbar') %>
+        <%- include('partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18">Inquiry #<%= inquiry.id %></h4>
+                                <div class="page-title-right"><a href="/admin/inquiries" class="btn btn-light waves-effect"><i class="mdi mdi-arrow-left mr-1"></i>Back</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <%- include('partials/flash') %>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Client Message</h5>
+                                    <div class="mb-3">
+                                        <span class="badge badge-soft-primary"><%= inquiry.tracking_code %></span>
+                                        <% if (inquiry.is_viewed) { %>
+                                            <span class="badge badge-soft-success">Viewed</span>
+                                        <% } else { %>
+                                            <span class="badge badge-soft-warning">New</span>
+                                        <% } %>
+                                        <span class="text-muted ml-2"><%= inquiry.created_at.toLocaleString() %></span>
+                                    </div>
+                                    <dl class="row mb-3">
+                                        <dt class="col-sm-3">Name</dt><dd class="col-sm-9"><%= inquiry.name %></dd>
+                                        <dt class="col-sm-3">Email</dt><dd class="col-sm-9"><a href="mailto:<%= inquiry.email %>"><%= inquiry.email %></a></dd>
+                                        <dt class="col-sm-3">Phone</dt><dd class="col-sm-9"><%= inquiry.phone || '—' %></dd>
+                                        <dt class="col-sm-3">Subject</dt><dd class="col-sm-9"><%= inquiry.subject || '—' %></dd>
+                                    </dl>
+                                    <p class="text-muted" style="white-space: pre-wrap;"><%= inquiry.message %></p>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Your Reply</h5>
+                                    <% if (inquiry.reply) { %>
+                                        <div class="alert alert-success">
+                                            <strong>Replied on <%= inquiry.replied_at.toLocaleString() %>:</strong>
+                                            <p class="mb-0 mt-1" style="white-space: pre-wrap;"><%= inquiry.reply %></p>
+                                        </div>
+                                    <% } %>
+                                    <form method="POST" action="/admin/inquiries/<%= inquiry.id %>/reply">
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="reply" rows="5" placeholder="Write a reply..."><%= inquiry.reply || '' %></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-send mr-1"></i>Send Reply</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-assets/js/jquery.min.js"></script>
+    <script src="/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/metismenu.min.js"></script>
+    <script src="/admin-assets/js/waves.js"></script>
+    <script src="/admin-assets/js/simplebar.min.js"></script>
+    <script src="/admin-assets/js/theme.js"></script>
+</body>
+
+</html>

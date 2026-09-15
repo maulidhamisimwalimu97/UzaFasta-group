@@ -1,0 +1,90 @@
+<%- include('partials/head', { pageTitle: 'Projects' }) %>
+<body>
+
+    <div id="layout-wrapper">
+
+        <%- include('partials/topbar') %>
+        <%- include('partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18">Projects / Portfolio</h4>
+                                <div class="page-title-right">
+                                    <a href="/admin/projects/new" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-plus mr-1"></i>New Project</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <%- include('partials/flash') %>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Title</th>
+                                                    <th>Category</th>
+                                                    <th>Client</th>
+                                                    <th>Status</th>
+                                                    <th class="text-right">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (projects.length === 0) { %>
+                                                    <tr><td colspan="6" class="text-center text-muted">No projects yet. Click "New Project" to add one.</td></tr>
+                                                <% } %>
+                                                <% projects.forEach(function(p, i) { %>
+                                                <tr>
+                                                    <td><%= i + 1 %></td>
+                                                    <td><a href="/admin/projects/<%= p.id %>/edit"><%= p.title %></a></td>
+                                                    <td><span class="badge badge-soft-info"><%= p.category %></span></td>
+                                                    <td><%= p.client %></td>
+                                                    <td>
+                                                        <% if (p.status === 'active') { %>
+                                                            <span class="badge badge-soft-success">Active</span>
+                                                        <% } else { %>
+                                                            <span class="badge badge-soft-secondary">Hidden</span>
+                                                        <% } %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <a href="/admin/projects/<%= p.id %>/edit" class="btn btn-sm btn-light"><i class="mdi mdi-pencil"></i></a>
+                                                        <form method="POST" action="/admin/projects/<%= p.id %>/delete" style="display:inline" onsubmit="return confirm('Delete this project?');">
+                                                            <button type="submit" class="btn btn-sm btn-danger"><i class="mdi mdi-delete"></i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-assets/js/jquery.min.js"></script>
+    <script src="/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/metismenu.min.js"></script>
+    <script src="/admin-assets/js/waves.js"></script>
+    <script src="/admin-assets/js/simplebar.min.js"></script>
+    <script src="/admin-assets/js/theme.js"></script>
+</body>
+
+</html>
