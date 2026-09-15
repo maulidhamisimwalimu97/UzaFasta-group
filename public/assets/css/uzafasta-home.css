@@ -1,0 +1,377 @@
+            .uzafasta-brands-section {
+                background: #f8f9fa;
+                border-top: 1px solid #eee;
+                border-bottom: 1px solid #eee;
+            }
+            .uzafasta-brands-section .sub-title {
+                color: #6c757d;
+                font-size: 14px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+            .uzafasta-brands-section .sub-title .line {
+                display: inline-block;
+                width: 30px;
+                height: 2px;
+                background: #4a6cf7;
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+            .uzafasta-brands-section h2 {
+                font-size: 32px;
+                font-weight: 700;
+                color: #1a1a2e;
+                margin-top: 10px;
+            }
+            .uzafasta-brand-item {
+                padding: 0 20px;
+            }
+            .uzafasta-brand-logo {
+                background: #fff;
+                border: 1px solid #e9ecef;
+                border-radius: 12px;
+                padding: 25px 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 90px;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            }
+            .uzafasta-brand-logo:hover {
+                border-color: #4a6cf7;
+                box-shadow: 0 4px 16px rgba(74,108,247,0.12);
+                transform: translateY(-2px);
+            }
+            .uzafasta-brand-logo svg {
+                width: 120px;
+                height: 40px;
+                opacity: 0.7;
+                transition: opacity 0.3s ease;
+            }
+            .uzafasta-brand-logo:hover svg {
+                opacity: 1;
+            }
+            .uzafasta-brands-slider .slick-dots {
+                bottom: -35px;
+            }
+            .uzafasta-brands-slider .slick-dots li button:before {
+                font-size: 8px;
+                color: #4a6cf7;
+            }
+            .uzafasta-brands-slider .slick-dots li.slick-active button:before {
+                color: #1a1a2e;
+            }
+            @media (max-width: 768px) {
+                .uzafasta-brands-section h2 {
+                    font-size: 24px;
+                }
+                .uzafasta-brand-logo {
+                    padding: 18px 20px;
+                    height: 75px;
+                }
+            }
+
+            /* ═══════════ Featured Work / Portfolio ═══════════ */
+            .uzafasta-portfolio {
+                padding: 100px 0;
+                background: #f8f9fa;
+            }
+            .uzafasta-portfolio .section-header {
+                text-align: center;
+                max-width: 700px;
+                margin: 0 auto 50px;
+            }
+            .uzafasta-portfolio .section-subtitle {
+                display: inline-flex;
+                align-items: center;
+                color: #4a6cf7;
+                font-size: 14px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+            .uzafasta-portfolio .section-subtitle .line {
+                display: inline-block;
+                width: 30px;
+                height: 2px;
+                background: #4a6cf7;
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+            .uzafasta-portfolio .section-title {
+                font-size: 38px;
+                font-weight: 700;
+                color: #1a1a2e;
+                margin: 12px 0 16px;
+                line-height: 1.2;
+            }
+            .uzafasta-portfolio .section-desc {
+                color: #6c757d;
+                font-size: 17px;
+                margin: 0;
+            }
+            .portfolio-tabs {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+                margin-bottom: 45px;
+            }
+            .portfolio-tab {
+                padding: 10px 22px;
+                border: 1px solid #e2e6ed;
+                border-radius: 50px;
+                background: #fff;
+                color: #1a1a2e;
+                font-size: 15px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.25s ease;
+            }
+            .portfolio-tab:hover {
+                border-color: #4a6cf7;
+                color: #4a6cf7;
+            }
+            .portfolio-tab.active {
+                background: #4a6cf7;
+                border-color: #4a6cf7;
+                color: #fff;
+            }
+            .portfolio-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px;
+            }
+            .portfolio-card {
+                position: relative;
+                min-height: 260px;
+                border-radius: 16px;
+                overflow: hidden;
+                display: flex;
+                align-items: flex-end;
+                cursor: pointer;
+                transition: transform 0.35s ease, box-shadow 0.35s ease;
+            }
+            .portfolio-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 16px 40px rgba(26, 26, 46, 0.22);
+            }
+            .portfolio-card-bg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 90px;
+                opacity: 0.16;
+                pointer-events: none;
+            }
+            .portfolio-card-overlay {
+                position: relative;
+                padding: 28px;
+                width: 100%;
+                color: #fff;
+            }
+            .portfolio-card-tag {
+                display: inline-block;
+                padding: 5px 14px;
+                border-radius: 30px;
+                background: rgba(255, 255, 255, 0.18);
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 12px;
+                backdrop-filter: blur(4px);
+            }
+            .portfolio-card-overlay h3 {
+                font-size: 22px;
+                font-weight: 700;
+                margin-bottom: 6px;
+            }
+            .portfolio-card-overlay p {
+                font-size: 15px;
+                opacity: 0.85;
+                margin: 0;
+            }
+            .portfolio-card.hidden {
+                display: none;
+            }
+            .portfolio-cta {
+                text-align: center;
+                margin-top: 48px;
+            }
+            .portfolio-cta .btn-primary {
+                background: #4a6cf7;
+                border-color: #4a6cf7;
+                padding: 14px 36px;
+                border-radius: 50px;
+                font-size: 16px;
+                font-weight: 600;
+            }
+            .portfolio-cta .btn-primary:hover {
+                background: #3450d8;
+                border-color: #3450d8;
+            }
+            @media (max-width: 992px) {
+                .portfolio-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            @media (max-width: 600px) {
+                .uzafasta-portfolio .section-title {
+                    font-size: 28px;
+                }
+                .portfolio-grid {
+                    grid-template-columns: 1fr;
+                }
+                .portfolio-card {
+                    min-height: 220px;
+                }
+            }
+
+            /* ═══════════ News & Insights / Blog Cards ═══════════ */
+            .axis-blog-post-item.uz-blog-card {
+                background: #fff;
+                border: 1px solid #eef1f7;
+                border-radius: 14px;
+                overflow: hidden;
+                transition: transform .3s ease, box-shadow .3s ease;
+                height: calc(100% - 40px);
+                display: flex;
+                flex-direction: column;
+            }
+            .axis-blog-post-item.uz-blog-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 18px 40px rgba(15, 45, 110, .14);
+            }
+            .axis-blog-post-item.uz-blog-card .post-thumbnail {
+                position: relative;
+                overflow: hidden;
+                border-radius: 14px 14px 0 0;
+            }
+            .axis-blog-post-item.uz-blog-card .post-thumbnail img.uz-blog-img {
+                width: 100%;
+                aspect-ratio: 16 / 10;
+                object-fit: cover;
+                display: block;
+                border-radius: 14px 14px 0 0;
+                transition: transform .5s ease;
+            }
+            .axis-blog-post-item.uz-blog-card:hover .post-thumbnail img.uz-blog-img {
+                transform: scale(1.06);
+            }
+            .axis-blog-post-item.uz-blog-card .uz-date-badge {
+                position: absolute;
+                bottom: 12px;
+                left: 12px;
+                background: #123a86;
+                color: #fff;
+                padding: 7px 13px;
+                border-radius: 8px;
+                font-size: 12.5px;
+                font-weight: 600;
+                z-index: 2;
+                box-shadow: 0 6px 16px rgba(10, 25, 70, .35);
+                line-height: 1;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-date-badge i {
+                margin-right: 4px;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-video-badge {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                width: 44px;
+                height: 44px;
+                background: rgba(18, 58, 134, .85);
+                color: #fff;
+                font-size: 20px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+            }
+            .axis-blog-post-item.uz-blog-card .post-content {
+                padding: 22px 22px 26px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-cat-chip {
+                display: inline-block;
+                background: #eef4ff;
+                color: #0E8EE2;
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: .5px;
+                padding: 5px 12px;
+                border-radius: 20px;
+                margin-bottom: 12px;
+                width: -webkit-fit-content;
+                width: fit-content;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-blog-title {
+                font-size: 19px;
+                line-height: 1.5;
+                margin-bottom: 10px;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-blog-title a {
+                color: #0e1c3a;
+                text-decoration: none;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-blog-title a:hover {
+                color: #123a86;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-blog-excerpt {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                color: #5a6472;
+                font-size: 14.5px;
+                line-height: 1.75;
+                margin: 0 0 16px;
+            }
+            .axis-blog-post-item.uz-blog-card .post-bottom {
+                margin-top: auto;
+                padding-top: 16px;
+                border-top: 1px solid #eef1f7;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-more-link {
+                color: #0E8EE2;
+                font-weight: 600;
+                font-size: 14px;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-more-link i {
+                transition: transform .25s ease;
+            }
+            .axis-blog-post-item.uz-blog-card .uz-more-link:hover i {
+                transform: translateX(4px);
+            }
+            .axis-blog-post-item.uz-blog-card .uz-view-count {
+                color: #8a93a6;
+                font-size: 13px;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+            @media (max-width: 767.98px) {
+                .axis-blog-post-item.uz-blog-card .post-content {
+                    padding: 18px 18px 22px;
+                }
+                .axis-blog-post-item.uz-blog-card .uz-blog-title {
+                    font-size: 17px;
+                }
+            }
