@@ -399,8 +399,8 @@
     // Gsap ScrollSmoother
 
     ScrollSmoother.create({
-    smooth: 1,
-    effects: true,
+    smooth: 0.5,
+    effects: false,
         smoothTouch: 0.1,
     });
 
@@ -454,7 +454,10 @@
     //===== Aos Animation
 
     AOS.init({
-        offset: 0
+        offset: 0,
+        duration: 0,
+        delay: 0,
+        once: true
     });
 
     // Document Ready

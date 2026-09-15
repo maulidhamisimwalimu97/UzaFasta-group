@@ -9,6 +9,7 @@
         <!--====== Title ======-->
         <title>Fexo - IT Solution & Technology HTML Template</title>
         <!--====== Favicon Icon ======-->
+        <link rel="icon" href="assets/images/favicon.png" type="image/png">
         <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
         <!--====== Google Fonts ======-->
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -83,7 +84,28 @@
                                 <%- include('../partials/footer') %>
             </div>
         </div>
-        <!--====== Jquery js ======-->
+            <!-- Scroll to Top Button (outside smooth-wrapper) -->
+    <button class="uzafasta-scroll-top" id="scrollTopBtn" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <script>
+        (function () {
+            var btn = document.getElementById('scrollTopBtn');
+            if (!btn) return;
+            function toggle() {
+                if (window.scrollY > 400 || document.documentElement.scrollTop > 400) {
+                    btn.classList.add('show');
+                } else {
+                    btn.classList.remove('show');
+                }
+            }
+            window.addEventListener('scroll', toggle);
+            btn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
+<!--====== Jquery js ======-->
         <script src="assets/js/plugins/jquery-3.7.1.min.js"></script>
         <!--====== Bootstrap js ======-->
         <script src="assets/js/plugins/popper.min.js"></script>

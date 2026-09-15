@@ -11,3 +11,20 @@
         </div>
     </div>
 </footer>
+<script>
+    (function () {
+        var btn = document.getElementById('scrollTopBtn');
+        if (!btn) return;
+        function toggle() {
+            if (window.scrollY > 400 || document.documentElement.scrollTop > 400) {
+                btn.classList.add('show');
+            } else {
+                btn.classList.remove('show');
+            }
+        }
+        window.addEventListener('scroll', toggle);
+        btn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+</script>
