@@ -15,9 +15,26 @@
                         <ul>
                             <li class="menu-item"><a href="/index">Home</a></li>
                             <li class="menu-item"><a href="/about">About Us</a></li>
-                            <li class="menu-item"><a href="/services">Services</a></li>
+                            <li class="menu-item">
+                                <a href="/services">Services</a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item"><a href="/services/digital-marketing">Digital Marketing</a></li>
+                                    <li class="menu-item"><a href="/services/web-design-development">Website Design &amp; Development</a></li>
+                                    <li class="menu-item"><a href="/services/video-production">Video Production</a></li>
+                                    <li class="menu-item"><a href="/services/graphic-design">Graphic Design</a></li>
+                                    <li class="menu-item"><a href="/services/ecommerce-solutions">E-Commerce Solutions</a></li>
+                                    <li class="menu-item"><a href="/services/software-development">Software Development</a></li>
+                                </ul>
+                            </li>
                             <li class="menu-item"><a href="/projects">Portfolio</a></li>
                             <li class="menu-item"><a href="/blogs">Blogs</a></li>
+                            <li class="menu-item">
+                                <a href="/our-product">Our Product</a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item"><a href="/our-product#hosting">Hosting</a></li>
+                                    <li class="menu-item"><a href="/our-product#uzafasta-ecommerce">Uzafasta E-Commerce</a></li>
+                                </ul>
+                            </li>
                             <li class="menu-item"><a href="/contact">Contact Us</a></li>
                         </ul>
                     </nav>
@@ -32,6 +49,7 @@
                     </div>
                 </div>
                 <div class="nav-right-item">
+                    <a href="#" class="uzafasta-enquiry-btn" data-bs-toggle="modal" data-bs-target="#enquiryModal">Make an Enquiry <i class="far fa-arrow-right"></i></a>
                     <div class="navbar-toggler">
                         <span></span>
                         <span></span>
@@ -42,3 +60,4 @@
         </div>
     </div>
 </header>
+<%- include('../partials/enquiry-modal') %>

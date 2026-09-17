@@ -126,7 +126,7 @@
                                     <option value="" selected disabled>Select a service</option>
                                 <% } %>
                                 <% (typeof services !== 'undefined' ? services : []).forEach(function(s) { %>
-                                    <option value="<%= s.name %>" <%= currentService === s.slug ? 'selected' : '' %>><%= s.name %></option>
+                                    <option value="<%= s.name %>" <%= typeof currentService !== 'undefined' && currentService === s.slug ? 'selected' : '' %>><%= s.name %></option>
                                 <% }); %>
                             </select>
                         </div>

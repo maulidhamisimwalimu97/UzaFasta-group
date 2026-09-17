@@ -94,21 +94,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--=== Process Wrapper ===-->
-                                    <div class="uzafasta-svc-process mb-70">
-                                        <h3 class="mb-30">How we work</h3>
-                                        <div class="row">
-                                            <% service.process.forEach(function(p, i) { %>
-                                                <div class="col-md-6 mb-30">
-                                                    <div class="uzafasta-svc-step">
-                                                        <span class="uzafasta-svc-step-num"><%= p.step %></span>
-                                                        <h5><%= p.title %></h5>
-                                                        <p><%= p.desc %></p>
-                                                    </div>
-                                                </div>
-                                            <% }); %>
-                                        </div>
-                                    </div>
                                     <!--=== Faq Wrapper ===-->
                                     <div class="faq-wrapper mb-60">
                                         <div class="row">
@@ -174,7 +159,6 @@
                                 <%- include('../partials/footer') %>
             </div>
         </div>
-            <%- include('../partials/enquiry-modal') %>
             <!-- Scroll to Top Button (outside smooth-wrapper) -->
     <button class="uzafasta-scroll-top" id="scrollTopBtn" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>

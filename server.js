@@ -177,6 +177,7 @@ const pages = [
   'index', 'index-2', 'index-3', 'about', 'services', 'service-details',
   'project-details',
   'blog-grid', 'blog-standard', 'blog-details',
+  'our-product',
   'contact', 'faq', 'pricing', 'team', 'team-details', '404'
 ];
 
@@ -186,12 +187,26 @@ app.get(['/', '/index', '/index.html'], async (req, res) => {
       'SELECT id, title, slug, excerpt, cover_image, video_url, category, created_at, views FROM blogs WHERE status = "published" ORDER BY created_at DESC LIMIT 3'
     );
     blogs.forEach(b => { b.created_at = new Date(b.created_at); });
-    res.render('pages/index', { blogs });
+    const [projects] = await pool.query(
+      'SELECT id, title, category, description, cover_image, link FROM projects WHERE status = "active" ORDER BY created_at DESC LIMIT 6'
+    );
+    projects.forEach(p => { p.filterKey = normalizeProjectCategory(p.category); });
+    res.render('pages/index', { blogs, projects });
   } catch (e) {
     console.error('Home blogs error:', e.message);
-    res.render('pages/index', { blogs: [] });
+    res.render('pages/index', { blogs: [], projects: [] });
   }
 });
+
+function normalizeProjectCategory(category) {
+  const c = String(category || '').trim().toLowerCase();
+  if (/web|site/.test(c)) return 'website';
+  if (/soft|app|system/.test(c)) return 'software';
+  if (/brand|design/.test(c)) return 'branding';
+  if (/video/.test(c)) return 'video';
+  if (/market|social|ads/.test(c)) return 'marketing';
+  return 'website';
+}
 
 app.get('/track', (req, res) => {
   res.render('pages/track', { query: '' });
@@ -408,6 +423,8 @@ const services = [
     ]
   }
 ];
+
+app.locals.services = services;
 
 app.get(['/services', '/services.html'], (req, res) => {
   res.render('pages/services', {

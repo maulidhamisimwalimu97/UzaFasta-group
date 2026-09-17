@@ -7756,3 +7756,21 @@ body.sticky-active #smooth-wrapper {
 .uzafasta-svc-process h3 {
   color: #061B3A;
 }
+
+/* Center the main navigation in the header */
+@media screen and (min-width: 992px) {
+  .header-navigation .primary-menu {
+    justify-content: space-between;
+  }
+  .header-navigation .theme-nav-menu {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Hide the "Make an Enquiry" topbar button on small screens */
+@media screen and (max-width: 1199.98px) {
+  .header-four .nav-right-item .uzafasta-enquiry-btn {
+    display: none;
+  }
+}
