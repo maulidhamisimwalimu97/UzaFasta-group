@@ -410,18 +410,23 @@
                     </div>
 
                     <div class="portfolio-grid" data-aos="fade-up">
-                        <% var pfPalettes = { website: ['linear-gradient(135deg, #1B2A4A, #2D4A7A)', '🌐'], software: ['linear-gradient(135deg, #0F172A, #1E3A5F)', '💻'], branding: ['linear-gradient(135deg, #4A1942, #7B2D8E)', '🎨'], video: ['linear-gradient(135deg, #1a1a2e, #16213e)', '🎬'], marketing: ['linear-gradient(135deg, #0D3B66, #1D6FA5)', '📊'] }; %>
                         <% if (typeof projects !== 'undefined' && projects.length > 0) { %>
                             <% projects.forEach(function(p, idx) { %>
-                                <% var pf = pfPalettes[p.filterKey] || ['linear-gradient(135deg, #2D1B4E, #5B3A8C)', '🛒']; %>
-                                <div class="portfolio-card" data-category="<%= p.filterKey %>" style="background: <%= pf[0] %>;">
-                                    <div class="portfolio-card-bg"><%= pf[1] %></div>
+                                <a href="/projects/<%= p.id %>" class="portfolio-card" data-category="<%= p.filterKey %>">
+                                    <% if (p.video_url) { %>
+                                        <div class="portfolio-card-img">
+                                            <video class="portfolio-card-video" muted loop playsinline preload="metadata"<% if (p.poster) { %> poster="<%= p.poster %>"<% } %>>
+                                        <source src="<%= p.video_url %>" type="<%= p.videoMime %>">
+                                            </video>
+                                        </div>
+                                    <% } else { %>
+                                        <div class="portfolio-card-img" style="background-image:url('<%= p.cover_image || '/assets/images/innerpage/project/project-img1.png' %>');"></div>
+                                    <% } %>
                                     <div class="portfolio-card-overlay">
                                         <span class="portfolio-card-tag"><%= p.category %></span>
                                         <h3><%= p.title %></h3>
-                                        <p><%= p.description || 'Click to view this project.' %></p>
                                     </div>
-                                </div>
+                                </a>
                             <% }); %>
                         <% } else { %>
                             <div class="text-center w-100 py-5">
@@ -464,7 +469,13 @@
                                     <article class="axis-blog-post-item style-one mb-40 uz-blog-card" data-aos="fade-up">
                                         <div class="post-thumbnail">
                                             <a href="/blogs/<%= blog.slug %>">
-                                                <img src="<%= blog.cover_image || 'assets/images/innerpage/blog/blog-grid1.png' %>" alt="<%= blog.title %>" class="uz-blog-img">
+                                                <% if (blog.video_url) { %>
+                                                    <video class="uz-blog-img uz-blog-video" muted loop playsinline preload="metadata">
+                                                        <source src="<%= blog.video_url %>" type="video/<%= blog.video_url.split('.').pop().split('?')[0] %>">
+                                                    </video>
+                                                <% } else { %>
+                                                    <img src="<%= blog.cover_image || 'assets/images/innerpage/blog/blog-grid1.png' %>" alt="<%= blog.title %>" class="uz-blog-img">
+                                                <% } %>
                                             </a>
                                             <span class="uz-date-badge"><i class="far fa-calendar-alt mr-1"></i><%= blog.created_at.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></span>
                                             <% if (blog.video_url) { %>
@@ -628,6 +639,22 @@
                         $(this).addClass('hidden');
                     }
                 });
+            });
+        });
+        </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            $('.uz-blog-video').each(function() {
+                var vid = this;
+                var card = $(this).closest('.uz-blog-card');
+                card.on('mouseenter', function() { vid.play(); });
+                card.on('mouseleave', function() { vid.pause(); vid.currentTime = 0; });
+            });
+            $('.portfolio-card-video').each(function() {
+                var vid = this;
+                var card = $(this).closest('.portfolio-card');
+                card.on('mouseenter', function() { vid.play(); });
+                card.on('mouseleave', function() { vid.pause(); vid.currentTime = 0; });
             });
         });
         </script>

@@ -93,6 +93,24 @@ const blogUpload = multer({
   }
 });
 
+const projectUpload = multer({
+  storage: videoStorage,
+  limits: { fileSize: 200 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    if (file.fieldname === 'cover_image') {
+      const ext = path.extname(file.originalname).toLowerCase();
+      if (/\.(jpe?g|png|gif|webp|svg)$/i.test(ext)) return cb(null, true);
+      return cb(new Error('Cover image must be jpg, png, gif, webp or svg.'));
+    }
+    if (file.fieldname === 'video_file') {
+      const ext = path.extname(file.originalname).toLowerCase();
+      if (/\.(mp4|webm|mov|ogg|ogv)$/i.test(ext)) return cb(null, true);
+      return cb(new Error('Video must be mp4, webm, mov or ogg.'));
+    }
+    cb(null, true);
+  }
+});
+
 app.use((req, res, next) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.set('Pragma', 'no-cache');
@@ -188,9 +206,19 @@ app.get(['/', '/index', '/index.html'], async (req, res) => {
     );
     blogs.forEach(b => { b.created_at = new Date(b.created_at); });
     const [projects] = await pool.query(
-      'SELECT id, title, category, description, cover_image, link FROM projects WHERE status = "active" ORDER BY created_at DESC LIMIT 6'
+      'SELECT id, title, category, description, cover_image, video_url, link FROM projects WHERE status = "active" ORDER BY created_at DESC LIMIT 6'
     );
-    projects.forEach(p => { p.filterKey = normalizeProjectCategory(p.category); });
+    projects.forEach(p => {
+      p.filterKey = normalizeProjectCategory(p.category);
+      p.videoType = p.video_url ? String(p.video_url.split('.').pop().split('?')[0]).toLowerCase() : '';
+      p.videoMime = p.videoType ? 'video/' + p.videoType : '';
+      if (p.video_url) {
+        var m = String(p.video_url).match(/\.(mp4|webm|ogg|mov)$/i);
+        p.videoType = m ? m[1].toLowerCase() : 'mp4';
+        p.videoMime = 'video/' + p.videoType;
+      }
+      p.poster = p.cover_image || '';
+    });
     res.render('pages/index', { blogs, projects });
   } catch (e) {
     console.error('Home blogs error:', e.message);
@@ -452,7 +480,7 @@ app.use('/services/:slug', (req, res, next) => {
 // ---- Blog pages (dynamic from database) ----
 app.get('/blogs', async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT id, title, slug, excerpt, content, cover_image, created_at FROM blogs WHERE status = "published" ORDER BY created_at DESC');
+    const [rows] = await pool.query('SELECT id, title, slug, excerpt, content, cover_image, video_url, created_at FROM blogs WHERE status = "published" ORDER BY created_at DESC');
     rows.forEach(r => { r.created_at = new Date(r.created_at); });
     res.render('pages/blog-grid', { blogs: rows });
   } catch (e) {
@@ -786,16 +814,19 @@ app.get('/admin/projects/new', loadAdmin, (req, res) => {
   res.render('admin/project-form', { project: null });
 });
 
-app.post('/admin/projects/new', loadAdmin, upload.single('cover_image'), async (req, res) => {
-  const { title, category, client, description, link, status } = req.body;
+app.post('/admin/projects/new', loadAdmin, projectUpload.fields([{ name: 'cover_image', maxCount: 1 }, { name: 'video_file', maxCount: 1 }]), async (req, res) => {
+  const { title, category, client, description, link, status, video_url: videoUrlInput } = req.body;
   if (!title || !category || !description) {
     return res.status(400).render('admin/project-form', { project: null, error: 'Title, category and description are required.' });
   }
-  const coverImage = req.file ? '/uploads/' + req.file.filename : null;
+  const coverImage = req.files && req.files['cover_image'] && req.files['cover_image'][0] ? '/uploads/' + req.files['cover_image'][0].filename : null;
+  let videoUrl = req.files && req.files['video_file'] && req.files['video_file'][0]
+    ? '/uploads/' + req.files['video_file'][0].filename
+    : (videoUrlInput && videoUrlInput.trim() ? videoUrlInput.trim() : null);
   try {
     await pool.query(
-      'INSERT INTO projects (admin_id, title, category, client, description, cover_image, link, status) VALUES (?,?,?,?,?,?,?,?)',
-      [req.session.adminId, title.trim(), category.trim(), client || null, description, coverImage, link || null, status || 'active']
+      'INSERT INTO projects (admin_id, title, category, client, description, cover_image, video_url, link, status) VALUES (?,?,?,?,?,?,?,?,?)',
+      [req.session.adminId, title.trim(), category.trim(), client || null, description, coverImage, videoUrl, link || null, status || 'active']
     );
     req.session.success = 'Project added successfully.';
     res.redirect('/admin/projects');
@@ -816,17 +847,28 @@ app.get('/admin/projects/:id/edit', loadAdmin, async (req, res) => {
   }
 });
 
-app.post('/admin/projects/:id/edit', loadAdmin, upload.single('cover_image'), async (req, res) => {
-  const { title, category, client, description, link, status } = req.body;
+app.post('/admin/projects/:id/edit', loadAdmin, projectUpload.fields([{ name: 'cover_image', maxCount: 1 }, { name: 'video_file', maxCount: 1 }]), async (req, res) => {
+  const { title, category, client, description, link, status, video_url: videoUrlInput } = req.body;
   if (!title || !category || !description) {
     return res.status(400).render('admin/project-form', { project: { id: req.params.id, title, category, client, description, link, status }, error: 'Title, category and description are required.' });
   }
   try {
-    const [existing] = await pool.query('SELECT cover_image FROM projects WHERE id = ?', [req.params.id]);
-    const coverImage = req.file ? '/uploads/' + req.file.filename : (existing[0] ? existing[0].cover_image : null);
+    const [existing] = await pool.query('SELECT cover_image, video_url FROM projects WHERE id = ?', [req.params.id]);
+    const coverImage = req.files && req.files['cover_image'] && req.files['cover_image'][0]
+      ? '/uploads/' + req.files['cover_image'][0].filename
+      : (existing[0] ? existing[0].cover_image : null);
+    let videoUrl;
+    if (req.files && req.files['video_file'] && req.files['video_file'][0]) {
+      videoUrl = '/uploads/' + req.files['video_file'][0].filename;
+    } else if (videoUrlInput && videoUrlInput.trim()) {
+      videoUrl = videoUrlInput.trim();
+    } else {
+      videoUrl = existing[0] ? existing[0].video_url : null;
+    }
+
     await pool.query(
-      'UPDATE projects SET title=?, category=?, client=?, description=?, cover_image=?, link=?, status=?, updated_at=NOW() WHERE id=?',
-      [title.trim(), category.trim(), client || null, description, coverImage, link || null, status || 'active', req.params.id]
+      'UPDATE projects SET title=?, category=?, client=?, description=?, cover_image=?, video_url=?, link=?, status=?, updated_at=NOW() WHERE id=?',
+      [title.trim(), category.trim(), client || null, description, coverImage, videoUrl, link || null, status || 'active', req.params.id]
     );
     req.session.success = 'Project updated successfully.';
     res.redirect('/admin/projects');

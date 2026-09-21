@@ -32,7 +32,8 @@
             .uz-blog-card:hover { transform:translateY(-8px); box-shadow:0 18px 40px rgba(15,45,110,.14); }
             .uz-blog-card .post-thumbnail { position:relative; overflow:hidden; border-radius:14px 14px 0 0; }
             .uz-blog-card .post-thumbnail img.uz-blog-img { width:100%; aspect-ratio:16/10; object-fit:cover; display:block; transition:transform .5s ease; }
-            .uz-blog-card:hover .post-thumbnail img.uz-blog-img { transform:scale(1.06); }
+            .uz-blog-card .post-thumbnail video.uz-blog-video { width:100%; aspect-ratio:16/10; object-fit:cover; display:block; background:#000; transition:transform .5s ease; }
+            .uz-blog-card:hover .post-thumbnail img.uz-blog-img, .uz-blog-card:hover .post-thumbnail video.uz-blog-video { transform:scale(1.06); }
             .uz-date-badge { position:absolute; bottom:12px; left:12px; background:#123a86; color:#fff; padding:7px 13px; border-radius:8px; font-size:12.5px; font-weight:600; z-index:2; box-shadow:0 6px 16px rgba(10,25,70,.35); }
             .uz-date-badge i { margin-right:4px; }
             .uz-blog-card .post-content { padding:22px 22px 26px; flex:1; display:flex; flex-direction:column; }
@@ -97,7 +98,13 @@
                                     <article class="axis-blog-post-item style-one mb-40 uz-blog-card">
                                         <div class="post-thumbnail">
                                             <a href="/blogs/<%= blog.slug %>">
-                                                <img src="<%= blog.cover_image || 'assets/images/innerpage/blog/blog-grid1.png' %>" alt="<%= blog.title %>" class="uz-blog-img">
+                                                <% if (blog.video_url) { %>
+                                                    <video class="uz-blog-img uz-blog-video" muted loop playsinline preload="metadata" poster="<%= blog.cover_image || '' %>">
+                                                        <source src="<%= blog.video_url %>" type="video/<%= blog.video_url.split('.').pop().split('?')[0] %>">
+                                                    </video>
+                                                <% } else { %>
+                                                    <img src="<%= blog.cover_image || 'assets/images/innerpage/blog/blog-grid1.png' %>" alt="<%= blog.title %>" class="uz-blog-img">
+                                                <% } %>
                                             </a>
                                             <span class="uz-date-badge"><i class="far fa-calendar-alt mr-1"></i><%= blog.created_at.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></span>
                                             <% if (blog.video_url) { %>
@@ -167,5 +174,28 @@
         <script src="assets/js/plugins/aos.js"></script>
         <!--====== Common js ======-->
 <script src="assets/js/theme.js"></script>
+        <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+            $('.uz-blog-video').each(function() {
+                var vid = this;
+                var card = $(this).closest('.uz-blog-card');
+                function capture() {
+                    if (this.videoWidth && this.videoHeight && !this.poster) {
+                        try {
+                            var c = document.createElement('canvas');
+                            c.width = this.videoWidth; c.height = this.videoHeight;
+                            c.getContext('2d').drawImage(this, 0, 0);
+                            this.poster = c.toDataURL('image/jpeg', 0.7);
+                        } catch(e) {}
+                    }
+                }
+                vid.addEventListener('loadeddata', function() { this.currentTime = 0.06; });
+                vid.addEventListener('loadedmetRandata', function() { this.load(); });
+                vid.addEventListener('seeked', capture);
+                card.on('mouseenter', function() { vid.muted = true; vid.play(); });
+                card.on('mouseleave', function() { vid.pause(); vid.currentTime = 0.06; });
+            });
+        });
+        </script>
     </body>
 </html>

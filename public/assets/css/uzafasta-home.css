@@ -152,10 +152,31 @@
                 align-items: flex-end;
                 cursor: pointer;
                 transition: transform 0.35s ease, box-shadow 0.35s ease;
+                text-decoration: none;
+                background: #fff;
             }
             .portfolio-card:hover {
                 transform: translateY(-6px);
                 box-shadow: 0 16px 40px rgba(26, 26, 46, 0.22);
+                text-decoration: none;
+            }
+            .portfolio-card-img {
+                position: absolute;
+                inset: 0;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                transition: transform 0.5s ease;
+            }
+            .portfolio-card:hover .portfolio-card-img {
+                transform: scale(1.06);
+            }
+            .portfolio-card::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to top, rgba(10, 15, 30, 0.88) 0%, rgba(10, 15, 30, 0.35) 55%, rgba(10, 15, 30, 0.15) 100%);
+                pointer-events: none;
             }
             .portfolio-card-bg {
                 position: absolute;
@@ -171,6 +192,7 @@
                 padding: 28px;
                 width: 100%;
                 color: #fff;
+                z-index: 2;
             }
             .portfolio-card-tag {
                 display: inline-block;
@@ -189,6 +211,7 @@
                 font-size: 22px;
                 font-weight: 700;
                 margin-bottom: 6px;
+                color: #FCB614;
             }
             .portfolio-card-overlay p {
                 font-size: 15px;
@@ -259,7 +282,17 @@
                 border-radius: 14px 14px 0 0;
                 transition: transform .5s ease;
             }
-            .axis-blog-post-item.uz-blog-card:hover .post-thumbnail img.uz-blog-img {
+            .axis-blog-post-item.uz-blog-card .post-thumbnail video.uz-blog-video {
+                width: 100%;
+                aspect-ratio: 16 / 10;
+                object-fit: cover;
+                display: block;
+                background: #000;
+                border-radius: 14px 14px 0 0;
+                transition: transform .5s ease;
+            }
+            .axis-blog-post-item.uz-blog-card:hover .post-thumbnail img.uz-blog-img,
+            .axis-blog-post-item.uz-blog-card:hover .post-thumbnail video.uz-blog-video {
                 transform: scale(1.06);
             }
             .axis-blog-post-item.uz-blog-card .uz-date-badge {
