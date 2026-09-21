@@ -74,7 +74,13 @@
                                     <div class="axis-project-item style-one mb-30" data-aos="fade-up" data-aos-duration="<%= 800 + (idx % 4) * 200 %>">
                                         <div class="project-thumbnail">
                                             <a href="/projects/<%= p.id %>">
-                                                <img src="<%= p.cover_image || 'assets/images/innerpage/project/project-img1.png' %>" alt="<%= p.title %>" style="height:280px;object-fit:cover;width:100%">
+                                                <% if (p.video_url) { %>
+                                                    <video class="project-grid-video" muted loop playsinline preload="metadata" style="height:280px;width:100%;object-fit:cover;background:#000;display:block"<% if (p.poster) { %> poster="<%= p.poster %>"<% } %>>
+                                                        <source src="<%= p.video_url %>" type="<% if (p.videoMime) { %><%= p.videoMime %><% } else { %>video/mp4<% } %>">
+                                                    </video>
+                                                <% } else { %>
+                                                    <img src="<%= p.cover_image || 'assets/images/innerpage/project/project-img1.png' %>" alt="<%= p.title %>" style="height:280px;object-fit:cover;width:100%">
+                                                <% } %>
                                             </a>
                                         </div>
                                         <div class="project-content">
@@ -136,5 +142,51 @@
         <script src="assets/js/plugins/aos.js"></script>
         <!--====== Common js ======-->
 <script src="assets/js/theme.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            $('.project-grid-video').each(function() {
+                var vid = this;
+                var card = $(this).closest('.project-card, .axis-project-item, .uz-project-card');
+                if (!card.length) card = $(this);
+                var cap = function() {
+                    if (!this.poster && this.videoWidth && this.videoHeight) {
+                        try {
+                            var c = document.createElement('canvas');
+                            c.width = this.videoWidth; c.height = this.videoHeight;
+                            c.getContext('2d').drawImage(this, 0, 0);
+                            this.poster = c.toDataURL('image/jpeg', 0.6);
+                        } catch(e) {}
+                    }
+                };
+                vid.addEventListener('loadeddata', function() { this.currentTime = 0.05; });
+                vid.addEventListener('seeked', cap);
+                card.on('mouseenter', function() { vid.muted = true; vid.play(); });
+                card.on('mouseleave', function() { vid.pause(); vid.currentTime = 0.05; });
+            });
+        });
+        </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            $('.project-grid-video').each(function() {
+                var vid = this;
+                var card = $(this).closest('.project-card, .axis-project-item, .uz-project-card');
+                if (!card.length) card = $(this);
+                var cap = function() {
+                    if (!this.poster && this.videoWidth && this.videoHeight) {
+                        try {
+                            var c = document.createElement('canvas');
+                            c.width = this.videoWidth; c.height = this.videoHeight;
+                            c.getContext('2d').drawImage(this, 0, 0);
+                            this.poster = c.toDataURL('image/jpeg', 0.6);
+                        } catch(e) {}
+                    }
+                };
+                vid.addEventListener('loadeddata', function() { this.currentTime = 0.05; });
+                vid.addEventListener('seeked', cap);
+                card.on('mouseenter', function() { vid.muted = true; vid.play(); });
+                card.on('mouseleave', function() { vid.pause(); vid.currentTime = 0.05; });
+            });
+        });
+        </script>
     </body>
 </html>

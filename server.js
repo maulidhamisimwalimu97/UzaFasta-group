@@ -519,7 +519,15 @@ app.get('/blogs/:slug', async (req, res) => {
 // ---- Projects / Portfolio (dynamic from database) ----
 app.get(['/projects', '/projects.html'], async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT id, title, category, cover_image, created_at FROM projects WHERE status = "active" ORDER BY created_at DESC');
+    const [rows] = await pool.query('SELECT id, title, category, description, cover_image, video_url, created_at FROM projects WHERE status = "active" ORDER BY created_at DESC');
+    rows.forEach(p => {
+      p.videoMime = '';
+      p.poster = p.cover_image || '';
+      if (p.video_url) {
+        var m = String(p.video_url).match(/\.(mp4|webm|ogg|mov)$/i);
+        p.videoMime = m ? 'video/' + m[1].toLowerCase() : 'video/mp4';
+      }
+    });
     res.render('pages/projects', { projects: rows });
   } catch (e) {
     console.error('Projects page error:', e.message);
@@ -531,7 +539,16 @@ app.get('/projects/:id', async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM projects WHERE id = ? AND status = "active"', [req.params.id]);
     if (!rows.length) return res.status(404).render('pages/404', {});
-    res.render('pages/project-detail', { project: rows[0] });
+    const project = rows[0];
+    project.videoPoster = project.video_url ? (project.cover_image || '') : '';
+    project.videoMime = '';
+    project.videoType = '';
+    if (project.video_url) {
+      const m = String(project.video_url).match(/\.(mp4|webm|ogg|mov)$/i);
+      project.videoType = m ? m[1].toLowerCase() : 'mp4';
+      project.videoMime = 'video/' + project.videoType;
+    }
+    res.render('pages/project-detail', { project });
   } catch (e) {
     console.error('Project detail error:', e.message);
     res.status(404).render('pages/404', {});

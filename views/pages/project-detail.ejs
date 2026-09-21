@@ -76,9 +76,9 @@
                                         </div>
                                     <% } else { %>
                                         <div style="width:100%;border-radius:12px;overflow:hidden;background:#000;">
-                                            <video controls preload="metadata" style="width:100%;aspect-ratio:16/9;object-fit:contain;background:#000;display:block;">
-                                                <source src="<%= vu %>" type="video/<%= vu.split('.').pop().split('?')[0] %>">
-                                                Your browser does not support the video tag.
+                                                    <video controls preload="metadata" style="width:100%;aspect-ratio:16/9;object-fit:contain;background:#000;display:block;"<% if (project.videoPoster) { %> poster="<%= project.videoPoster %>"<% } %>>
+                                                    <source src="<%= vu %>" type="video/<%= project.videoType %>">
+                                                    Your browser does not support the video tag.
                                             </video>
                                         </div>
                                     <% } %>
@@ -142,5 +142,23 @@
         <script src="/assets/js/plugins/jquery.counterup.min.js"></script>
         <script src="/assets/js/plugins/aos.js"></script>
         <script src="/assets/js/theme.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('video[controls]').forEach(function(vid) {
+                if (vid.poster) return;
+                vid.addEventListener('loadeddata', function() { this.currentTime = 0.05; });
+                vid.addEventListener('seeked', function() {
+                    if (this.readyState >= 2 && !this.poster) {
+                        try {
+                            var c = document.createElement('canvas');
+                            c.width = this.videoWidth; c.height = this.videoHeight;
+                            c.getContext('2d').drawImage(this, 0, 0);
+                            this.poster = c.toDataURL('image/jpeg', 0.6);
+                        } catch(e) {}
+                    }
+                });
+            });
+        });
+        </script>
     </body>
 </html>
