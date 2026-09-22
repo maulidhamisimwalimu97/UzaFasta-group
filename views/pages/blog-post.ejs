@@ -16,7 +16,33 @@
         <link rel="stylesheet" href="/assets/css/plugins/aos.css">
         <link rel="stylesheet" href="/assets/css/spacings.css">
         <link rel="stylesheet" href="/assets/css/style.css">
-        <style> .blog-details-body { white-space: pre-wrap; line-height: 1.9; } </style>
+        <style>
+            .blog-details-body {
+                font-family: var(--body-font);
+                font-size: 17px;
+                line-height: 1.85;
+                color: #4A5060;
+                letter-spacing: 0.01em;
+            }
+            .blog-details-body p {
+                margin-bottom: 26px;
+            }
+            .blog-details-body p:last-child {
+                margin-bottom: 0;
+            }
+            .blog-excerpt {
+                font-family: var(--heading-font);
+                font-size: 17px;
+                line-height: 1.8;
+                color: var(--heading-color);
+                font-weight: 500;
+                padding: 18px 24px;
+                border-left: 4px solid var(--primary-color);
+                background: rgba(255, 59, 0, 0.06);
+                border-radius: 0 14px 14px 0;
+                margin-bottom: 32px;
+            }
+        </style>
     </head>
     <body class="axis-innerpage">
         <!--====== Start Preloader ======-->
@@ -98,9 +124,17 @@
                                             </div>
                                             <h4 class="title mb-3"><%= post.title %></h4>
                                             <% if (post.excerpt) { %>
-                                                <p class="font-italic text-muted"><%= post.excerpt %></p>
+                                                <div class="blog-excerpt"><%= post.excerpt %></div>
                                             <% } %>
-                                            <div class="blog-details-body"><%= post.content.replace(/\n/g, '<br>') %></div>
+                                            <div class="blog-details-body">
+                                                <% post.content.split(/\n\s*\n/).forEach(function(block) {
+                                                    block.split('\n').forEach(function(line) {
+                                                       if (line.trim()) { %>
+                                                            <p><%= line.trim() %></p>
+                                                        <% }
+                                                    });
+                                                }); %>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="text-center mt-40">
