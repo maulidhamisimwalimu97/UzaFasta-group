@@ -176,6 +176,16 @@ const TASK_PRIORITY_CLASS = { low: 'badge-soft-info', medium: 'badge-soft-warnin
 const TASK_STATUS = { pending: 'Pending', in_progress: 'In Progress', completed: 'Completed' };
 const TASK_STATUS_CLASS = { pending: 'badge-soft-warning', in_progress: 'badge-soft-info', completed: 'badge-soft-success' };
 
+const LEAVE_TYPES = {
+  annual: 'Annual Leave',
+  sick: 'Sick Leave',
+  personal: 'Personal Leave',
+  unpaid: 'Unpaid Leave',
+  other: 'Other'
+};
+const LEAVE_STATUS = { pending: 'Pending', approved: 'Approved', rejected: 'Rejected' };
+const LEAVE_STATUS_CLASS = { pending: 'badge-soft-warning', approved: 'badge-soft-success', rejected: 'badge-soft-danger' };
+
 // ---------------- Auth middleware ----------------
 async function requireAdmin(req, res, next) {
   if (req.session && req.session.adminId) return next();
@@ -194,6 +204,21 @@ async function loadAdmin(req, res, next) {
     const [unreadRows] = await pool.query('SELECT COUNT(*) AS c FROM inquiries WHERE is_viewed = 0');
     req.unreadCount = unreadRows[0].c;
     res.locals.unreadCount = req.unreadCount;
+    try {
+      let pendingLeaves;
+      if (req.admin.role === 'super_admin') {
+        const [r] = await pool.query('SELECT COUNT(*) AS c FROM leaves WHERE status = "pending"');
+        pendingLeaves = r[0].c;
+      } else {
+        const [r] = await pool.query('SELECT COUNT(*) AS c FROM leaves WHERE status = "pending" AND staff_id = ?', [req.admin.id]);
+        pendingLeaves = r[0].c;
+      }
+      req.pendingLeaveCount = pendingLeaves;
+      res.locals.pendingLeaveCount = pendingLeaves;
+    } catch (e) {
+      req.pendingLeaveCount = 0;
+      res.locals.pendingLeaveCount = 0;
+    }
   }
   next();
 }
@@ -766,7 +791,8 @@ app.get('/admin/dashboard', loadAdmin, async (req, res) => {
         inquiries: inquiries[0].c,
         unread: unread[0].c,
         tasksThisWeek: taskStats[0].total,
-        tasksDone: taskStats[0].done
+        tasksDone: taskStats[0].done,
+        pendingLeaves: req.pendingLeaveCount || 0
       },
       latestInquiries,
       weekTasks,
@@ -942,6 +968,149 @@ app.post('/admin/tasks/:id/delete', loadAdmin, requireSuperAdmin, async (req, re
     req.session.success = 'Failed to delete task.';
   }
   res.redirect(back);
+});
+
+// =========================================================
+//  ADMIN - LEAVE MANAGEMENT
+// =========================================================
+app.get('/admin/leaves', loadAdmin, async (req, res) => {
+  try {
+    const isSuper = req.admin.role === 'super_admin';
+    let leaves;
+    if (isSuper) {
+      [leaves] = await pool.query(
+        `SELECT l.*, a.full_name AS staff_name, a.username AS staff_username,
+                r.full_name AS reviewer_name
+         FROM leaves l
+         LEFT JOIN admins a ON a.id = l.staff_id
+         LEFT JOIN admins r ON r.id = l.reviewed_by
+         ORDER BY (l.status = 'pending') DESC, l.created_at DESC`
+      );
+    } else {
+      [leaves] = await pool.query(
+        `SELECT l.*, a.full_name AS staff_name, r.full_name AS reviewer_name
+         FROM leaves l
+         LEFT JOIN admins a ON a.id = l.staff_id
+         LEFT JOIN admins r ON r.id = l.reviewed_by
+         WHERE l.staff_id = ?
+         ORDER BY l.created_at DESC`,
+        [req.admin.id]
+      );
+    }
+    leaves.forEach(v => {
+      v.start = new Date(v.start_date);
+      v.end = new Date(v.end_date);
+      v.reviewed_at = v.reviewed_at ? new Date(v.reviewed_at) : null;
+    });
+
+    let pendingTotal = 0, approvedTotal = 0, rejectedTotal = 0;
+    if (isSuper) {
+      const [s] = await pool.query('SELECT status, COUNT(*) AS c FROM leaves GROUP BY status');
+      s.forEach(row => {
+        if (row.status === 'pending') pendingTotal = row.c;
+        if (row.status === 'approved') approvedTotal = row.c;
+        if (row.status === 'rejected') rejectedTotal = row.c;
+      });
+    } else {
+      pendingTotal = req.pendingLeaveCount || 0;
+    }
+
+    res.render('admin/leaves', {
+      leaves,
+      isSuper,
+      pendingTotal,
+      approvedTotal,
+      rejectedTotal,
+      leaveTypeLabel: LEAVE_TYPES,
+      leaveStatusLabel: LEAVE_STATUS,
+      leaveStatusClass: LEAVE_STATUS_CLASS,
+      success: req.session.success,
+      error: req.query.error
+    });
+    req.session.success = null;
+  } catch (e) {
+    console.error('Leaves page error:', e.message);
+    res.status(500).render('admin/leaves', {
+      leaves: [], isSuper: req.admin.role === 'super_admin',
+      pendingTotal: 0, approvedTotal: 0, rejectedTotal: 0,
+      leaveTypeLabel: LEAVE_TYPES, leaveStatusLabel: LEAVE_STATUS, leaveStatusClass: LEAVE_STATUS_CLASS,
+      success: req.session.success, error: 'Failed to load leave requests.'
+    });
+    req.session.success = null;
+  }
+});
+
+app.post('/admin/leaves/request', loadAdmin, async (req, res) => {
+  const { leave_type, start_date, end_date, reason } = req.body;
+  if (!leave_type || !start_date || !end_date || !Object.prototype.hasOwnProperty.call(LEAVE_TYPES, leave_type)) {
+    return res.redirect('/admin/leaves?error=Please select leave type and dates.');
+  }
+  const start = new Date(start_date + 'T00:00:00');
+  const end = new Date(end_date + 'T00:00:00');
+  if (isNaN(start.getTime()) || isNaN(end.getTime()) || end < start) {
+    return res.redirect('/admin/leaves?error=End date cannot be before start date.');
+  }
+  const days = Math.round((end - start) / 86400000) + 1;
+  try {
+    await pool.query(
+      'INSERT INTO leaves (staff_id, leave_type, start_date, end_date, days, reason) VALUES (?,?,?,?,?,?)',
+      [req.admin.id, leave_type, start_date, end_date, days, reason ? reason.trim() : null]
+    );
+    req.session.success = 'Leave request submitted. Awaiting approval.';
+    res.redirect('/admin/leaves');
+  } catch (e) {
+    console.error('Leave request error:', e.message);
+    res.redirect('/admin/leaves?error=Failed to submit leave request.');
+  }
+});
+
+app.post('/admin/leaves/:id/approve', loadAdmin, requireSuperAdmin, async (req, res) => {
+  try {
+    await pool.query(
+      'UPDATE leaves SET status = "approved", reviewed_by = ?, reviewed_at = NOW() WHERE id = ?',
+      [req.admin.id, req.params.id]
+    );
+    req.session.success = 'Leave request approved.';
+  } catch (e) {
+    console.error('Leave approve error:', e.message);
+    req.session.success = 'Failed to approve request.';
+  }
+  res.redirect('/admin/leaves');
+});
+
+app.post('/admin/leaves/:id/reject', loadAdmin, requireSuperAdmin, async (req, res) => {
+  try {
+    await pool.query(
+      'UPDATE leaves SET status = "rejected", reviewed_by = ?, reviewed_at = NOW() WHERE id = ?',
+      [req.admin.id, req.params.id]
+    );
+    req.session.success = 'Leave request rejected.';
+  } catch (e) {
+    console.error('Leave reject error:', e.message);
+    req.session.success = 'Failed to reject request.';
+  }
+  res.redirect('/admin/leaves');
+});
+
+app.post('/admin/leaves/:id/delete', loadAdmin, async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT staff_id, status FROM leaves WHERE id = ?', [req.params.id]);
+    if (!rows.length) {
+      req.session.success = 'Leave request not found.';
+      return res.redirect('/admin/leaves');
+    }
+    const allowed = req.admin.role === 'super_admin' || (rows[0].staff_id === req.admin.id && rows[0].status === 'pending');
+    if (!allowed) {
+      req.session.success = 'You can only cancel your own pending leave requests.';
+      return res.redirect('/admin/leaves');
+    }
+    await pool.query('DELETE FROM leaves WHERE id = ?', [req.params.id]);
+    req.session.success = rows[0].status === 'pending' ? 'Leave request cancelled.' : 'Leave record deleted.';
+  } catch (e) {
+    console.error('Leave delete error:', e.message);
+    req.session.success = 'Failed to delete request.';
+  }
+  res.redirect('/admin/leaves');
 });
 
 // =========================================================

@@ -29,6 +29,15 @@
                             <a href="/admin/tasks" class="waves-effect"><i class="mdi mdi-calendar-week"></i><span>Task Schedule</span></a>
                         </li>
 
+                        <li>
+                            <a href="/admin/leaves" class="waves-effect">
+                                <i class="mdi mdi-calendar-text"></i><span>Leave Management</span>
+                                <% if (typeof pendingLeaveCount !== 'undefined' && pendingLeaveCount > 0) { %>
+                                    <span class="badge badge-pill badge-warning float-right"><%= pendingLeaveCount %></span>
+                                <% } %>
+                            </a>
+                        </li>
+
                         <li class="menu-title">More</li>
                         <% if (typeof admin !== 'undefined' && admin && admin.role === 'super_admin') { %>
                         <li>
