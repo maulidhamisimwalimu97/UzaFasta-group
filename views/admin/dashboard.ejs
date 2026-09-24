@@ -26,6 +26,12 @@
                     <% if (typeof success !== 'undefined' && success) { %>
                         <%- include('partials/flash') %>
                     <% } %>
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="alert alert-danger alert-dismissible fade show font-size-14" role="alert">
+                            <i class="mdi mdi-alert-circle mr-1"></i> <%= error %>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                    <% } %>
 
                     <div class="row">
                         <div class="col-md-6 col-xl-3">
@@ -69,6 +75,112 @@
                                         <i class="mdi mdi-email-alert text-warning font-size-24"></i>
                                     </div>
                                     <h2 class="mb-0"><%= stats.unread %></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-4 d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Tasks This Week</h5>
+                                        <i class="mdi mdi-calendar-week text-primary font-size-24"></i>
+                                    </div>
+                                    <h2 class="mb-0"><%= stats.tasksThisWeek %></h2>
+                                    <a href="/admin/tasks" class="font-size-13">Open schedule <i class="mdi mdi-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-4 d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Tasks Completed This Week</h5>
+                                        <i class="mdi mdi-checkbox-marked-circle text-success font-size-24"></i>
+                                    </div>
+                                    <h2 class="mb-0"><%= stats.tasksDone %></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+                                        <h4 class="card-title mb-0"><i class="mdi mdi-calendar-week mr-1 text-primary"></i> This Week's Task Schedule</h4>
+                                        <a href="/admin/tasks" class="btn btn-sm btn-light"><i class="mdi mdi-view-week mr-1"></i>Full Schedule</a>
+                                    </div>
+
+                                    <% if (assignTargets.length > 0) { %>
+                                    <form method="POST" action="/admin/tasks/add" class="mb-3">
+                                        <input type="hidden" name="back" value="/admin/dashboard">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <select class="form-control" name="staff_id" required>
+                                                    <option value="">&mdash; Assign to &mdash;</option>
+                                                    <% assignTargets.forEach(function(s) { %>
+                                                    <option value="<%= s.id %>"><%= s.full_name %> (<%= s.username %>)</option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" name="title" placeholder="Task title" required>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <select class="form-control" name="due_date" required>
+                                                    <% dashDays.forEach(function(day) { %>
+                                                    <option value="<%= day.iso %>" <%= day.iso === weekStartISO ? 'selected' : '' %>><%= day.label %></option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <select class="form-control" name="priority">
+                                                    <option value="low">Low</option>
+                                                    <option value="medium" selected>Medium</option>
+                                                    <option value="high">High</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="submit" class="btn btn-primary btn-block waves-effect waves-light"><i class="mdi mdi-plus mr-1"></i>Assign</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <% } %>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Task</th>
+                                                    <th>Assignee</th>
+                                                    <th>Due</th>
+                                                    <th>Priority</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (weekTasks.length === 0) { %>
+                                                    <tr><td colspan="5" class="text-center text-muted">No tasks scheduled this week.</td></tr>
+                                                <% } %>
+                                                <% weekTasks.forEach(function(t) { %>
+                                                <tr>
+                                                    <td><strong><%= t.title %></strong></td>
+                                                    <td><%= t.assigned_to %></td>
+                                                    <td><%= t.due.toLocaleDateString() %></td>
+                                                    <td>
+                                                        <% var pc = { low: 'badge-soft-info', medium: 'badge-soft-warning', high: 'badge-soft-danger' }; %>
+                                                        <% var pl = { low: 'Low', medium: 'Medium', high: 'High' }; %>
+                                                        <span class="badge <%= pc[t.priority] %>"><%= pl[t.priority] %></span>
+                                                    </td>
+                                                    <td>
+                                                        <%- include('partials/task-status', { task: t, back: '/admin/dashboard' }) %>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

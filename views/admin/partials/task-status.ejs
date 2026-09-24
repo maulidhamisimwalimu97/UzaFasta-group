@@ -1,0 +1,28 @@
+<% if (typeof task !== 'undefined' && task) { %>
+<% var st = task.status; var canEdit = task.canEdit === true; %>
+<% if (st === 'pending') { %>
+<span class="badge badge-soft-warning font-size-12">Pending</span>
+<% if (canEdit) { %>
+<form method="POST" action="/admin/tasks/<%= task.id %>/status" class="d-inline-block mt-1">
+    <input type="hidden" name="back" value="<%= back %>">
+    <button type="submit" name="status" value="in_progress" class="btn btn-sm btn-primary"><i class="mdi mdi-play mr-1"></i>Start Task</button>
+</form>
+<% } %>
+<% } else if (st === 'in_progress') { %>
+<span class="badge badge-soft-info font-size-12">In Progress</span>
+<% if (canEdit) { %>
+<form method="POST" action="/admin/tasks/<%= task.id %>/status" class="d-inline-block mt-1">
+    <input type="hidden" name="back" value="<%= back %>">
+    <button type="submit" name="status" value="completed" class="btn btn-sm btn-success"><i class="mdi mdi-check mr-1"></i>Mark Completed</button>
+</form>
+<% } %>
+<% } else { %>
+<span class="badge badge-soft-success font-size-12"><i class="mdi mdi-check-circle mr-1"></i>Completed</span>
+<% if (canEdit) { %>
+<form method="POST" action="/admin/tasks/<%= task.id %>/status" class="d-inline-block mt-1">
+    <input type="hidden" name="back" value="<%= back %>">
+    <button type="submit" name="status" value="in_progress" class="btn btn-sm btn-outline-secondary" title="Reopen task"><i class="mdi mdi-autorenew mr-1"></i>Reopen</button>
+</form>
+<% } %>
+<% } %>
+<% } %>

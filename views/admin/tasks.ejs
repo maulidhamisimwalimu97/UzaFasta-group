@@ -1,0 +1,237 @@
+<%- include('partials/head', { pageTitle: 'Task Schedule' }) %>
+<body>
+
+    <div id="layout-wrapper">
+
+        <%- include('partials/topbar') %>
+        <%- include('partials/sidebar') %>
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18">Task Schedule &ndash; Weekly Staff Assignments</h4>
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                                        <li class="breadcrumb-item active">Task Schedule</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <%- include('partials/flash') %>
+                    <% } %>
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="alert alert-danger alert-dismissible fade show font-size-14" role="alert">
+                            <i class="mdi mdi-alert-circle mr-1"></i> <%= error %>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                    <% } %>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+                                        <h4 class="card-title mb-0"><i class="mdi mdi-calendar-week mr-1 text-primary"></i> <%= weekLabel || 'This Week' %></h4>
+                                        <div class="btn-group">
+                                            <a href="/admin/tasks?start=<%= prevWeek %>" class="btn btn-sm btn-light"><i class="mdi mdi-chevron-left"></i> Prev Week</a>
+                                            <a href="/admin/tasks?start=<%= thisWeek %>" class="btn btn-sm btn-light">This Week</a>
+                                            <a href="/admin/tasks?start=<%= nextWeek %>" class="btn btn-sm btn-light">Next Week <i class="mdi mdi-chevron-right"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <% if (isSuper) { %>
+                                    <form method="POST" action="/admin/tasks/add" class="mb-4" id="assignForm">
+                                        <input type="hidden" name="back" value="<%= pageUrl %>">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <label class="font-weight-bold">Assign To (Staff) *</label>
+                                                <select class="form-control" name="staff_id" id="assign_staff" required>
+                                                    <option value="">&mdash; Select staff &mdash;</option>
+                                                    <% assignTargets.forEach(function(s) { %>
+                                                    <option value="<%= s.id %>"><%= s.full_name %> (<%= s.username %>)</option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label class="font-weight-bold">Task Title *</label>
+                                                <input type="text" class="form-control" name="title" placeholder="e.g. Design homepage banner" required>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label class="font-weight-bold">Due Day *</label>
+                                                <select class="form-control" name="due_date" id="assign_day" required>
+                                                    <% days.forEach(function(day) { %>
+                                                    <option value="<%= day.iso %>" <%= day.isToday ? 'selected' : '' %>><%= day.weekday %> &mdash; <%= day.monthDay %></option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <label class="font-weight-bold">Priority</label>
+                                                <select class="form-control" name="priority">
+                                                    <option value="low">Low</option>
+                                                    <option value="medium" selected>Medium</option>
+                                                    <option value="high">High</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-2 d-flex align-items-end">
+                                                <button type="submit" class="btn btn-primary btn-block waves-effect waves-light"><i class="mdi mdi-plus mr-1"></i>Assign Task</button>
+                                            </div>
+                                            <div class="col-12">
+                                                <label class="font-weight-bold mt-2">Description</label>
+                                                <textarea class="form-control" name="description" rows="2" placeholder="Optional details for the staff member..."></textarea>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <% } %>
+
+                                    <% if (rotaStaff.length === 0) { %>
+                                        <div class="alert alert-info mb-0 font-size-14">No tasks assigned to you for this week. You are all clear!</div>
+                                    <% } else { %>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-nowrap text-center mb-0" style="min-width: 900px;">
+                                            <thead>
+                                                <tr class="bg-light">
+                                                    <th style="width:140px;vertical-align:middle;">Staff</th>
+                                                    <% days.forEach(function(day) { %>
+                                                    <th class="<%= day.isToday ? 'text-primary' : '' %>">
+                                                        <%= day.weekday %>
+                                                        <div class="font-size-12 text-muted"><%= day.monthDay %><%= day.isToday ? ' <span class="badge badge-primary">Today</span>' : '' %></div>
+                                                    </th>
+                                                    <% }) %>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% rotaStaff.forEach(function(s) { %>
+                                                <tr>
+                                                    <td class="align-middle">
+                                                        <strong><%= s.full_name %></strong>
+                                                        <div class="font-size-12 text-muted">@<%= s.username %></div>
+                                                    </td>
+                                                    <% days.forEach(function(day) { %>
+                                                    <% var dayTasks = (tasksByDay[day.iso] || []).filter(function(t) { return t.staff_id === s.id; }); %>
+                                                    <td class="align-top" style="min-width:130px;vertical-align:top;">
+                                                        <% if (dayTasks.length === 0) { %>
+                                                            <span class="text-muted font-size-12">&mdash;</span>
+                                                            <% if (isSuper) { %>
+                                                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary mt-1 quick-add" data-staff="<%= s.id %>" data-day="<%= day.iso %>" title="Quick assign"><i class="mdi mdi-plus"></i></a>
+                                                            <% } %>
+                                                        <% } else { %>
+                                                            <% dayTasks.forEach(function(t) { %>
+                                                            <div class="card mb-2 <%= t.status === 'completed' ? 'opacity-50' : '' %>" style="border:1px solid #e9ecef;">
+                                                                <div class="card-body p-2">
+                                                                    <div class="d-flex justify-content-between align-items-start">
+                                                                        <strong class="font-size-13 text-left"><%= t.title %></strong>
+                                                                        <% if (isSuper) { %>
+                                                                        <form method="POST" action="/admin/tasks/<%= t.id %>/delete" onsubmit="return confirm('Delete this task?');">
+                                                                            <input type="hidden" name="back" value="<%= pageUrl %>">
+                                                                            <button type="submit" class="btn btn-sm btn-danger p-0 px-1 ml-1"><i class="mdi mdi-delete font-size-14"></i></button>
+                                                                        </form>
+                                                                        <% } %>
+                                                                    </div>
+                                                                    <% if (t.description) { %>
+                                                                    <div class="font-size-12 text-muted text-left mt-1"><%= t.description %></div>
+                                                                    <% } %>
+                                                                    <div class="text-left mt-1">
+                                                                        <span class="badge <%= priorityClass[t.priority] %>"><%= priorityLabel[t.priority] %> priority</span>
+                                                                    </div>
+                                                                    <%- include('partials/task-status', { task: t, back: pageUrl }) %>
+                                                                </div>
+                                                            </div>
+                                                            <% }) %>
+                                                        <% } %>
+                                                    </td>
+                                                    <% }) %>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4 class="card-title mb-0"><i class="mdi mdi-clipboard-text mr-1 text-success"></i> All Tasks This Week (Tracking)</h4>
+                                        <span class="font-size-13 text-muted"><%= weekLabel %></span>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Task</th>
+                                                    <th>Assignee</th>
+                                                    <th>Due</th>
+                                                    <th>Priority</th>
+                                                    <th>Status</th>
+                                                    <th class="text-right">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (tasks.length === 0) { %>
+                                                    <tr><td colspan="6" class="text-center text-muted">No tasks scheduled for this week.</td></tr>
+                                                <% } %>
+                                                <% tasks.forEach(function(t) { %>
+                                                <tr>
+                                                    <td>
+                                                        <strong><%= t.title %></strong>
+                                                        <% if (t.description) { %><div class="font-size-12 text-muted"><%= t.description %></div><% } %>
+                                                        <div class="font-size-12 text-muted">Assigned by <%= t.assigned_by_name || 'Admin' %></div>
+                                                    </td>
+                                                    <td><%= t.assigned_to %> <span class="font-size-12 text-muted">(@<%= t.assigned_username %>)</span></td>
+                                                    <td><%= t.due.toLocaleDateString() %></td>
+                                                    <td><span class="badge <%= priorityClass[t.priority] %>"><%= priorityLabel[t.priority] %></span></td>
+                                                    <td>
+                                                        <%- include('partials/task-status', { task: t, back: pageUrl }) %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <% if (isSuper) { %>
+                                                        <form method="POST" action="/admin/tasks/<%= t.id %>/delete" style="display:inline" onsubmit="return confirm('Delete this task?');">
+                                                            <input type="hidden" name="back" value="<%= pageUrl %>">
+                                                            <button type="submit" class="btn btn-sm btn-danger"><i class="mdi mdi-delete"></i></button>
+                                                        </form>
+                                                        <% } %>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-assets/js/jquery.min.js"></script>
+    <script src="/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin-assets/js/metismenu.min.js"></script>
+    <script src="/admin-assets/js/waves.js"></script>
+    <script src="/admin-assets/js/simplebar.min.js"></script>
+    <script src="/admin-assets/js/theme.js"></script>
+    <script>
+        $('.quick-add').on('click', function () {
+            $('#assign_staff').val($(this).data('staff'));
+            $('#assign_day').val($(this).data('day'));
+            $('#assignForm')[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
+</body>
+
+</html>

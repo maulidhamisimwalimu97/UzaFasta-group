@@ -150,6 +150,32 @@ function makeTrackingCode() {
   return code;
 }
 
+function startOfWeek(date) {
+  const d = new Date(date);
+  const day = (d.getDay() + 6) % 7;
+  d.setDate(d.getDate() - day);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function addDays(date, n) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + n);
+  return d;
+}
+
+function toISODate(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+const TASK_PRIORITY = { low: 'Low', medium: 'Medium', high: 'High' };
+const TASK_PRIORITY_CLASS = { low: 'badge-soft-info', medium: 'badge-soft-warning', high: 'badge-soft-danger' };
+const TASK_STATUS = { pending: 'Pending', in_progress: 'In Progress', completed: 'Completed' };
+const TASK_STATUS_CLASS = { pending: 'badge-soft-warning', in_progress: 'badge-soft-info', completed: 'badge-soft-success' };
+
 // ---------------- Auth middleware ----------------
 async function requireAdmin(req, res, next) {
   if (req.session && req.session.adminId) return next();
@@ -697,19 +723,225 @@ app.get('/admin/dashboard', loadAdmin, async (req, res) => {
     );
     latestInquiries.forEach(r => { r.created_at = new Date(r.created_at); });
 
+    const weekStart = startOfWeek(new Date());
+    const weekEnd = addDays(weekStart, 6);
+    const startISO = toISODate(weekStart);
+    const endISO = toISODate(weekEnd);
+
+    const isSuper = req.admin.role === 'super_admin';
+
+    const [taskStats] = await pool.query(
+      `SELECT COUNT(*) AS total, COALESCE(SUM(status = 'completed'), 0) AS done
+       FROM tasks WHERE due_date BETWEEN ? AND ?${isSuper ? '' : ' AND staff_id = ?'}`,
+      isSuper ? [startISO, endISO] : [startISO, endISO, req.admin.id]
+    );
+
+    const [weekTasks] = await pool.query(
+      `SELECT t.id, t.title, t.description, t.due_date, t.priority, t.status, t.staff_id,
+              a.full_name AS assigned_to
+       FROM tasks t
+       LEFT JOIN admins a ON a.id = t.staff_id
+       WHERE t.due_date BETWEEN ? AND ?${isSuper ? '' : ' AND t.staff_id = ?'}
+       ORDER BY t.due_date ASC, t.created_at ASC`,
+      isSuper ? [startISO, endISO] : [startISO, endISO, req.admin.id]
+    );
+    weekTasks.forEach(t => { t.due = new Date(t.due_date); t.canEdit = isSuper || t.staff_id === req.admin.id; });
+
+    let assignTargets = [];
+    if (isSuper) {
+      const [staffRows] = await pool.query('SELECT id, username, full_name FROM admins WHERE role = "staff" ORDER BY full_name ASC');
+      assignTargets = staffRows;
+    }
+
+    const dashDays = [];
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(weekStart, i);
+      dashDays.push({ iso: toISODate(d), label: d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) });
+    }
+
     res.render('admin/dashboard', {
       stats: {
         blogs: blogs[0].c,
         projects: projects[0].c,
         inquiries: inquiries[0].c,
-        unread: unread[0].c
+        unread: unread[0].c,
+        tasksThisWeek: taskStats[0].total,
+        tasksDone: taskStats[0].done
       },
-      latestInquiries
+      latestInquiries,
+      weekTasks,
+      assignTargets,
+      dashDays,
+      weekStartISO: startISO,
+      success: req.session.success,
+      error: req.query.error
     });
+    req.session.success = null;
   } catch (e) {
     console.error('Dashboard error:', e.message);
     res.status(500).render('admin/dashboard', { error: 'Failed to load dashboard.' });
   }
+});
+
+// =========================================================
+//  ADMIN - TASK SCHEDULE (weekly staff assignments)
+// =========================================================
+function getWeekStart(q) {
+  const base = q && q.start ? new Date(q.start + 'T00:00:00') : new Date();
+  return isNaN(base.getTime()) ? startOfWeek(new Date()) : startOfWeek(base);
+}
+
+app.get('/admin/tasks', loadAdmin, async (req, res) => {
+  try {
+    const weekStart = getWeekStart(req.query);
+    const weekEnd = addDays(weekStart, 6);
+    const startISO = toISODate(weekStart);
+    const endISO = toISODate(weekEnd);
+    const prevISO = toISODate(addDays(weekStart, -7));
+    const nextISO = toISODate(addDays(weekStart, 7));
+    const thisISO = toISODate(startOfWeek(new Date()));
+    const isSuper = req.admin.role === 'super_admin';
+
+    const [staffRows] = await pool.query('SELECT id, username, full_name FROM admins WHERE role = "staff" ORDER BY full_name ASC');
+    const rotaStaff = isSuper ? staffRows : staffRows.filter(s => s.id === req.admin.id);
+
+    const [tasks] = await pool.query(
+      `SELECT t.*, a.full_name AS assigned_to, a.username AS assigned_username,
+              c.full_name AS assigned_by_name
+       FROM tasks t
+       LEFT JOIN admins a ON a.id = t.staff_id
+       LEFT JOIN admins c ON c.id = t.created_by
+       WHERE t.due_date BETWEEN ? AND ?${isSuper ? '' : ' AND t.staff_id = ?'}
+       ORDER BY t.due_date ASC, t.priority DESC, t.created_at ASC`,
+      isSuper ? [startISO, endISO] : [startISO, endISO, req.admin.id]
+    );
+    tasks.forEach(t => {
+      t.due = new Date(t.due_date);
+      t.canEdit = isSuper || t.staff_id === req.admin.id || t.created_by === req.admin.id;
+    });
+
+    const days = [];
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(weekStart, i);
+      const today = new Date();
+      days.push({
+        iso: toISODate(d),
+        weekday: d.toLocaleDateString('en-US', { weekday: 'short' }),
+        monthDay: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        isToday: toISODate(d) === toISODate(today)
+      });
+    }
+
+    const tasksByDay = {};
+    days.forEach(day => {
+      tasksByDay[day.iso] = tasks.filter(t => toISODate(t.due) === day.iso);
+    });
+
+    const currentQuery = req.query.start ? '?start=' + req.query.start : '';
+    const pageUrl = '/admin/tasks' + currentQuery;
+
+    res.render('admin/tasks', {
+      tasks,
+      rotaStaff,
+      assignTargets: staffRows,
+      days,
+      tasksByDay,
+      weekStartISO: startISO,
+      weekEndISO: endISO,
+      weekLabel: weekStart.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }) + ' – ' + weekEnd.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+      prevWeek: prevISO,
+      nextWeek: nextISO,
+      thisWeek: thisISO,
+      pageUrl,
+      isSuper,
+      priorityLabel: TASK_PRIORITY,
+      priorityClass: TASK_PRIORITY_CLASS,
+      statusLabel: TASK_STATUS,
+      statusClass: TASK_STATUS_CLASS,
+      success: req.session.success,
+      error: req.query.error
+    });
+    req.session.success = null;
+  } catch (e) {
+    console.error('Tasks page error:', e.message);
+    res.status(500).render('admin/tasks', {
+      tasks: [], rotaStaff: [], assignTargets: [], days: [], tasksByDay: {},
+      weekLabel: null, prevWeek: '', nextWeek: '', thisWeek: '', pageUrl: '/admin/tasks',
+      isSuper: req.admin.role === 'super_admin',
+      priorityLabel: TASK_PRIORITY, priorityClass: TASK_PRIORITY_CLASS,
+      statusLabel: TASK_STATUS, statusClass: TASK_STATUS_CLASS,
+      success: req.session.success, error: 'Failed to load the task schedule.'
+    });
+    req.session.success = null;
+  }
+});
+
+function taskBack(req) {
+  const raw = req.body.back || req.query.back || '/admin/tasks';
+  return (typeof raw === 'string' && raw.startsWith('/admin/')) ? raw : '/admin/tasks';
+}
+
+app.post('/admin/tasks/add', loadAdmin, requireSuperAdmin, async (req, res) => {
+  const back = taskBack(req);
+  const { staff_id, title, description, due_date, priority } = req.body;
+  if (!staff_id || !title || !due_date) {
+    return res.redirect(back + (back.includes('?') ? '&' : '?') + 'error=Assignee, title and due date are required.');
+  }
+  try {
+    const [st] = await pool.query('SELECT id, role FROM admins WHERE id = ?', [staff_id]);
+    if (!st.length || st[0].role !== 'staff') {
+      return res.redirect(back + (back.includes('?') ? '&' : '?') + 'error=Please choose a valid staff member.');
+    }
+    await pool.query(
+      'INSERT INTO tasks (created_by, staff_id, title, description, due_date, priority) VALUES (?,?,?,?,?,?)',
+      [req.admin.id, staff_id, title.trim(), description || null, due_date, ['low', 'medium', 'high'].includes(priority) ? priority : 'medium']
+    );
+    req.session.success = 'Task assigned successfully.';
+    res.redirect(back);
+  } catch (e) {
+    console.error('Task add error:', e.message);
+    res.redirect(back + (back.includes('?') ? '&' : '?') + 'error=Failed to assign task.');
+  }
+});
+
+app.post('/admin/tasks/:id/status', loadAdmin, async (req, res) => {
+  const back = taskBack(req);
+  const status = req.body.status;
+  if (!['pending', 'in_progress', 'completed'].includes(status)) return res.redirect(back);
+  try {
+    const [rows] = await pool.query('SELECT id, staff_id, created_by FROM tasks WHERE id = ?', [req.params.id]);
+    if (!rows.length) {
+      req.session.success = 'Task not found.';
+      return res.redirect(back);
+    }
+    const task = rows[0];
+    const allowed = req.admin.role === 'super_admin' || task.staff_id === req.admin.id || task.created_by === req.admin.id;
+    if (!allowed) {
+      req.session.success = 'You do not have permission to update this task.';
+      return res.redirect(back);
+    }
+    await pool.query(
+      'UPDATE tasks SET status = ?, completed_at = IF(? = "completed", NOW(), NULL), updated_at = NOW() WHERE id = ?',
+      [status, status, req.params.id]
+    );
+    req.session.success = 'Task status updated.';
+  } catch (e) {
+    console.error('Task status error:', e.message);
+    req.session.success = 'Failed to update task status.';
+  }
+  res.redirect(back);
+});
+
+app.post('/admin/tasks/:id/delete', loadAdmin, requireSuperAdmin, async (req, res) => {
+  const back = taskBack(req);
+  try {
+    await pool.query('DELETE FROM tasks WHERE id = ?', [req.params.id]);
+    req.session.success = 'Task deleted.';
+  } catch (e) {
+    console.error('Task delete error:', e.message);
+    req.session.success = 'Failed to delete task.';
+  }
+  res.redirect(back);
 });
 
 // =========================================================
