@@ -8,15 +8,16 @@ const multer = require('multer');
 const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
+const HOST = process.env.HOST || '127.0.0.1';
 
 // ---------------- Database ----------------
 const dbConfig = {
-  host: '127.0.0.1',
-  port: 3306,
-  user: 'root',
-  password: '',
-  database: 'uzafasta'
+  host: process.env.DB_HOST || '127.0.0.1',
+  port: Number(process.env.DB_PORT) || 3306,
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASS || '',
+  database: process.env.DB_NAME || 'uzafasta'
 };
 
 const pool = mysql.createPool({
@@ -32,7 +33,7 @@ const sessionStore = new MySQLStore({
 
 app.use(session({
   name: 'uzafasta.admin',
-  secret: 'uzafasta-super-secret-2024',
+  secret: process.env.SESSION_SECRET || 'uzafasta-super-secret-2024',
   store: sessionStore,
   resave: false,
   saveUninitialized: false,
@@ -1360,7 +1361,7 @@ app.use((req, res) => {
   res.status(404).render('pages/404', {});
 });
 
-app.listen(PORT, () => {
-  console.log(`UzaFasta Group running at http://localhost:${PORT}`);
-  console.log(`Admin panel at http://localhost:${PORT}/admin/login`);
+app.listen(PORT, HOST, () => {
+  console.log(`UzaFasta Group running at http://${HOST}:${PORT}`);
+  console.log(`Admin panel at http://${HOST}:${PORT}/admin/login`);
 });

@@ -9,24 +9,24 @@
         <!--====== Title ======-->
         <title>UzaFasta Blogs - UzaFasta Group</title>
         <!--====== Favicon Icon ======-->
-        <link rel="icon" href="assets/images/favicon.png" type="image/png">
-        <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
+        <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
         <!--====== Google Fonts ======-->
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
         <!--====== FontAwesome css ======-->
-        <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="/assets/fonts/fontawesome/css/all.min.css">
         <!--====== Bootstrap css ======-->
-        <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/plugins/bootstrap.min.css">
         <!--====== Slick-popup css ======-->
-        <link rel="stylesheet" href="assets/css/plugins/slick.css">
+        <link rel="stylesheet" href="/assets/css/plugins/slick.css">
         <!--====== Magnific-popup css ======-->
-        <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
+        <link rel="stylesheet" href="/assets/css/plugins/magnific-popup.css">
         <!--====== Aos css ======-->
-        <link rel="stylesheet" href="assets/css/plugins/aos.css">
+        <link rel="stylesheet" href="/assets/css/plugins/aos.css">
         <!--====== Default css ======-->
-        <link rel="stylesheet" href="assets/css/spacings.css">
+        <link rel="stylesheet" href="/assets/css/spacings.css">
         <!--====== Default css ======-->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
         <style>
             .uz-blog-card { background:#fff; border:1px solid #eef1f7; border-radius:14px; overflow:hidden; transition:transform .3s ease, box-shadow .3s ease; height:calc(100% - 40px); display:flex; flex-direction:column; }
             .uz-blog-card:hover { transform:translateY(-8px); box-shadow:0 18px 40px rgba(15,45,110,.14); }
@@ -54,7 +54,7 @@
         <div class="preloader">
             <div class="loading-wrapper">
                 <div class="loading"></div>
-                <div id="loading-icon"><img src="assets/images/loader.png" alt="loader"></div>
+                <div id="loading-icon"><img src="/assets/images/loader.png" alt="loader"></div>
             </div>
         </div><!--====== End Preloader ======-->
         <!--====== Start Overlay ======-->
@@ -65,7 +65,7 @@
             <div id="smooth-content">
                 <main>
                     <!--======  Start Page Hero Section  ======-->
-                    <section class="page-hero bg_cover p-r z-1" data-src="assets/images/innerpage/bg/blog-pen.jpg" style="background-image:url('assets/images/innerpage/bg/blog-pen.jpg');background-size:cover;background-position:center;">
+                    <section class="page-hero bg_cover p-r z-1" data-src="/assets/images/innerpage/bg/blog-pen.jpg" style="background-image:url('assets/images/innerpage/bg/blog-pen.jpg');background-size:cover;background-position:center;">
                         <div class="container">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
@@ -99,11 +99,11 @@
                                         <div class="post-thumbnail">
                                             <a href="/blogs/<%= blog.slug %>">
                                                 <% if (blog.video_url) { %>
-                                                    <video class="uz-blog-img uz-blog-video" muted loop playsinline preload="metadata" poster="<%= blog.cover_image || '' %>">
+                                                    <video class="uz-blog-img uz-blog-video" muted loop playsinline preload="none" poster="<%= blog.cover_image || '' %>">
                                                         <source src="<%= blog.video_url %>" type="video/<%= blog.video_url.split('.').pop().split('?')[0] %>">
                                                     </video>
                                                 <% } else { %>
-                                                    <img src="<%= blog.cover_image || 'assets/images/innerpage/blog/blog-grid1.png' %>" alt="<%= blog.title %>" class="uz-blog-img">
+                                                    <img loading="lazy" decoding="async" src="<%= blog.cover_image || 'assets/images/innerpage/blog/blog-grid1.png' %>" alt="<%= blog.title %>" class="uz-blog-img">
                                                 <% } %>
                                             </a>
                                             <span class="uz-date-badge"><i class="far fa-calendar-alt mr-1"></i><%= blog.created_at.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></span>
@@ -152,28 +152,28 @@
         })();
     </script>
 <!--====== Jquery js ======-->
-        <script src="assets/js/plugins/jquery-3.7.1.min.js"></script>
+        <script src="/assets/js/plugins/jquery-3.7.1.min.js"></script>
         <!--====== Bootstrap js ======-->
-        <script src="assets/js/plugins/popper.min.js"></script>
+        <script src="/assets/js/plugins/popper.min.js"></script>
         <!--====== Bootstrap js ======-->
-        <script src="assets/js/plugins/bootstrap.min.js"></script>
+        <script src="/assets/js/plugins/bootstrap.min.js"></script>
         <!--====== Gsap Js ======-->
-        <script src="assets/js/plugins/gsap/gsap.min.js"></script>
-        <script src="assets/js/plugins/gsap/SplitText.min.js"></script>
-        <script src="assets/js/plugins/gsap/ScrollSmoother.min.js"></script>
-        <script src="assets/js/plugins/gsap/ScrollTrigger.min.js"></script>
+        <script src="/assets/js/plugins/gsap/gsap.min.js"></script>
+        <script src="/assets/js/plugins/gsap/SplitText.min.js"></script>
+        <script src="/assets/js/plugins/gsap/ScrollSmoother.min.js"></script>
+        <script src="/assets/js/plugins/gsap/ScrollTrigger.min.js"></script>
         <!--====== Slick js ======-->
-        <script src="assets/js/plugins/slick.min.js"></script>
+        <script src="/assets/js/plugins/slick.min.js"></script>
         <!--====== Magnific js ======-->
-        <script src="assets/js/plugins/jquery.magnific-popup.min.js"></script>
+        <script src="/assets/js/plugins/jquery.magnific-popup.min.js"></script>
         <!--====== Waypoint js ======-->
-        <script src="assets/js/plugins/jquery.waypoints.js"></script>
+        <script src="/assets/js/plugins/jquery.waypoints.js"></script>
         <!--====== CounterUp js ======-->
-        <script src="assets/js/plugins/jquery.counterup.min.js"></script>
+        <script src="/assets/js/plugins/jquery.counterup.min.js"></script>
         <!--====== Aos js ======-->
-        <script src="assets/js/plugins/aos.js"></script>
+        <script src="/assets/js/plugins/aos.js"></script>
         <!--====== Common js ======-->
-<script src="assets/js/theme.js"></script>
+<script src="/assets/js/theme.js"></script>
         <script>
                         document.addEventListener('DOMContentLoaded', function() {
             $('.uz-blog-video').each(function() {

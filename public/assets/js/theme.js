@@ -87,12 +87,15 @@
         });
     }
 
-    //===== Windows load
+    //===== Preloader
 
-    $(window).on('load', function(event) {
-        //===== Preloader
-        $('.preloader').delay(500).fadeOut(500);
-    })
+    // Hide as soon as the DOM is parsed. This must NOT be bound to
+    // $(window).load: that event waits for every sub-resource (all images and
+    // the large <video> uploads) to finish downloading, which kept the
+    // preloader on screen for a very long time on slow connections.
+    $(document).ready(function () {
+        $('.preloader').fadeOut(400);
+    });
 
     
     //====== Sticky Header 
