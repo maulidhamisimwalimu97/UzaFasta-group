@@ -52,6 +52,20 @@
             .uzafasta-brand-logo:hover svg {
                 opacity: 1;
             }
+            /* Real client logos: fit inside the card without cropping and
+               without letting tall square marks push the layout around. */
+            .uzafasta-brand-logo img {
+                max-width: 130px;
+                max-height: 48px;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+                opacity: 0.75;
+                transition: opacity 0.3s ease;
+            }
+            .uzafasta-brand-logo:hover img {
+                opacity: 1;
+            }
             .uzafasta-brands-slider .slick-dots {
                 bottom: -35px;
             }
