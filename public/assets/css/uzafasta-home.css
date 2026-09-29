@@ -1,92 +1,4 @@
-            .uzafasta-brands-section {
-                background: #f8f9fa;
-                border-top: 1px solid #eee;
-                border-bottom: 1px solid #eee;
-            }
-            .uzafasta-brands-section .sub-title {
-                color: #6c757d;
-                font-size: 14px;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-            }
-            .uzafasta-brands-section .sub-title .line {
-                display: inline-block;
-                width: 30px;
-                height: 2px;
-                background: #4a6cf7;
-                margin-right: 10px;
-                vertical-align: middle;
-            }
-            .uzafasta-brands-section h2 {
-                font-size: 32px;
-                font-weight: 700;
-                color: #1a1a2e;
-                margin-top: 10px;
-            }
-            .uzafasta-brand-item {
-                padding: 0 20px;
-            }
-            .uzafasta-brand-logo {
-                background: #fff;
-                border: 1px solid #e9ecef;
-                border-radius: 12px;
-                padding: 25px 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 90px;
-                transition: all 0.3s ease;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            }
-            .uzafasta-brand-logo:hover {
-                border-color: #4a6cf7;
-                box-shadow: 0 4px 16px rgba(74,108,247,0.12);
-                transform: translateY(-2px);
-            }
-            .uzafasta-brand-logo svg {
-                width: 120px;
-                height: 40px;
-                opacity: 0.7;
-                transition: opacity 0.3s ease;
-            }
-            .uzafasta-brand-logo:hover svg {
-                opacity: 1;
-            }
-            /* Real client logos: fit inside the card without cropping and
-               without letting tall square marks push the layout around. */
-            .uzafasta-brand-logo img {
-                max-width: 130px;
-                max-height: 48px;
-                width: auto;
-                height: auto;
-                object-fit: contain;
-                opacity: 0.75;
-                transition: opacity 0.3s ease;
-            }
-            .uzafasta-brand-logo:hover img {
-                opacity: 1;
-            }
-            .uzafasta-brands-slider .slick-dots {
-                bottom: -35px;
-            }
-            .uzafasta-brands-slider .slick-dots li button:before {
-                font-size: 8px;
-                color: #4a6cf7;
-            }
-            .uzafasta-brands-slider .slick-dots li.slick-active button:before {
-                color: #1a1a2e;
-            }
-            @media (max-width: 768px) {
-                .uzafasta-brands-section h2 {
-                    font-size: 24px;
-                }
-                .uzafasta-brand-logo {
-                    padding: 18px 20px;
-                    height: 75px;
-                }
-            }
-
-            /* ═══════════ Featured Work / Portfolio ═══════════ */
+/* ═══════════ Featured Work / Portfolio ═══════════ */
             .uzafasta-portfolio {
                 padding: 100px 0;
                 background: #f8f9fa;
@@ -126,16 +38,8 @@
                 margin: 0;
             }
             .portfolio-tabs {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 12px;
-                margin-bottom: 45px;
-            }
-            .portfolio-tab {
-                padding: 10px 22px;
-                border: 1px solid #e2e6ed;
-                border-radius: 50px;
+                displa
+           border-radius: 50px;
                 background: #fff;
                 color: #1a1a2e;
                 font-size: 15px;

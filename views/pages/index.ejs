@@ -333,52 +333,6 @@
                         </div>
                     </section><!--======  End Work Section  ======-->
 
-            <!--====== Start Brands Section ======-->
-            <section class="uzafasta-brands-section pt-80 pb-80">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6 text-center">
-                            <div class="section-title mb-45" data-aos="fade-up">
-                                <h2>Brands That Trust Us</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="uzafasta-brands-slider" data-aos="fade-up">
-                        <div class="uzafasta-brand-item">
-                            <div class="uzafasta-brand-logo">
-                                <img src="/assets/images/brands/eagle-wings-tours.png" alt="Eagle Wings Tours" loading="lazy" decoding="async" width="480" height="480">
-                            </div>
-                        </div>
-                        <div class="uzafasta-brand-item">
-                            <div class="uzafasta-brand-logo">
-                                <img src="/assets/images/brands/galata-construction.png" alt="Galata Construction" loading="lazy" decoding="async" width="480" height="172">
-                            </div>
-                        </div>
-                        <div class="uzafasta-brand-item">
-                            <div class="uzafasta-brand-logo">
-                                <img src="/assets/images/brands/jaire.png" alt="Jaire" loading="lazy" decoding="async" width="480" height="246">
-                            </div>
-                        </div>
-                        <div class="uzafasta-brand-item">
-                            <div class="uzafasta-brand-logo">
-                                <img src="/assets/images/brands/pure-soil.png" alt="Pure Soil" loading="lazy" decoding="async" width="480" height="480">
-                            </div>
-                        </div>
-                        <div class="uzafasta-brand-item">
-                            <div class="uzafasta-brand-logo">
-                                <img src="/assets/images/brands/taeae.png" alt="TAEAE" loading="lazy" decoding="async" width="480" height="129">
-                            </div>
-                        </div>
-                        <div class="uzafasta-brand-item">
-                            <div class="uzafasta-brand-logo">
-                                <img src="/assets/images/brands/vania.png" alt="Vania" loading="lazy" decoding="async" width="480" height="150">
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </section>
-            <!--====== End Brands Section ======-->
 
             <!-- ═══════════════════════════════════════════════════════
                  FEATURED WORK / PORTFOLIO
@@ -585,38 +539,6 @@
                 }, 25);
             });
 
-            // Brands Slider
-            var brandsSlider = $('.uzafasta-brands-slider');
-            if (brandsSlider.length && typeof $.fn.slick !== 'undefined') {
-                brandsSlider.slick({
-                    slidesToShow: 5,
-                    slidesToScroll: 1,
-                    autoplay: true,
-                    autoplaySpeed: 2000,
-                    speed: 800,
-                    arrows: false,
-                    dots: true,
-                    pauseOnHover: true,
-                    responsive: [
-                        {
-                            breakpoint: 1200,
-                            settings: { slidesToShow: 4 }
-                        },
-                        {
-                            breakpoint: 992,
-                            settings: { slidesToShow: 3 }
-                        },
-                        {
-                            breakpoint: 768,
-                            settings: { slidesToShow: 2 }
-                        },
-                        {
-                            breakpoint: 480,
-                            settings: { slidesToShow: 1 }
-                        }
-                    ]
-                });
-            }
 
             // Portfolio Filter Tabs
             $('.portfolio-tab').on('click', function() {
