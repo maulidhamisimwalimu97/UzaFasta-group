@@ -64,6 +64,7 @@
                                         <div class="form-group">
                                             <label>Project Video (mp4, webm, mov, ogg)</label>
                                             <input type="file" class="form-control-file" name="video_file" accept="video/*">
+                                            <small class="text-muted d-block mb-2">This host caps every upload at 1 MB, so a file upload will be rejected. Paste a link instead.</small>
                                             <% if (project && project.video_url) { %>
                                                 <small class="text-muted d-block mt-1">Current: <a href="<%= project.video_url %>" target="_blank"><%= project.video_url.split('/').pop() %></a></small>
                                             <% } %>
@@ -97,6 +98,7 @@
     <script src="/admin-assets/js/waves.js"></script>
     <script src="/admin-assets/js/simplebar.min.js"></script>
     <script src="/admin-assets/js/theme.js"></script>
+    <script src="/assets/js/admin-upload.js"></script>
 </body>
 
 </html>

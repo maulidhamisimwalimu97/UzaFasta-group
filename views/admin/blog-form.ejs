@@ -54,6 +54,7 @@
                                         <div class="form-group">
                                             <label>Video (upload or paste URL)</label>
                                             <input type="file" class="form-control-file mb-2" name="video_file" accept="video/*">
+                                            <small class="text-muted d-block mb-2">This host caps every upload at 1 MB, so a file upload will be rejected. Paste a link instead.</small>
                                             <input type="text" class="form-control" name="video_url" placeholder="Or paste video URL (YouTube, Vimeo, or direct .mp4 link)" value="<%= blog && blog.video_url ? blog.video_url : '' %>">
                                             <% if (blog && blog.video_url) { %>
                                                 <small class="text-muted d-block mt-1">Current: <a href="<%= blog.video_url %>" target="_blank"><%= blog.video_url.split('/').pop() %></a></small>
@@ -84,6 +85,7 @@
     <script src="/admin-assets/js/waves.js"></script>
     <script src="/admin-assets/js/simplebar.min.js"></script>
     <script src="/admin-assets/js/theme.js"></script>
+    <script src="/assets/js/admin-upload.js"></script>
 </body>
 
 </html>
